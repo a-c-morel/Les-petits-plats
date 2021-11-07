@@ -25,22 +25,22 @@
         </nav>
 
         <!--SEARCHBAR-->
-        <div class="container-fluid">
+        <section class="container-fluid">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" style="--bs-bg-opacity: .1;" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <input type="text" class="form-control" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" style="--bs-bg-opacity: .1;" aria-label="Rechercher un ingrédient, appareil, ustensiles ou une recette" aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <span class="input-group-text" id="basic-addon2"><i class="bi bi-search"></i></span>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!--FILTERING BUTTONS-->
-        <div class="container-fluid mb-3">
+        <section class="container-fluid mb-3">
             <div id="edit-and-select" class="d-flex gap-4">
                 <!--BUTTON 1-->
                 <div type="button" class="selection-btn rounded p-2" id="ingredient-btn">
                     <span class="d-flex">
-                        <input type="text" class="edit-and-select_buttons rounded" id="enter-ingredient" placeholder="Ingrédient" aria-label="search ingredient">
+                        <input type="text" class="edit-and-select_buttons rounded" id="enter-ingredient" placeholder="Ingrédient" aria-label="Rechercher un ingrédient">
                         <i class="bi bi-chevron-down btn-icon" id="open_ingredient-search"></i>
                     </span>
                     <ul class="advance_search_results" id="edit-and-select_ingredients-results">
@@ -49,7 +49,7 @@
                 <!--BUTTON 2-->
                 <div type="button" class="selection-btn rounded p-2" id="appareil-btn">
                     <span class="d-flex">
-                        <input type="text" class="edit-and-select_buttons rounded" id="enter-appareil" placeholder="Appareil" aria-label="search appareil">
+                        <input type="text" class="edit-and-select_buttons rounded" id="enter-appareil" placeholder="Appareil" aria-label="Rechercher un appareil">
                         <i class="bi bi-chevron-down btn-icon" id="open_appareil-search"></i>
                     </span>
                     <ul class="advance_search_results" id="edit-and-select_appareil-results"></ul>
@@ -57,124 +57,120 @@
                 <!--BUTTON 3-->
                 <div type="button" class="selection-btn rounded p-2" id="ustensils-btn">
                     <span class="d-flex">
-                        <input type="text" class="edit-and-select_buttons rounded" id="enter-ustensils" placeholder="Ustensiles" aria-label="search ustensils">
+                        <input type="text" class="edit-and-select_buttons rounded" id="enter-ustensils" placeholder="Ustensiles" aria-label="Rechercher des ustensiles">
                         <i class="bi bi-chevron-down btn-icon" id="open_ustensils-search"></i>
                     </span>
                     <ul class="advance_search_results" id="edit-and-select_ustensils-results"></ul>
                 </div>
             </div>
-        </div>
+        </section>
 
     </header>
 
-    <main>
+    <main class="container-fluid d-flex flex-wrap gap-3 justify-content-between">
         <!--CARDS SECTION-->
-        <div class="container-fluid">
-            <div class="d-flex flex-wrap gap-3 justify-content-between">
-                <div class="card mb-3">
-                    <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
-                    <div class="card-body">
-                        <div class="d-flex p-2">
-                            <h2>Limonade de coco</h2>
-                            <p class="card-text"><i></i></p>
-                        </div>
-                        <ul>
-                            <li><span>Lait de coco: </span>400ml</li>
-                            <li><span>Jus de citron: </span>2</li>
-                            <li><span>Crème de coco: </span>4 cuillères</li>
-                            <li><span>Sucre: </span>20g</li>
-                            <li><span>Glaçons: </span>2</li>
-                        </ul>
-                        <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
-                    </div>
+        <article class="card mb-3">
+            <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
+            <section class="card-body">
+                <div class="d-flex p-2">
+                    <h2>Limonade de coco</h2>
+                    <p class="card-text"><i></i></p>
                 </div>
-                <div class="card mb-3">
-                    <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
-                    <div class="card-body">
-                        <div class="d-flex p-2">
-                            <h2>Limonade de coco</h2>
-                            <p class="card-text"><i></i></p>
-                        </div>
-                        <ul>
-                            <li><span>Lait de coco: </span>400ml</li>
-                            <li><span>Jus de citron: </span>2</li>
-                            <li><span>Crème de coco: </span>4 cuillères</li>
-                            <li><span>Sucre: </span>20g</li>
-                            <li><span>Glaçons: </span>2</li>
-                        </ul>
-                        <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
-                    </div>
+                <ul>
+                    <li><span>Lait de coco: </span>400ml</li>
+                    <li><span>Jus de citron: </span>2</li>
+                    <li><span>Crème de coco: </span>4 cuillères</li>
+                    <li><span>Sucre: </span>20g</li>
+                    <li><span>Glaçons: </span>2</li>
+                </ul>
+                <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+            </section>
+        </article>
+        <article class="card mb-3">
+            <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
+            <section class="card-body">
+                <div class="d-flex p-2">
+                    <h2>Limonade de coco</h2>
+                    <p class="card-text"><i></i></p>
                 </div>
-                <div class="card mb-3">
-                    <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
-                    <div class="card-body">
-                        <div class="d-flex p-2">
-                            <h2>Limonade de coco</h2>
-                            <p class="card-text"><i></i></p>
-                        </div>
-                        <ul>
-                            <li><span>Lait de coco: </span>400ml</li>
-                            <li><span>Jus de citron: </span>2</li>
-                            <li><span>Crème de coco: </span>4 cuillères</li>
-                            <li><span>Sucre: </span>20g</li>
-                            <li><span>Glaçons: </span>2</li>
-                        </ul>
-                        <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
-                    </div>
+                <ul>
+                    <li><span>Lait de coco: </span>400ml</li>
+                    <li><span>Jus de citron: </span>2</li>
+                    <li><span>Crème de coco: </span>4 cuillères</li>
+                    <li><span>Sucre: </span>20g</li>
+                    <li><span>Glaçons: </span>2</li>
+                </ul>
+                <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+            </section>
+        </article>
+        <article class="card mb-3">
+            <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
+            <section class="card-body">
+                <div class="d-flex p-2">
+                    <h2>Limonade de coco</h2>
+                    <p class="card-text"><i></i></p>
                 </div>
-                <div class="card mb-3">
-                    <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
-                    <div class="card-body">
-                        <div class="d-flex p-2">
-                            <h2>Limonade de coco</h2>
-                            <p class="card-text"><i></i></p>
-                        </div>
-                        <ul>
-                            <li><span>Lait de coco: </span>400ml</li>
-                            <li><span>Jus de citron: </span>2</li>
-                            <li><span>Crème de coco: </span>4 cuillères</li>
-                            <li><span>Sucre: </span>20g</li>
-                            <li><span>Glaçons: </span>2</li>
-                        </ul>
-                        <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
-                    </div>
+                <ul>
+                    <li><span>Lait de coco: </span>400ml</li>
+                    <li><span>Jus de citron: </span>2</li>
+                    <li><span>Crème de coco: </span>4 cuillères</li>
+                    <li><span>Sucre: </span>20g</li>
+                    <li><span>Glaçons: </span>2</li>
+                </ul>
+                <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+            </section>
+        </article>
+        <article class="card mb-3">
+            <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
+            <section class="card-body">
+                <div class="d-flex p-2">
+                    <h2>Limonade de coco</h2>
+                    <p class="card-text"><i></i></p>
                 </div>
-                <div class="card mb-3">
-                    <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
-                    <div class="card-body">
-                        <div class="d-flex p-2">
-                            <h2>Limonade de coco</h2>
-                            <p class="card-text"><i></i></p>
-                        </div>
-                        <ul>
-                            <li><span>Lait de coco: </span>400ml</li>
-                            <li><span>Jus de citron: </span>2</li>
-                            <li><span>Crème de coco: </span>4 cuillères</li>
-                            <li><span>Sucre: </span>20g</li>
-                            <li><span>Glaçons: </span>2</li>
-                        </ul>
-                        <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
-                    </div>
+                <ul>
+                    <li><span>Lait de coco: </span>400ml</li>
+                    <li><span>Jus de citron: </span>2</li>
+                    <li><span>Crème de coco: </span>4 cuillères</li>
+                    <li><span>Sucre: </span>20g</li>
+                    <li><span>Glaçons: </span>2</li>
+                </ul>
+                <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+            </section>
+        </article>
+        <article class="card mb-3">
+            <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
+            <section class="card-body">
+                <div class="d-flex p-2">
+                    <h2>Limonade de coco</h2>
+                    <p class="card-text"><i></i></p>
                 </div>
-                <div class="card mb-3">
-                    <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
-                    <div class="card-body">
-                        <div class="d-flex p-2">
-                            <h2>Limonade de coco</h2>
-                            <p class="card-text"><i></i></p>
-                        </div>
-                        <ul>
-                            <li><span>Lait de coco: </span>400ml</li>
-                            <li><span>Jus de citron: </span>2</li>
-                            <li><span>Crème de coco: </span>4 cuillères</li>
-                            <li><span>Sucre: </span>20g</li>
-                            <li><span>Glaçons: </span>2</li>
-                        </ul>
-                        <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
-                    </div>
+                <ul>
+                    <li><span>Lait de coco: </span>400ml</li>
+                    <li><span>Jus de citron: </span>2</li>
+                    <li><span>Crème de coco: </span>4 cuillères</li>
+                    <li><span>Sucre: </span>20g</li>
+                    <li><span>Glaçons: </span>2</li>
+                </ul>
+                <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+            </section>
+        </article>
+        <article class="card mb-3">
+            <svg class="docs-placeholder-img docs-placeholder-img-lg img-fluid card-img-top" width="100%" height="178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveaspectratio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
+            <section class="card-body">
+                <div class="d-flex p-2">
+                    <h2>Limonade de coco</h2>
+                    <p class="card-text"><i></i></p>
                 </div>
-            </div>
-        </div>
+                <ul>
+                    <li><span>Lait de coco: </span>400ml</li>
+                    <li><span>Jus de citron: </span>2</li>
+                    <li><span>Crème de coco: </span>4 cuillères</li>
+                    <li><span>Sucre: </span>20g</li>
+                    <li><span>Glaçons: </span>2</li>
+                </ul>
+                <p class="card-text">Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée</p>
+            </section>
+        </article>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
