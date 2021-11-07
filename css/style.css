@@ -11,3 +11,11 @@
 .form-control{
     border-right: none
 }
+
+.card{
+    max-width: 23.75rem
+}
+
+body{
+    padding: 6.25rem
+}
