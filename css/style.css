@@ -1,21 +1,68 @@
-.navbar-brand, .navbar-brand:hover{
-    color: #D04F4F;
+:root {
+    --primary: #D04F4F;
+    --btn1: #3282F7;
+    --btn2: #68D9A4;
+    --btn3: #ED6454;
+  }  
+
+body{
+    padding: 6.25rem
 }
 
+.navbar-brand, .navbar-brand:hover{
+    color: var(--primary);
+}
+
+/*SEARCHBAR*/
 #basic-addon2{
     background-color: inherit;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0
 }
-
 .form-control{
     border-right: none
 }
 
-.card{
-    max-width: 23.75rem
+/*FILTERING BUTTONS*/
+.selection-btn{
+    width: 10.63rem
+}
+.edit-and-select_buttons{
+    border: none;
+    caret-color: white;
+    color: white;
+    width: 100%
+}
+.edit-and-select_buttons::placeholder{
+    color:white
+}
+/*Outline will need to be added again with JS for keyboard users (important for accessibility)*/
+.edit-and-select_buttons:focus{
+    outline: none;
+}
+.bi-chevron-down{
+    color: white
+}
+#ingredient-btn{
+    background-color: var(--btn1)
+}
+#enter-ingredient{
+    background-color: var(--btn1)
+}
+#appareil-btn{
+    background-color: var(--btn2)
+}
+#enter-appareil{
+    background-color: var(--btn2)
+}
+#ustensils-btn{
+    background-color: var(--btn3)
+}
+#enter-ustensils{
+    background-color: var(--btn3)
 }
 
-body{
-    padding: 6.25rem
+/*CARDS*/
+.card{
+    max-width: 20.75rem
 }
