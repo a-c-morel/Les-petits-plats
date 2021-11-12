@@ -1,5 +1,7 @@
 import { recipes } from './recipes.js';
-console.log(recipes);
+
+const recipesContainer = document.querySelector("main");
+const cardsRecipes = [];
 
 class RecipeCard {
 
@@ -22,7 +24,7 @@ class RecipeCard {
         cardSvg.classList.add("card-img-top");
         cardSvg.setAttribute("width", "100%");
         cardSvg.setAttribute("height", "178");
-        cardSvg.setAttribute("xmlns", "images/pictures/placeholder-img.svg");
+        cardSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
         cardSvg.setAttribute("role", "img");
         cardSvg.setAttribute("aria-label", "gray background");
         cardSvg.setAttribute("preserveaspectratio", "xMidYMid slice");
@@ -70,6 +72,15 @@ class RecipeCard {
             cardIngredient.innerHTML = `${ingredient}`;
         }
 
-        return newImageArticle;
+        return card;
     }
 }
+
+for (const recipe of recipes){
+    let myCard = new RecipeCard(recipe.name, recipe.time, recipe.ingredients, recipe.description);
+    cardsRecipes.push(myCard);
+}
+
+cardsRecipes.forEach(recipe =>{
+    recipesContainer.appendChild(recipe.display());
+});
