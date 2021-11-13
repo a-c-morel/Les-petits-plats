@@ -48,10 +48,10 @@ class RecipeCard {
         cardBody.appendChild(cardIngredientsList);
         cardBody.appendChild(cardDescription);
 
-        for (const ingredient of this.ingredients) {
+        for (let ingredient of this.ingredients) {
             const cardIngredient = document.createElement("li");
             cardIngredientsList.appendChild(cardIngredient);
-            cardIngredient.innerHTML = `${ingredient}`;
+            cardIngredient.innerHTML = `${ingredient.ingredient}`;
         }
 
         return card;
