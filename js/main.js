@@ -33,7 +33,7 @@ class RecipeCard {
         cardTitle.innerHTML = `${this.title}`;
 
         const cardTime = document.createElement("p");
-        cardTime.innerHTML = `${this.time}`;
+        cardTime.innerHTML = `<i class="bi bi-clock"></i>${this.time}`;
         
         const cardIngredientsList = document.createElement("ul");
 
