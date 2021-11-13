@@ -39,6 +39,7 @@ class RecipeCard {
 
         const cardDescription = document.createElement("p");
         cardDescription.classList.add("card-text");
+        cardDescription.innerHTML = `${this.description}`;
 
         card.appendChild(cardImg);
         card.appendChild(cardBody);
