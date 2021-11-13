@@ -17,26 +17,10 @@ class RecipeCard {
         card.classList.add("card");
         card.classList.add("mb-3");
 
-        const cardSvg = document.createElement("svg");
-        cardSvg.classList.add("docs-placeholder-img");
-        cardSvg.classList.add("docs-placeholder-img-lg");
-        cardSvg.classList.add("img-fluid");
-        cardSvg.classList.add("card-img-top");
-        cardSvg.setAttribute("width", "100%");
-        cardSvg.setAttribute("height", "178");
-        cardSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        cardSvg.setAttribute("role", "img");
-        cardSvg.setAttribute("aria-label", "gray background");
-        cardSvg.setAttribute("preserveaspectratio", "xMidYMid slice");
-        cardSvg.setAttribute("focusable", "false");
-
-        const cardSvgTitle = document.createElement("title");
-        cardSvgTitle.innerHTML = "Placeholder";
-
-        const cardSvgRect = document.createElement("rect");
-        cardSvgRect.setAttribute("width", "100%");
-        cardSvgRect.setAttribute("height", "100%");
-        cardSvgRect.setAttribute("fill", "#C7BEBE");
+        const cardImg = document.createElement("img");
+        cardImg.classList.add("card-img-top");
+        cardImg.setAttribute("src", "images/pictures/img-placeholder.png");
+        cardImg.setAttribute("alt", "Card image cap");
 
         const cardBody = document.createElement("section");
         cardBody.classList.add("card-body");
@@ -56,9 +40,7 @@ class RecipeCard {
         const cardDescription = document.createElement("p");
         cardDescription.classList.add("card-text");
 
-        card.appendChild(cardSvg);
-        cardSvg.appendChild(cardSvgTitle);
-        cardSvg.appendChild(cardSvgRect);
+        card.appendChild(cardImg);
         card.appendChild(cardBody);
         cardBody.appendChild(cardBodyHeading);
         cardBodyHeading.appendChild(cardTitle);
