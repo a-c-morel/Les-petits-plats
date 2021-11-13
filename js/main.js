@@ -1,63 +1,8 @@
 import { recipes } from './recipes.js';
 
+/*DISPLAY THE CARDS*/
 const recipesContainer = document.querySelector("main");
 const cardsRecipes = [];
-
-class RecipeCard {
-
-    constructor(title, time, ingredients, description) {
-        this.title = title;
-        this.time = time;
-        this.ingredients = ingredients;
-        this.description = description;
-    }
-
-    display() {
-        const card = document.createElement("article");
-        card.classList.add("card");
-        card.classList.add("mb-3");
-
-        const cardImg = document.createElement("img");
-        cardImg.classList.add("card-img-top");
-        cardImg.setAttribute("src", "images/pictures/img-placeholder.png");
-        cardImg.setAttribute("alt", "Card image cap");
-
-        const cardBody = document.createElement("section");
-        cardBody.classList.add("card-body");
-
-        const cardBodyHeading = document.createElement("div");
-        cardBodyHeading.classList.add("d-flex");
-        cardBodyHeading.classList.add("p-2");
-
-        const cardTitle = document.createElement("h2");
-        cardTitle.innerHTML = `${this.title}`;
-
-        const cardTime = document.createElement("p");
-        cardTime.innerHTML = `<i class="bi bi-clock"></i>${this.time}`;
-        
-        const cardIngredientsList = document.createElement("ul");
-
-        const cardDescription = document.createElement("p");
-        cardDescription.classList.add("card-text");
-        cardDescription.innerHTML = `${this.description}`;
-
-        card.appendChild(cardImg);
-        card.appendChild(cardBody);
-        cardBody.appendChild(cardBodyHeading);
-        cardBodyHeading.appendChild(cardTitle);
-        cardBodyHeading.appendChild(cardTime);
-        cardBody.appendChild(cardIngredientsList);
-        cardBody.appendChild(cardDescription);
-
-        for (let ingredient of this.ingredients) {
-            const cardIngredient = document.createElement("li");
-            cardIngredientsList.appendChild(cardIngredient);
-            cardIngredient.innerHTML = `${ingredient.ingredient}`;
-        }
-
-        return card;
-    }
-}
 
 for (const recipe of recipes){
     let myCard = new RecipeCard(recipe.name, recipe.time, recipe.ingredients, recipe.description);
@@ -67,3 +12,60 @@ for (const recipe of recipes){
 cardsRecipes.forEach(recipe =>{
     recipesContainer.appendChild(recipe.display());
 });
+
+/*DISPLAY THE FILTERS LIST FOR THE BUTTONS*/
+const ingredientFiltersBtn = document.querySelector("#ingredient-btn");
+const appareilFiltersBtn = document.querySelector("#appareil-btn");
+const ustensilsFiltersBtn = document.querySelector("#ustensils-btn");
+
+const ingredientFiltersList = document.querySelector("#edit-and-select_ingredients-results");
+const appareilFiltersList = document.querySelector("#edit-and-select_appareil-results");
+const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results");
+
+//Get the list of all the ingredients (without duplicate)
+const allIngredients = [];
+for (let i=0; i<recipes.length; i++) {
+    let ingredients = recipes[i].ingredients;
+    ingredients.map(({ingredient}) => {
+        allIngredients.push(`${ingredient}`);
+    });
+}
+const ingredientsNoRepeat = new Set(allIngredients);
+console.log(ingredientsNoRepeat);
+
+//Get the list of all the appareils (without duplicate)
+const allAppareils = [];
+for (let i=0; i<recipes.length; i++) {
+    let appareils = recipes[i].appliance;
+    allAppareils.push(appareils);
+}
+const appareilsNoRepeat = new Set(allAppareils);
+console.log(appareilsNoRepeat);
+
+//Get the list of all the ustensils (without duplicate)
+const allUstensils = [];
+for (let i=0; i<recipes.length; i++) {
+    let ustensils = recipes[i].ustensils;
+    //console.log(ustensils);
+    allUstensils.push(ustensils);
+}
+const ustensilsNoRepeat = new Set(allUstensils.flat());
+console.log(ustensilsNoRepeat);
+
+class filtersList {
+    constructor(button, listContainer, filters) {
+        this.button = button; //exemple : ingredientFiltersButton
+        this.listContainer = listContainer; //exemple : ingredientFiltersList
+        this.filters = filters;
+    }
+
+    display() {
+        for (let filter of this.filters) {
+            const filter = document.createElement("li");
+            liContainer.appendChild(filter);
+            cardIngredient.innerHTML = `${filter}`;
+        }
+        
+    }
+}
+
