@@ -14,10 +14,10 @@ cardsRecipes.forEach(recipe =>{
 });
 
 /*DISPLAY THE FILTERS LIST FOR THE BUTTONS*/
+
 const ingredientFiltersBtn = document.querySelector("#ingredient-btn");
 const appareilFiltersBtn = document.querySelector("#appareil-btn");
 const ustensilsFiltersBtn = document.querySelector("#ustensils-btn");
-
 const ingredientFiltersList = document.querySelector("#edit-and-select_ingredients-results");
 const appareilFiltersList = document.querySelector("#edit-and-select_appareil-results");
 const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results");
@@ -30,10 +30,8 @@ for (let i=0; i<recipes.length; i++) {
         allIngredients.push(`${ingredient.toLowerCase()}`);
     });
 }
-
 const ingredientsNoRepeat = new Set(allIngredients);
 const ingredientFiltersArray = Array.from(ingredientsNoRepeat);
-console.log(ingredientFiltersArray);
 
 //Get the list of all the appareils (without duplicate)
 const allAppareils = [];
@@ -43,7 +41,6 @@ for (let i=0; i<recipes.length; i++) {
 }
 const appareilsNoRepeat = new Set(allAppareils);
 const appareilFiltersArray = Array.from(appareilsNoRepeat);
-console.log(appareilFiltersArray);
 
 //Get the list of all the ustensils (without duplicate)
 const allUstensils = [];
@@ -51,37 +48,36 @@ for (let i=0; i<recipes.length; i++) {
     let ustensils = recipes[i].ustensils;
     allUstensils.push(ustensils);
 }
-
 const allUstensilsJoined = allUstensils.flat();
 const lowerCaseUstensils = allUstensilsJoined.map(x => x.toLowerCase());
-
 const ustensilsNoRepeat = new Set(lowerCaseUstensils);
 const ustenstilsFiltersArray = Array.from(ustensilsNoRepeat);
-console.log(ustenstilsFiltersArray);
 
-class filtersList {
-    constructor(button, listContainer, filters) {
-        this.button = button; //exemple : ingredientFiltersButton
-        this.listContainer = listContainer; //exemple : ingredientFiltersList
-        this.filters = filters;
-    }
+//Display the filters inside their container
+const ingredients = new FiltersList(ingredientFiltersBtn, ingredientFiltersList, ingredientFiltersArray);
+ingredients.display();
+const appareils = new FiltersList(appareilFiltersBtn, appareilFiltersList, appareilFiltersArray);
+appareils.display();
+const ustensils = new FiltersList(ustensilsFiltersBtn, ustensilsFiltersList, ustenstilsFiltersArray);
+ustensils.display();
 
-    display() {
-        for (let filter of this.filters) {
-            const filterLi = document.createElement("li");
-            filterLi.innerHTML = `${filter}`;
-            this.listContainer.appendChild(filterLi);
-            
+/*SEARCHBAR EVENTS*/
+const searchBar = document.querySelector("#searchbar");
+
+searchBar.addEventListener("keyup", (e) => {
+    const searchedLetters = e.target.value;
+    const cards = document.querySelectorAll(".card");
+    filterElements(searchedLetters, cards);
+});
+
+function filterElements(letters, elements) {
+    if(letters.length >2){
+        for (let i=0; i<elements.length; i++){
+            if(elements[i].textContent.includes(letters)) {
+                elements[i].style.display = "block";
+            } else {
+                elements[i].style.display = "none";
+            }
         }
-        
     }
 }
-
-let ingredients = new filtersList(ingredientFiltersBtn, ingredientFiltersList, ingredientFiltersArray);
-ingredients.display();
-
-let appareils = new filtersList(appareilFiltersBtn, appareilFiltersList, appareilFiltersArray);
-appareils.display();
-
-let ustensils = new filtersList(ustensilsFiltersBtn, ustensilsFiltersList, ustenstilsFiltersArray);
-ustensils.display();
