@@ -9,8 +9,8 @@ class FiltersList {
         for (let filter of this.filters) {
             const filterLi = document.createElement("li");
             filterLi.innerHTML = `${filter}`;
+            filterLi.style.display = "none";
             this.listContainer.appendChild(filterLi);
-            
         }
         
     }
