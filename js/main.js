@@ -73,7 +73,7 @@ searchBar.addEventListener("keyup", (e) => {
 function filterElements(letters, elements) {
     if(letters.length >2){
         for (let i=0; i<elements.length; i++){
-            if(elements[i].textContent.includes(letters)) {
+            if(elements[i].textContent.toLowerCase().includes(letters)) {
                 elements[i].style.display = "block";
             } else {
                 elements[i].style.display = "none";
