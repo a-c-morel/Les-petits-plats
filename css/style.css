@@ -98,13 +98,21 @@ ol, ul{
 .card-title{
     font-size: 1.13rem;
     font-weight: 400;
+    max-height: 22px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ingredients-ul{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+    max-height: 109px;
 }
 
 .card-text{
-    /*max-height: 109px;
-    max-width: 171px;
-    overflow: hidden;
-    text-overflow: ellipsis;*/
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 6;
