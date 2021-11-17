@@ -11,36 +11,42 @@ class RecipeCard {
         const card = document.createElement("article");
         card.classList.add("card");
         card.classList.add("mb-3");
+        card.classList.add("rounded");
+        card.classList.add("border-0");
 
         const cardImg = document.createElement("img");
         cardImg.classList.add("card-img-top");
+        cardImg.classList.add("border-0");
         cardImg.setAttribute("src", "images/pictures/img-placeholder.png");
         cardImg.setAttribute("alt", "Card image cap");
 
         const cardBody = document.createElement("section");
         cardBody.classList.add("card-body");
-
-        const cardBodyHeading = document.createElement("div");
-        cardBodyHeading.classList.add("d-flex");
-        cardBodyHeading.classList.add("p-2");
+        cardBody.classList.add("row");
+        cardBody.classList.add("rounded-bottom")
 
         const cardTitle = document.createElement("h2");
+        cardTitle.classList.add("card-title");
+        cardTitle.classList.add("col-10");
         cardTitle.innerHTML = `${this.title}`;
 
         const cardTime = document.createElement("p");
-        cardTime.innerHTML = `<i class="bi bi-clock"></i>${this.time}`;
+        cardTime.innerHTML = `<i class="bi bi-clock"></i> ${this.time} min`;
+        cardTime.classList.add("col-2");
         
         const cardIngredientsList = document.createElement("ul");
+        cardIngredientsList.classList.add("ingredients-ul");
+        cardIngredientsList.classList.add("col-6");
 
         const cardDescription = document.createElement("p");
         cardDescription.classList.add("card-text");
+        cardDescription.classList.add("col-6");
         cardDescription.innerHTML = `${this.description}`;
 
         card.appendChild(cardImg);
         card.appendChild(cardBody);
-        cardBody.appendChild(cardBodyHeading);
-        cardBodyHeading.appendChild(cardTitle);
-        cardBodyHeading.appendChild(cardTime);
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardTime);
         cardBody.appendChild(cardIngredientsList);
         cardBody.appendChild(cardDescription);
 
