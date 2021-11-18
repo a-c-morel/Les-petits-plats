@@ -53,7 +53,13 @@ class RecipeCard {
         for (let ingredient of this.ingredients) {
             const cardIngredient = document.createElement("li");
             cardIngredientsList.appendChild(cardIngredient);
-            cardIngredient.innerHTML = `${ingredient.ingredient}`;
+            if(ingredient.quantity === undefined) {
+                cardIngredient.innerHTML = `<span class="bold">${ingredient.ingredient}`
+            } else if(ingredient.unit === undefined) {
+                cardIngredient.innerHTML = `<span class="bold">${ingredient.ingredient}:</span> ${ingredient.quantity}`;
+            } else {
+                cardIngredient.innerHTML = `<span class="bold">${ingredient.ingredient}:</span> ${ingredient.quantity} ${ingredient.unit}`;
+            }
         }
 
         return card;
