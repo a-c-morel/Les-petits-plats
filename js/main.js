@@ -54,18 +54,18 @@ const ustensilsNoRepeat = new Set(lowerCaseUstensils);
 const ustenstilsFiltersArray = Array.from(ustensilsNoRepeat);
 
 //Display the filters inside their container
-const ingredients = new FiltersList(ingredientFiltersBtn, ingredientFiltersList, ingredientFiltersArray);
+const ingredients = new FiltersList(ingredientFiltersBtn, ingredientFiltersList, ingredientFiltersArray, "ingredient-element");
 ingredients.display();
-const appareils = new FiltersList(appareilFiltersBtn, appareilFiltersList, appareilFiltersArray);
+const appareils = new FiltersList(appareilFiltersBtn, appareilFiltersList, appareilFiltersArray, "appareil-element");
 appareils.display();
-const ustensils = new FiltersList(ustensilsFiltersBtn, ustensilsFiltersList, ustenstilsFiltersArray);
+const ustensils = new FiltersList(ustensilsFiltersBtn, ustensilsFiltersList, ustenstilsFiltersArray, "ustensils-element");
 ustensils.display();
 
 /*SEARCHBAR EVENTS*/
 const searchBar = document.querySelector("#searchbar");
 
 searchBar.addEventListener("keyup", (e) => {
-    const searchedLetters = e.target.value;
+    const searchedLetters = e.target.value.toLowerCase();
     const cards = document.querySelectorAll(".card");
     filterElements(searchedLetters, cards);
 });
@@ -81,3 +81,26 @@ function filterElements(letters, elements) {
         }
     }
 }
+
+/*ADVANCED SEARCH FILTERS EVENTS*/
+const searchIngredient = document.querySelector("#enter-ingredient");
+const searchAppareil = document.querySelector("#enter-appareil");
+const searchUstensils = document.querySelector("#enter-ustensils");
+
+searchIngredient.addEventListener("keyup", (e) => {
+    const searchedLetters = e.target.value.toLowerCase();
+    const  elements = document.querySelectorAll(".ingredient-element");
+    filterElements(searchedLetters, elements);
+});
+
+searchAppareil.addEventListener("keyup", (e) => {
+    const searchedLetters = e.target.value.toLowerCase();
+    const  elements = document.querySelectorAll(".appareil-element");
+    filterElements(searchedLetters, elements);
+});
+
+searchUstensils.addEventListener("keyup", (e) => {
+    const searchedLetters = e.target.value.toLowerCase();
+    const  elements = document.querySelectorAll(".ustensils-element");
+    filterElements(searchedLetters, elements);
+});
