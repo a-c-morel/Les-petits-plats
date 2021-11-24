@@ -62,24 +62,24 @@ const ustensils = new FiltersList(ustensilsFiltersBtn, ustensilsFiltersList, ust
 ustensils.display();
 
 /*SEARCHBAR EVENTS*/
-const searchBar = document.querySelector("#searchbar");
+const searchBar = document.querySelector("#searchbar"); //get search input
 
-searchBar.addEventListener("keyup", (e) => {
-    const searchedLetters = e.target.value.toLowerCase();
-    const cards = document.querySelectorAll(".card");
+searchBar.addEventListener("keyup", (e) => { //when user presses any key
+    const searchedLetters = e.target.value.toLowerCase(); //variable which puts the user entry into lowercase
+    const cards = document.querySelectorAll(".card"); //creates an array with all the article.card
     filterElements(searchedLetters, cards);
 });
 
-function filterElements(letters, elements) {
-    if(letters.length >2){
-        for (let i=0; i<elements.length; i++){
-            if(elements[i].textContent.toLowerCase().includes(letters)) {
-                elements[i].style.display = "block";
-            } else {
-                elements[i].style.display = "none";
+function filterElements(letters, items) {
+        for (let i=0; i<items.length; i++){
+            if(items[i].textContent.toLowerCase().includes(letters)&&(letters.length >2)) { //if user entry >2 letters and if card contains them (+ letters are put into lowercase)
+                items[i].style.display = "block";
+            } else if((!items[i].textContent.toLowerCase().includes(letters))&&(letters.length >2)){ //if user entry >2 letters but if card doesn't contain them (+ letters are put into lowercase)
+                items[i].style.display = "none";
+            } else{ //every other cases
+                items[i].style.display = "block";
             }
         }
-    }
 }
 
 /*ADVANCED SEARCH FILTERS EVENTS*/
@@ -89,18 +89,18 @@ const searchUstensils = document.querySelector("#enter-ustensils");
 
 searchIngredient.addEventListener("keyup", (e) => {
     const searchedLetters = e.target.value.toLowerCase();
-    const  elements = document.querySelectorAll(".ingredient-element");
-    filterElements(searchedLetters, elements);
+    const  items = document.querySelectorAll(".ingredient-element");
+    filterElements(searchedLetters, items);
 });
 
 searchAppareil.addEventListener("keyup", (e) => {
     const searchedLetters = e.target.value.toLowerCase();
-    const  elements = document.querySelectorAll(".appareil-element");
-    filterElements(searchedLetters, elements);
+    const  items = document.querySelectorAll(".appareil-element");
+    filterElements(searchedLetters, items);
 });
 
 searchUstensils.addEventListener("keyup", (e) => {
     const searchedLetters = e.target.value.toLowerCase();
-    const  elements = document.querySelectorAll(".ustensils-element");
-    filterElements(searchedLetters, elements);
+    const  items = document.querySelectorAll(".ustensils-element");
+    filterElements(searchedLetters, items);
 });

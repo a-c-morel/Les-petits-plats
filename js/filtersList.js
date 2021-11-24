@@ -11,7 +11,7 @@ class FiltersList {
             const filterLi = document.createElement("li");
             filterLi.classList.add(this.className);
             filterLi.innerHTML = `${filter}`;
-            //filterLi.style.display = "none";
+            filterLi.style.display = "none"; //temporary (for tests)
             this.listContainer.appendChild(filterLi);
         }
     }
