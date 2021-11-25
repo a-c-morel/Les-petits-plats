@@ -80,6 +80,15 @@ ol, ul{
     background-color: var(--btn3)
 }
 
+/*filters displayed*/
+.advanced_search_results{
+    display: none;
+}
+
+.show-filters{
+    display: block;
+}
+
 /*CARDS*/
 .card{
     width: 380px;
