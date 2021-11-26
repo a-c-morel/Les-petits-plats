@@ -38,6 +38,7 @@
         <section class="container-fluid mb-3">
             <div id="edit-and-select" class="d-flex gap-4">
                 <!--BUTTON 1-->
+                <!--N.B.: I do not use the <button> markup because it cannot contain interactive elements like input (source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button -> permitted content)-->
                 <div class="selection-btn rounded p-2" id="ingredient-btn">
                     <span class="d-flex">
                         <input type="text" class="edit-and-select_buttons rounded" id="enter-ingredient" placeholder="Ingrédient" aria-label="Rechercher un ingrédient">
