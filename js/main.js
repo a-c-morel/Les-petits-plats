@@ -73,20 +73,26 @@ ustensils.display();
 document.addEventListener('click', (e) => {
     if (e.target.closest("#ingredient-btn")) {
         ingredientFiltersList.classList.add("show-filters");
+        ingredientFiltersBtn.classList.add("w-50");
     } else {
         ingredientFiltersList.classList.remove("show-filters");
+        ingredientFiltersBtn.classList.remove("w-50");
     }
 
     if (e.target.closest("#appareil-btn")) {
         appareilFiltersList.classList.add("show-filters");
+        appareilFiltersBtn.classList.add("w-50");
     } else {
         appareilFiltersList.classList.remove("show-filters");
+        appareilFiltersBtn.classList.remove("w-50");
     }
     
     if (e.target.closest("#ustensils-btn")) {
         ustensilsFiltersList.classList.add("show-filters");
+        ustensilsFiltersBtn.classList.add("w-50");
     } else {
         ustensilsFiltersList.classList.remove("show-filters");
+        ustensilsFiltersBtn.classList.remove("w-50");
     }
 });
 

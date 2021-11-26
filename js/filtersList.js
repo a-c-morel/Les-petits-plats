@@ -10,6 +10,8 @@ class FiltersList {
         for (let filter of this.filters) {
             const filterLi = document.createElement("li");
             filterLi.classList.add(this.className);
+            filterLi.classList.add("col-4");
+            filterLi.classList.add("text-white");
             filterLi.innerHTML = `${filter}`;
             //filterLi.style.display = "none"; //temporary (for tests)
             this.listContainer.appendChild(filterLi);

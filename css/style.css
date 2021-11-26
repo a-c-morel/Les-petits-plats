@@ -43,7 +43,8 @@ ol, ul{
 
 /*FILTERING BUTTONS*/
 .selection-btn{
-    width: 10.63rem
+    width: 10.63rem;
+    max-width: 50%;
 }
 .edit-and-select_buttons{
     border: none;
@@ -80,7 +81,7 @@ ol, ul{
     background-color: var(--btn3)
 }
 
-/*filters displayed*/
+/*filters displayed (none by default)*/
 .advanced_search_results{
     display: none;
 }
