@@ -87,7 +87,7 @@ ol, ul{
 }
 
 .show-filters{
-    display: block;
+    display: flex;
 }
 
 /*CARDS*/
