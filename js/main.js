@@ -23,7 +23,7 @@ const ingredientFiltersList = document.querySelector("#edit-and-select_ingredien
 const appareilFiltersList = document.querySelector("#edit-and-select_appareil-results"); //appareil filters ul
 const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results"); //ustensils filters ul
 
-const ulFilters = document.querySelectorAll(".advanced_search_results"); //the 3 filters ul containers, together in an array, if needed
+//const ulFilters = document.querySelectorAll(".advanced_search_results"); //the 3 filters ul containers, together in an array, if needed
 
 const searchIngredient = document.querySelector("#enter-ingredient"); //ingredients search input
 const searchAppareil = document.querySelector("#enter-appareil"); //appareils search input
@@ -102,27 +102,6 @@ document.addEventListener('click', (e) => {
     }
 });
 
-/*SEARCHBAR EVENTS*/
-const searchBar = document.querySelector("#searchbar"); //get search input
-
-searchBar.addEventListener("keyup", (e) => { //when user presses any key
-    const searchedLetters = e.target.value.toLowerCase(); //variable which puts the user entry into lowercase
-    const cards = document.querySelectorAll(".card"); //creates an array with all the article.card
-    filterElements(searchedLetters, cards);
-});
-
-function filterElements(letters, items) {
-    for (let i=0; i<items.length; i++){
-        if(items[i].textContent.toLowerCase().includes(letters)&&(letters.length >2)) { //if user entry >2 letters and if card contains them (+ letters are put into lowercase)
-            items[i].style.display = "block";
-        } else if((!items[i].textContent.toLowerCase().includes(letters))&&(letters.length >2)){ //if user entry >2 letters but if card doesn't contain them (+ letters are put into lowercase)
-            items[i].style.display = "none";
-        } else{ //every other cases
-            items[i].style.display = "block";
-        }
-    }
-}
-
 /*ADVANCED SEARCH FILTERS EVENTS*/
 
 searchIngredient.addEventListener("keyup", (e) => {
@@ -142,3 +121,26 @@ searchUstensils.addEventListener("keyup", (e) => {
     const  items = document.querySelectorAll(".ustensils-element");
     filterElements(searchedLetters, items);
 });
+
+/*SEARCHBAR EVENTS*/
+const searchBar = document.querySelector("#searchbar"); //get search input
+const tagFilters = document.querySelectorAll(".filter-element");
+
+searchBar.addEventListener("keyup", (e) => { //when user presses any key
+    const searchedLetters = e.target.value.toLowerCase(); //variable which puts the user entry into lowercase
+    const cards = document.querySelectorAll(".card"); //creates an array with all the article.card
+    filterElements(searchedLetters, cards);
+    filterElements(searchedLetters, tagFilters);
+});
+
+function filterElements(letters, items) {
+    for (let i=0; i<items.length; i++){
+        if(items[i].textContent.toLowerCase().includes(letters)&&(letters.length >2)) { //if user entry >2 letters and if card contains them (+ letters are put into lowercase)
+            items[i].style.display = "block";
+        } else if((!items[i].textContent.toLowerCase().includes(letters))&&(letters.length >2)){ //if user entry >2 letters but if card doesn't contain them (+ letters are put into lowercase)
+            items[i].style.display = "none";
+        } else{ //every other cases
+            items[i].style.display = "block";
+        }
+    }
+}
