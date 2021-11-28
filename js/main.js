@@ -129,8 +129,13 @@ const tagFilters = document.querySelectorAll(".filter-element");
 searchBar.addEventListener("keyup", (e) => { //when user presses any key
     const searchedLetters = e.target.value.toLowerCase(); //variable which puts the user entry into lowercase
     const cards = document.querySelectorAll(".card"); //creates an array with all the article.card
-    filterElements(searchedLetters, cards);
+    const cardsArray = Array.from(cards);
+    const searchbarError = document.querySelector("#error-msg-searchbar");
+    filterElements(searchedLetters, cards, searchbarError);
     filterElements(searchedLetters, tagFilters);
+    if((!cardsArray.every(card => card.textContent.toLowerCase().includes(searchedLetters)))&&(searchedLetters.length >2)){ //if there isn't any element corresponding to the user's research
+        errorMessage(searchbarError);
+    }
 });
 
 function filterElements(letters, items) {
@@ -143,4 +148,8 @@ function filterElements(letters, items) {
             items[i].style.display = "block";
         }
     }
+}
+
+function errorMessage(messageContainer){
+    messageContainer.innerHTML = "Il n'y a pas de recettes correspondant à votre recherche."
 }
