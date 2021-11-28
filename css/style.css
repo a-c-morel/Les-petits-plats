@@ -9,8 +9,14 @@
 } 
 
 body{
-    padding: 6.25rem;
+    /*larges écrans : padding: 6.25rem;*/
     font-family: 'Lato', sans-serif;
+}
+
+@media screen and (min-width: 992px){
+    body{
+        padding: 6.25rem;
+    }
 }
 
 ol, ul{
@@ -42,10 +48,13 @@ ol, ul{
 }
 
 /*FILTERING BUTTONS*/
-.selection-btn{
-    width: 10.63rem;
-    max-width: 50%;
+@media screen and(min-width: 768px){
+    #ingredient-btn, #appareil-btn, #ustensils-btn{
+        width: 10.63rem;
+        max-width: 50%;
+    }
 }
+
 .edit-and-select_buttons{
     border: none;
     caret-color: white;
