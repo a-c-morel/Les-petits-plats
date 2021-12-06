@@ -14,7 +14,6 @@ class FiltersList {
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
-            //filterLi.style.display = "none"; //temporary (for tests)
             this.listContainer.appendChild(filterLi);
         }
     }

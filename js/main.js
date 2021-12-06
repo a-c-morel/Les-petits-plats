@@ -125,18 +125,25 @@ searchUstensils.addEventListener("keyup", (e) => {
 /*SEARCHBAR EVENTS*/
 const searchBar = document.querySelector("#searchbar"); //get search input
 const tagFilters = document.querySelectorAll(".filter-element");
+const searchbarError = document.querySelector(".error-msg-searchbar");
+
+removeErrorMessage(searchbarError); //by default
 
 searchBar.addEventListener("keyup", (e) => { //when user presses any key
     const searchedLetters = e.target.value.toLowerCase(); //variable which puts the user entry into lowercase
     const cards = document.querySelectorAll(".card"); //creates an array with all the article.card
     const cardsArray = Array.from(cards);
-    const searchbarError = document.querySelector("#error-msg-searchbar");
-    filterElements(searchedLetters, cards, searchbarError);
+    
+    filterElements(searchedLetters, cardsArray, searchbarError);
     filterElements(searchedLetters, tagFilters);
-    if((!cardsArray.every(card => card.textContent.toLowerCase().includes(searchedLetters)))&&(searchedLetters.length >2)){ //if there isn't any element corresponding to the user's research
-        errorMessage(searchbarError);
+    if((cardsArray.indexOf(searchedLetters.toLowerCase())===-1)&&(searchedLetters.length >2)){ //if there isn't any element corresponding to the user's research
+        addErrorMessage(searchbarError);
+    } else{
+        removeErrorMessage(searchbarError);
     }
 });
+
+//choisir entre indexOf et includes
 
 function filterElements(letters, items) {
     for (let i=0; i<items.length; i++){
@@ -150,6 +157,15 @@ function filterElements(letters, items) {
     }
 }
 
-function errorMessage(messageContainer){
-    messageContainer.innerHTML = "Il n'y a pas de recettes correspondant à votre recherche."
+//
+
+
+function addErrorMessage(messageContainer){
+    messageContainer.style.display = "block";
+    messageContainer.innerHTML = "Il n'y a pas de recette correspondant à votre recherche.";
+}
+
+function removeErrorMessage(messageContainer){
+    messageContainer.style.display = "none";
+    messageContainer.innerHTML = "";
 }
