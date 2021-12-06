@@ -1,10 +1,11 @@
 class RecipeCard {
 
-    constructor(title, time, ingredients, description) {
+    constructor(title, time, ingredients, description, cardId) {
         this.title = title;
         this.time = time;
         this.ingredients = ingredients;
         this.description = description;
+        this.cardId = cardId;
     }
 
     display() {
