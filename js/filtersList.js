@@ -5,7 +5,7 @@ class FiltersList {
         this.filters = filters;
         this.className = className;
     }
-
+//créer méthode qui regarde s'il y a du contenu et qui le clear
     display() {
         for (let filter of this.filters) {
             const filterLi = document.createElement("li");
@@ -19,3 +19,4 @@ class FiltersList {
         }
     }
 }
+

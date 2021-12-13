@@ -7,7 +7,9 @@ class RecipeCard {
         this.description = description;
         this.cardId = cardId;
     }
-
+    clearInterface(){
+        //pour clear l'interface et retirer les cards présentes
+    }
     display() {
         const card = document.createElement("article");
         card.classList.add("card");
