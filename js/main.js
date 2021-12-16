@@ -10,17 +10,25 @@ let cardsArray = [];
 const mainElement = document.querySelector("main");
 
 /*PAR DEFAUT, AFFICHAGE DE TOUTES LES CARTES*/
-defaultCardsDisplay();
 
-function defaultCardsDisplay(){
-    for (const recipe of recipesArray){
-        let myCard = new RecipeCard(recipe.name, recipe.time, recipe.ingredients, recipe.description, recipe.id);
-        cardsArray.push(myCard);
+displayCards();
+
+function displayCards(){
+    for (let recipe of recipesArray){
+        let recipeTitle = recipe.name;
+        let recipeDuration = recipe.time;
+        let recipeIngredients = recipe.ingredients;
+        let recipeDescription = recipe.description;
+        let recipeId = recipe.id;
+    
+        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement, cardsArray);
+        mainElement.appendChild(card.display());
     }
-    cardsArray.forEach(recipe =>{
-        mainElement.appendChild(recipe.display());
-    });
+    console.log(cardsArray);
 }
+
+
+
 
 /*RECUPERATION DES ARRAYS DE FILTRES (PAR DEFAUT = TOUS LES FILTRES)*/
 //boutons pour afficher les listes de filtres :
@@ -84,13 +92,27 @@ const searchbarError = document.querySelector("#error-msg-searchbar");//
 
 searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
     const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
-    //let myRecipes = new FilterRecipes(searchedLetters, recipesArray);
-    //myRecipes.compareAndFilter();
-    //recipesArray = myRecipes.result();
-
-    //puis à partir du nouveau recipesArray mis à jour, appeler nouvelle instance de la classe recipeCard.
-    //utiliser la méthode clearInterface() de recipeCard, puis réinstancier les cartes avec la méthode display() à partir du recipesArray MAJ.
+    compareAndFilter(); //ajouter searchedLetters entre parenthèses
 });
+
+function compareAndFilter(){ //ajouter searchedLetters entre parenthèses
+    for (let recipe of recipesArray){
+        let recipeTitle = recipe.name;
+        let ingredients = recipe.ingredients;
+        let recipeIngredients = [];
+        ingredients.map(({ingredient}) => {
+            recipeIngredients.push(`${ingredient.toLowerCase()}`);
+        });
+        let recipeDescription = recipe.description;
+
+        console.log(recipeTitle);
+        console.log(recipeIngredients);
+        console.log(recipeDescription);
+        //if(recipeTitle.toLowerCase.includes(searchedLetters)||(recipeIngredients))
+        //filteredRecipes.push(recipe);
+    }
+}
+
 
 /*ZONE DE TESTS*/
 
