@@ -1,6 +1,6 @@
 import { recipes } from './recipes.js';
 
-const recipesArray = recipes;
+let recipesArray = recipes;
 //Array qui contient toutes les recettes (en tant qu'infos).
 let filteredRecipes = [];
 //Array qui contient les recette filtrées par une recherche
@@ -26,9 +26,6 @@ function displayCards(){
     }
     console.log(cardsArray);
 }
-
-
-
 
 /*RECUPERATION DES ARRAYS DE FILTRES (PAR DEFAUT = TOUS LES FILTRES)*/
 //boutons pour afficher les listes de filtres :
@@ -92,10 +89,21 @@ const searchbarError = document.querySelector("#error-msg-searchbar");//
 
 searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
     const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
-    compareAndFilter(); //ajouter searchedLetters entre parenthèses
+    if(searchedLetters.length>2){
+        compareAndFilter(searchedLetters);
+        recipesArray = filteredRecipes;
+        console.log(recipesArray);
+        //puis méthode de la classe recipeCard pour clear le DOM
+        /*while(mainElement.firstChild){
+            mainElement.removeNode(mainElement.firstChild); //Uncaught TypeError: mainElement.removeNode is not a function at HTMLInputElement.<anonymous> (main.js:98) (anonymous) @ main.js:98
+        }
+        puis displayCards();
+        puis recipesArray = recipes*/
+    }
 });
 
-function compareAndFilter(){ //ajouter searchedLetters entre parenthèses
+function compareAndFilter(searchedLetters){
+    filteredRecipes.splice(0, filteredRecipes.length);
     for (let recipe of recipesArray){
         let recipeTitle = recipe.name;
         let ingredients = recipe.ingredients;
@@ -104,12 +112,8 @@ function compareAndFilter(){ //ajouter searchedLetters entre parenthèses
             recipeIngredients.push(`${ingredient.toLowerCase()}`);
         });
         let recipeDescription = recipe.description;
-
-        console.log(recipeTitle);
-        console.log(recipeIngredients);
-        console.log(recipeDescription);
-        //if(recipeTitle.toLowerCase.includes(searchedLetters)||(recipeIngredients))
-        //filteredRecipes.push(recipe);
+        if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters)))
+        filteredRecipes.push(recipe);
     }
 }
 
