@@ -11,10 +11,10 @@ const mainElement = document.querySelector("main");
 
 /*PAR DEFAUT, AFFICHAGE DE TOUTES LES CARTES*/
 
-displayCards();
+defaultDisplay();
 
-function displayCards(){
-    for (let recipe of recipesArray){
+function defaultDisplay(){
+    for (let recipe of recipesArray) {
         let recipeTitle = recipe.name;
         let recipeDuration = recipe.time;
         let recipeIngredients = recipe.ingredients;
@@ -24,7 +24,7 @@ function displayCards(){
         let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement, cardsArray);
         mainElement.appendChild(card.display());
     }
-    console.log(cardsArray);
+    //console.log(cardsArray);
 }
 
 /*RECUPERATION DES ARRAYS DE FILTRES (PAR DEFAUT = TOUS LES FILTRES)*/
@@ -91,14 +91,8 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
     const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
     if(searchedLetters.length>2){
         compareAndFilter(searchedLetters);
-        recipesArray = filteredRecipes;
-        console.log(recipesArray);
-        //puis méthode de la classe recipeCard pour clear le DOM
-        /*while(mainElement.firstChild){
-            mainElement.removeNode(mainElement.firstChild); //Uncaught TypeError: mainElement.removeNode is not a function at HTMLInputElement.<anonymous> (main.js:98) (anonymous) @ main.js:98
-        }
-        puis displayCards();
-        puis recipesArray = recipes*/
+        //console.log(filteredRecipes);
+        filteredCardsDisplay();
     }
 });
 
@@ -117,6 +111,24 @@ function compareAndFilter(searchedLetters){
     }
 }
 
+
+function filteredCardsDisplay(){
+    while (mainElement.firstChild) {
+        mainElement.removeChild(mainElement.firstChild);
+    }
+    for (let filteredRecipe of filteredRecipes){
+        let recipeTitle = filteredRecipe.name;
+        let recipeDuration = filteredRecipe.time;
+        let recipeIngredients = filteredRecipe.ingredients;
+        let recipeDescription = filteredRecipe.description;
+        let recipeId = filteredRecipe.id;
+    
+        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement, cardsArray);
+        //card.clearInterface();
+        mainElement.appendChild(card.display());
+    }
+    //console.log(cardsArray);
+}
 
 /*ZONE DE TESTS*/
 
