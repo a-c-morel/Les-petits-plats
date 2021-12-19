@@ -9,16 +9,6 @@ class RecipeCard {
         this.cardsContainer = cardsContainer;
         this.cardsArray = cardsArray;
     }
-    fillCardsArray(){
-        
-    }
-    /*clearInterface(){
-        //pour clear le DOM en supprimant les cartes existantes, et vider this.cardsArray
-        //this.cardsArray = [];
-        while (this.cardsContainer.firstChild) {
-            this.cardsContainer.removeChild(this.cardsContainer.firstChild);
-        }
-    }*/
     display() {
         const card = document.createElement("article");
         card.classList.add("card");

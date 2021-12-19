@@ -7,6 +7,9 @@ class FiltersList {
     }
 //créer méthode qui regarde s'il y a du contenu et qui le clear
     display() {
+        while (this.listContainer.firstChild) {
+            this.listContainer.removeChild(this.listContainer.firstChild);
+        }
         for (let filter of this.filters) {
             const filterLi = document.createElement("li");
             filterLi.classList.add(this.className);
