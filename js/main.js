@@ -1,171 +1,133 @@
 import { recipes } from './recipes.js';
 
-/*DISPLAY THE CARDS*/
-const recipesContainer = document.querySelector("main");
-const cardsRecipes = [];
+let recipesArray = recipes; //Array qui contient toutes les recettes (en tant qu'infos).
+let filteredRecipes = []; //Array qui contient les recette filtrées par une recherche
+let cardsArray = []; //Array qui contiendra les instances créées à partir de la classe Card (à créer), donc des objets. Cet Array devra se modifier en fonction de recipesArray, lui-même mis à jour par les recherches utilisateur, sans doute en liant l'id des recettes de recipesArray avec celui des objets de cardsArray.
 
-for (const recipe of recipes){
-    let myCard = new RecipeCard(recipe.name, recipe.time, recipe.ingredients, recipe.description);
-    cardsRecipes.push(myCard);
-}
+const mainElement = document.querySelector("main");
 
-cardsRecipes.forEach(recipe =>{
-    recipesContainer.appendChild(recipe.display());
+/*PAR DEFAUT, AFFICHAGE DE TOUTES LES CARTES*/
+
+defaultDisplay();
+
+/*RECUPERATION DES ARRAYS DE FILTRES (PAR DEFAUT = TOUS LES FILTRES)*/
+//boutons pour afficher les listes de filtres :
+displayFilters(recipesArray);
+
+/*ACTIONS DE L'UTILISATEUR ET LEURS EFFETS SUR L'INTERFACE*/
+//Cas d'utilisation : "l’utilisateur entre au moins 3 caractères dans la barre de recherche principale"
+//je récupère la barre de recherche et la zone pour le message d'erreur
+const searchBar = document.querySelector("#searchbar");
+const searchbarError = document.querySelector("#error-msg-searchbar");//
+
+searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
+    const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
+    if(searchedLetters.length>2){
+        compareAndFilter(searchedLetters);
+        filteredCardsDisplay();
+        displayFilters(filteredRecipes);
+    }
 });
 
-/*DISPLAY THE FILTERS LIST FOR THE BUTTONS*/
+/*FONCTIONS*/
 
-const ingredientFiltersBtn = document.querySelector("#ingredient-btn"); //ingredients btn
-const appareilFiltersBtn = document.querySelector("#appareil-btn"); //appareils btn
-const ustensilsFiltersBtn = document.querySelector("#ustensils-btn"); //ustensils btn
+function defaultDisplay(){
+    for (let recipe of recipesArray) {
+        let recipeTitle = recipe.name;
+        let recipeDuration = recipe.time;
+        let recipeIngredients = recipe.ingredients;
+        let recipeDescription = recipe.description;
+        let recipeId = recipe.id;
+    
+        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement, cardsArray);
+        mainElement.appendChild(card.display());
+    }
+}
 
-const ingredientFiltersList = document.querySelector("#edit-and-select_ingredients-results"); //ingredients filters ul
-const appareilFiltersList = document.querySelector("#edit-and-select_appareil-results"); //appareil filters ul
-const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results"); //ustensils filters ul
+function compareAndFilter(searchedLetters){
+    filteredRecipes.splice(0, filteredRecipes.length);
+    for (let recipe of recipesArray){
+        let recipeTitle = recipe.name;
+        let ingredients = recipe.ingredients;
+        let recipeIngredients = [];
+        ingredients.map(({ingredient}) => {
+            recipeIngredients.push(`${ingredient.toLowerCase()}`);
+        });
+        let recipeDescription = recipe.description;
+        if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters)))
+        filteredRecipes.push(recipe);
+    }
+}
 
-//const ulFilters = document.querySelectorAll(".advanced_search_results"); //the 3 filters ul containers, together in an array, if needed
+function filteredCardsDisplay(){
+    while (mainElement.firstChild) {
+        mainElement.removeChild(mainElement.firstChild);
+    }
+    for (let filteredRecipe of filteredRecipes){
+        let recipeTitle = filteredRecipe.name;
+        let recipeDuration = filteredRecipe.time;
+        let recipeIngredients = filteredRecipe.ingredients;
+        let recipeDescription = filteredRecipe.description;
+        let recipeId = filteredRecipe.id;
+    
+        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement, cardsArray);
+        mainElement.appendChild(card.display());
+    }
+}
 
-const searchIngredient = document.querySelector("#enter-ingredient"); //ingredients search input
-const searchAppareil = document.querySelector("#enter-appareil"); //appareils search input
-const searchUstensils = document.querySelector("#enter-ustensils"); //ustensils search input
+function displayFilters(myArray){
+    const ingredientFiltersBtn = document.querySelector("#ingredient-btn"); //ingredients btn
+    const appareilFiltersBtn = document.querySelector("#appareil-btn"); //appareils btn
+    const ustensilsFiltersBtn = document.querySelector("#ustensils-btn"); //ustensils btn
+    //containers pour les filtres :
+    const ingredientFiltersList = document.querySelector("#edit-and-select_ingredients-results"); //ingredients filters ul
+    const appareilFiltersList = document.querySelector("#edit-and-select_appareil-results"); //appareil filters ul
+    const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results"); //ustensils filters ul
+    //arrays de filtres :
+    const filtersArray = new FiltersArray(myArray);
+    const ingredientsArray = filtersArray.getIngredients();
+    const appareilsArray = filtersArray.getAppareils();
+    const ustensilsArray = filtersArray.getUstensils();
+    //affichage des filtres :
+    const ingredients = new FiltersList(ingredientFiltersBtn, ingredientFiltersList, ingredientsArray, "ingredient-element");
+    ingredients.display();
+    const appareils = new FiltersList(appareilFiltersBtn, appareilFiltersList, appareilsArray, "appareil-element");
+    appareils.display();
+    const ustensiles = new FiltersList(ustensilsFiltersBtn, ustensilsFiltersList, ustensilsArray, "ustensil-element");
+    ustensiles.display();
 
-//Get the list of all the ingredients (without duplicate)
-const allIngredients = [];
-for (let i=0; i<recipes.length; i++) {
-    let ingredients = recipes[i].ingredients;
-    ingredients.map(({ingredient}) => {
-        allIngredients.push(`${ingredient.toLowerCase()}`);
+    /*Quans clic sur un bouton = montrer les filtres, quand clic à l'extérieur de la liste = cacher la liste*/
+    document.addEventListener('click', (e) => {
+        if (e.target.closest("#ingredient-btn")) {
+            showList(ingredientFiltersBtn, ingredientFiltersList);
+        } else {
+            hideList(ingredientFiltersBtn, ingredientFiltersList);
+        }
+        if (e.target.closest("#appareil-btn")) {
+            showList(appareilFiltersBtn, appareilFiltersList);
+        } else {
+            hideList(appareilFiltersBtn, appareilFiltersList);
+        }
+        if (e.target.closest("#ustensils-btn")) {
+            showList(ustensilsFiltersBtn, ustensilsFiltersList);
+        } else {
+            hideList(ustensilsFiltersBtn, ustensilsFiltersList);
+        }
     });
 }
-const ingredientsNoRepeat = new Set(allIngredients);
-const ingredientFiltersArray = Array.from(ingredientsNoRepeat);
 
-//Get the list of all the appareils (without duplicate)
-const allAppareils = [];
-for (let i=0; i<recipes.length; i++) {
-    let appareils = recipes[i].appliance;
-    allAppareils.push(appareils);
-}
-const appareilsNoRepeat = new Set(allAppareils);
-const appareilFiltersArray = Array.from(appareilsNoRepeat);
-
-//Get the list of all the ustensils (without duplicate)
-const allUstensils = [];
-for (let i=0; i<recipes.length; i++) {
-    let ustensils = recipes[i].ustensils;
-    allUstensils.push(ustensils);
-}
-const allUstensilsJoined = allUstensils.flat();
-const lowerCaseUstensils = allUstensilsJoined.map(x => x.toLowerCase());
-const ustensilsNoRepeat = new Set(lowerCaseUstensils);
-const ustenstilsFiltersArray = Array.from(ustensilsNoRepeat);
-
-//Display the filters inside their container
-const ingredients = new FiltersList(ingredientFiltersBtn, ingredientFiltersList, ingredientFiltersArray, "ingredient-element");
-ingredients.display();
-const appareils = new FiltersList(appareilFiltersBtn, appareilFiltersList, appareilFiltersArray, "appareil-element");
-appareils.display();
-const ustensils = new FiltersList(ustensilsFiltersBtn, ustensilsFiltersList, ustenstilsFiltersArray, "ustensils-element");
-ustensils.display();
-
-//Show the filters when user clicks on a button, hide the filters when user clicks outside a button
-
-document.addEventListener('click', (e) => {
-    if (e.target.closest("#ingredient-btn")) {
-        ingredientFiltersList.classList.add("show-filters");
-        ingredientFiltersList.classList.add("row");
-        ingredientFiltersBtn.classList.add("w-50");
-    } else {
-        ingredientFiltersList.classList.remove("show-filters");
-        ingredientFiltersList.classList.remove("row");
-        ingredientFiltersBtn.classList.remove("w-50");
-    }
-
-    if (e.target.closest("#appareil-btn")) {
-        appareilFiltersList.classList.add("show-filters");
-        appareilFiltersList.classList.add("row");
-        appareilFiltersBtn.classList.add("w-50");
-    } else {
-        appareilFiltersList.classList.remove("show-filters");
-        appareilFiltersList.classList.remove("row");
-        appareilFiltersBtn.classList.remove("w-50");
-    }
-    
-    if (e.target.closest("#ustensils-btn")) {
-        ustensilsFiltersList.classList.add("show-filters");
-        ustensilsFiltersList.classList.add("row");
-        ustensilsFiltersBtn.classList.add("w-50");
-    } else {
-        ustensilsFiltersList.classList.remove("show-filters");
-        ustensilsFiltersList.classList.remove("row");
-        ustensilsFiltersBtn.classList.remove("w-50");
-    }
-});
-
-/*ADVANCED SEARCH FILTERS EVENTS*/
-
-searchIngredient.addEventListener("keyup", (e) => {
-    const searchedLetters = e.target.value.toLowerCase();
-    const  items = document.querySelectorAll(".ingredient-element");
-    filterElements(searchedLetters, items);
-});
-
-searchAppareil.addEventListener("keyup", (e) => {
-    const searchedLetters = e.target.value.toLowerCase();
-    const  items = document.querySelectorAll(".appareil-element");
-    filterElements(searchedLetters, items);
-});
-
-searchUstensils.addEventListener("keyup", (e) => {
-    const searchedLetters = e.target.value.toLowerCase();
-    const  items = document.querySelectorAll(".ustensils-element");
-    filterElements(searchedLetters, items);
-});
-
-/*SEARCHBAR EVENTS*/
-const searchBar = document.querySelector("#searchbar"); //get search input
-const tagFilters = document.querySelectorAll(".filter-element");
-const searchbarError = document.querySelector(".error-msg-searchbar");
-
-removeErrorMessage(searchbarError); //by default
-
-searchBar.addEventListener("keyup", (e) => { //when user presses any key
-    const searchedLetters = e.target.value.toLowerCase(); //variable which puts the user entry into lowercase
-    const cards = document.querySelectorAll(".card"); //creates an array with all the article.card
-    const cardsArray = Array.from(cards);
-    
-    filterElements(searchedLetters, cardsArray, searchbarError);
-    filterElements(searchedLetters, tagFilters);
-    if((cardsArray.indexOf(searchedLetters.toLowerCase())===-1)&&(searchedLetters.length >2)){ //if there isn't any element corresponding to the user's research
-        addErrorMessage(searchbarError);
-    } else{
-        removeErrorMessage(searchbarError);
-    }
-});
-
-//choisir entre indexOf et includes
-
-function filterElements(letters, items) {
-    for (let i=0; i<items.length; i++){
-        if(items[i].textContent.toLowerCase().includes(letters)&&(letters.length >2)) { //if user entry >2 letters and if card contains them (+ letters are put into lowercase)
-            items[i].style.display = "block";
-        } else if((!items[i].textContent.toLowerCase().includes(letters))&&(letters.length >2)){ //if user entry >2 letters but if card doesn't contain them (+ letters are put into lowercase)
-            items[i].style.display = "none";
-        } else{ //every other cases
-            items[i].style.display = "block";
-        }
-    }
+function showList(btn, list){
+    list.classList.add("show-filters");
+    list.classList.add("row");
+    btn.classList.add("w-50");
 }
 
-//
-
-
-function addErrorMessage(messageContainer){
-    messageContainer.style.display = "block";
-    messageContainer.innerHTML = "Il n'y a pas de recette correspondant à votre recherche.";
+function hideList(btn, list){
+    list.classList.remove("show-filters");
+    list.classList.remove("row");
+    btn.classList.remove("w-50");
 }
 
-function removeErrorMessage(messageContainer){
-    messageContainer.style.display = "none";
-    messageContainer.innerHTML = "";
-}
+/*ZONE DE TESTS*/
+
+/*ZONE DE TESTS*/
