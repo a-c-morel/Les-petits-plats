@@ -20,6 +20,7 @@ body{
 }
 
 ol, ul{
+    list-style-type: none;
     padding-left: -2rem !important;
     -webkit-padding-start: 8px;
 }
@@ -45,14 +46,6 @@ ol, ul{
 .form-control{
     border-right: none
 }
-
-/*.error-msg-searchbar{
-    display: none;
-}
-
-.error-msg-showed{
-    display: block
-}*/
 
 /*FILTERING BUTTONS*/
 @media screen and(min-width: 768px){
