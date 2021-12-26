@@ -6,29 +6,6 @@ let cardsArray = []; //Array qui contiendra les instances créées à partir de 
 
 const mainElement = document.querySelector("main");
 
-/*PAR DEFAUT, AFFICHAGE DE TOUTES LES CARTES*/
-
-defaultDisplay();
-
-/*RECUPERATION DES ARRAYS DE FILTRES (PAR DEFAUT = TOUS LES FILTRES)*/
-//boutons pour afficher les listes de filtres :
-displayFilters(recipesArray);
-
-/*ACTIONS DE L'UTILISATEUR ET LEURS EFFETS SUR L'INTERFACE*/
-//Cas d'utilisation : "l’utilisateur entre au moins 3 caractères dans la barre de recherche principale"
-//je récupère la barre de recherche et la zone pour le message d'erreur
-const searchBar = document.querySelector("#searchbar");
-const searchbarError = document.querySelector("#error-msg-searchbar");//
-
-searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
-    const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
-    if(searchedLetters.length>2){
-        compareAndFilter(searchedLetters);
-        filteredCardsDisplay();
-        displayFilters(filteredRecipes);
-    }
-});
-
 /*FONCTIONS*/
 
 function defaultDisplay(){
@@ -128,6 +105,53 @@ function hideList(btn, list){
     btn.classList.remove("w-50");
 }
 
-/*ZONE DE TESTS*/
+/*PAR DEFAUT, AFFICHAGE DE TOUTES LES CARTES*/
 
-/*ZONE DE TESTS*/
+defaultDisplay();
+
+/*RECUPERATION DES ARRAYS DE FILTRES (PAR DEFAUT = TOUS LES FILTRES)*/
+//boutons pour afficher les listes de filtres :
+displayFilters(recipesArray);
+
+/*ACTIONS DE L'UTILISATEUR ET LEURS EFFETS SUR L'INTERFACE*/
+//Cas d'utilisation : "l’utilisateur entre au moins 3 caractères dans la barre de recherche principale"
+//je récupère la barre de recherche et la zone pour le message d'erreur
+const searchBar = document.querySelector("#searchbar");
+const searchbarError = document.querySelector("#error-msg-searchbar");//
+
+searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
+    const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
+    if(searchedLetters.length>2){
+        compareAndFilter(searchedLetters);
+        filteredCardsDisplay();
+        displayFilters(filteredRecipes);
+    }
+});
+
+/****************************************************************************************************************/
+
+
+const ingredientsTags = document.querySelectorAll(".ingredient-element");
+const tags = document.querySelector(".tags");
+const ingredientsTagsArray = [];
+//clear le DOM
+while (tags.firstChild) {
+    tags.removeChild(tags.firstChild);
+}
+for (let ingredientTag of ingredientsTags){
+    ingredientTag.addEventListener('click', (e) => {
+        //console.log(`${ingredientTag.innerHTML} has been clicked`);
+        ingredientsTagsArray.push(ingredientTag.innerHTML);   
+        let ingredientsTagsNoRepeat = new Set(ingredientsTagsArray);
+        console.log(ingredientsTagsNoRepeat); 
+        let ingredientsTagsArrayNoRepeat = Array.from(ingredientsTagsNoRepeat);
+        console.log(ingredientsTagsArrayNoRepeat);        
+        //2) display tags depuis tagsArrayNoRepeat.
+        const tag = document.createElement("li");
+        tag.classList.add("ingredient-tag");
+        for (let ingredientTagFilter of ingredientsTagsArrayNoRepeat)
+        tag.innerHTML = ingredientTagFilter;
+        tags.appendChild(tag);
+    });
+
+}

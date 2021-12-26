@@ -142,3 +142,28 @@ ol, ul{
     overflow: hidden;
     max-height: 109px;
 }
+
+.tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+}
+
+.ingredient-tag{
+    width: 6.69rem;
+    height: 2.31rem;
+    border-radius: .31rem;
+    background-color: var(--btn1);
+}
+.appareil-tag{
+    width: 6.69rem;
+    height: 2.31rem;
+    border-radius: .31rem;
+    background-color: var(--btn2);
+}
+.ustensile-tag{
+    width: 6.69rem;
+    height: 2.31rem;
+    border-radius: .31rem;
+    background-color: var(--btn3);
+}
