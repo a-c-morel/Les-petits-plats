@@ -134,24 +134,28 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
 const ingredientsTags = document.querySelectorAll(".ingredient-element");
 const tags = document.querySelector(".tags");
 const ingredientsTagsArray = [];
-//clear le DOM
-while (tags.firstChild) {
-    tags.removeChild(tags.firstChild);
-}
 for (let ingredientTag of ingredientsTags){
     ingredientTag.addEventListener('click', (e) => {
         //console.log(`${ingredientTag.innerHTML} has been clicked`);
-        ingredientsTagsArray.push(ingredientTag.innerHTML);   
-        let ingredientsTagsNoRepeat = new Set(ingredientsTagsArray);
-        console.log(ingredientsTagsNoRepeat); 
-        let ingredientsTagsArrayNoRepeat = Array.from(ingredientsTagsNoRepeat);
-        console.log(ingredientsTagsArrayNoRepeat);        
-        //2) display tags depuis tagsArrayNoRepeat.
+        console.log(e.target.innerHTML);
         const tag = document.createElement("li");
         tag.classList.add("ingredient-tag");
-        for (let ingredientTagFilter of ingredientsTagsArrayNoRepeat)
-        tag.innerHTML = ingredientTagFilter;
-        tags.appendChild(tag);
+        tag.innerHTML = e.target.innerHTML;
+        if(!ingredientsTagsArray.includes(tag.outerText)){
+            tags.appendChild(tag);
+            ingredientsTagsArray.push(tag.outerText);   
+        }
+        console.log(ingredientsTagsArray);        
+        
+    
+        //let ingredientsTagsNoRepeat = new Set(ingredientsTagsArray);
+        //console.log(ingredientsTagsNoRepeat); 
+        //let ingredientsTagsArrayNoRepeat = Array.from(ingredientsTagsNoRepeat);
+        //console.log(ingredientsTagsArrayNoRepeat);        
+        //2) display tags depuis tagsArrayNoRepeat.
+        
+        /*ingredientsTagsArrayNoRepeat.splice(ingredientsTagsArrayNoRepeat.indexOf(ingredientTagFilter), 1);
+        console.log(ingredientsTagsArrayNoRepeat);*/
     });
 
 }
