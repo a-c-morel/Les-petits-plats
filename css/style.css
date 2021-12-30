@@ -146,24 +146,29 @@ ol, ul{
 .tags{
     display: flex;
     flex-wrap: wrap;
-    gap: 3rem;
+    gap: 1.25rem;
+    color: white;
+    text-align: center;
 }
 
 .ingredient-tag{
-    width: 6.69rem;
-    height: 2.31rem;
-    border-radius: .31rem;
     background-color: var(--btn1);
+    padding: .63rem;
+    padding-left: 1.25rem;
+    padding-right: 1.38rem;
+    border-radius: .31rem;
 }
 .appareil-tag{
-    width: 6.69rem;
-    height: 2.31rem;
-    border-radius: .31rem;
     background-color: var(--btn2);
+    padding: .63rem;
+    padding-left: 1.25rem;
+    padding-right: 1.38rem;
+    border-radius: .31rem;
 }
 .ustensil-tag{
-    width: 6.69rem;
-    height: 2.31rem;
-    border-radius: .31rem;
     background-color: var(--btn3);
+    padding: .63rem;
+    padding-left: 1.25rem;
+    padding-right: 1.38rem;
+    border-radius: .31rem;
 }
