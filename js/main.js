@@ -130,32 +130,36 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
 
 /****************************************************************************************************************/
 
+const tags = document.querySelector(".tags");
 
 const ingredientsTags = document.querySelectorAll(".ingredient-element");
-const tags = document.querySelector(".tags");
-const ingredientsTagsArray = [];
-for (let ingredientTag of ingredientsTags){
-    ingredientTag.addEventListener('click', (e) => {
-        //console.log(`${ingredientTag.innerHTML} has been clicked`);
-        console.log(e.target.innerHTML);
-        const tag = document.createElement("li");
-        tag.classList.add("ingredient-tag");
-        tag.innerHTML = e.target.innerHTML;
-        if(!ingredientsTagsArray.includes(tag.outerText)){
-            tags.appendChild(tag);
-            ingredientsTagsArray.push(tag.outerText);   
-        }
-        console.log(ingredientsTagsArray);        
-        
-    
-        //let ingredientsTagsNoRepeat = new Set(ingredientsTagsArray);
-        //console.log(ingredientsTagsNoRepeat); 
-        //let ingredientsTagsArrayNoRepeat = Array.from(ingredientsTagsNoRepeat);
-        //console.log(ingredientsTagsArrayNoRepeat);        
-        //2) display tags depuis tagsArrayNoRepeat.
-        
-        /*ingredientsTagsArrayNoRepeat.splice(ingredientsTagsArrayNoRepeat.indexOf(ingredientTagFilter), 1);
-        console.log(ingredientsTagsArrayNoRepeat);*/
-    });
+const appareilsTags = document.querySelectorAll(".appareil-element");
+const ustensilesTags = document.querySelectorAll(".ustensil-element");
 
+const ingredientsTagsArray = [];
+const appareilsTagsArray = [];
+const ustensilesTagsArray = [];
+
+const ingredientsClassName = "ingredient-tag";
+const appareilsClassName = "appareil-tag";
+const ustensilesClassName = "ustensil-tag";
+
+createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName);
+createTag(appareilsTags, appareilsTagsArray, appareilsClassName);
+createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName);
+
+function createTag(elements, arrayToFill, className){
+    for (let element of elements){
+        element.addEventListener('click', (e) => {
+            console.log(e.target.innerHTML);
+            const tag = document.createElement("li");
+            tag.classList.add(`${className}`);
+            tag.innerHTML = e.target.innerHTML;
+            if(!arrayToFill.includes(tag.outerText)){
+                tags.appendChild(tag);
+                arrayToFill.push(tag.outerText);   
+            }
+            console.log(arrayToFill);
+        });
+    }
 }
