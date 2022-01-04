@@ -161,6 +161,25 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
         createTag(appareilsTags, appareilsTagsArray, appareilsClassName);
         createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName);
     }
+    if(searchedLetters.length <=2){ //permet de redisplay les listes par défaut quand l'utilisateur efface sa recherche, notamment
+        displayFilters(recipesArray);
+
+        const ingredientsTags = document.querySelectorAll(".ingredient-element");
+        const appareilsTags = document.querySelectorAll(".appareil-element");
+        const ustensilesTags = document.querySelectorAll(".ustensil-element");
+
+        const ingredientsTagsArray = []; //array qui contient les tags de type ingrédient (qui sont display en tant que filtres sous la searchbar)
+        const appareilsTagsArray = []; //array qui contient les tags de type appareil (qui sont display en tant que filtres sous la searchbar)
+        const ustensilesTagsArray = []; //array qui contient les tags de type ustensile (qui sont display en tant que filtres sous la searchbar)
+
+        const ingredientsClassName = "ingredient-tag";
+        const appareilsClassName = "appareil-tag";
+        const ustensilesClassName = "ustensil-tag";
+
+        createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName);
+        createTag(appareilsTags, appareilsTagsArray, appareilsClassName);
+        createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName);
+    }
 });
 
 //cas où l'utilisateur passe par les listes de filtres sans passer par la searchbar
@@ -179,3 +198,5 @@ const ustensilesClassName = "ustensil-tag";
 createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName);
 createTag(appareilsTags, appareilsTagsArray, appareilsClassName);
 createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName);
+
+/*******************************************************************************************************/
