@@ -44,7 +44,7 @@ function compareAndFilter(entry){
         if((recipeTitle.toLowerCase().includes(entry))||(recipeIngredients.toString().toLowerCase().includes(entry)) || (recipeDescription.toLowerCase().includes(entry)))
         filteredRecipes.push(recipe);
     }
-    console.log(filteredRecipes);
+    //console.log(filteredRecipes);
 }
 
 //cette fonction est à utiliser à la suite de compareAndFilter() : elle affiche les cartes une fois filtrées. (mise à jour de l'interface). Penser à utiliser une méthode qui clear le DOM avant.
@@ -115,44 +115,47 @@ function hideList(btn, list){
     btn.classList.remove("w-50");
 }
 
-//cette fonction permet d'afficher sous la barre de recherche un tag cliqué depuis la liste. -> pb = comment je récupère ensuite l'array des tags obtenu ?
+//cette fonction permet d'afficher sous la barre de recherche un tag cliqué depuis la liste.
 function createTag(elements, arrayToFill, className, cardsArray){
     for (let element of elements){
         element.addEventListener('click', (e) => {
-            console.log(e.target.innerHTML);
+            //console.log(e.target.innerHTML);
             const tag = document.createElement("li");
             tag.classList.add(`${className}`);
             tag.innerHTML = e.target.innerHTML;
-            if(!arrayToFill.includes(tag.outerText)){
+            if(!(arrayToFill.includes(tag.outerText))){
                 tags.appendChild(tag);//tags = le container <ul>
                 arrayToFill.push(tag.outerText); 
+
+                console.log(ingredientsTagsArray);
                 
-                //filtrage en 3 étapes:
-                const filtersArray = new FiltersArray(cardsArray);
-                const ingredientsArray = filtersArray.getIngredients();
-                const appareilsArray = filtersArray.getAppareils();
-                const ustensilsArray = filtersArray.getUstensils();
+                for (let card of cardsArray){
+                    let recipeIngredients = card.ingredients; //un array contenant des objets
+                    let recipeIngredientsArray = [];
+                    recipeIngredients.map(({ingredient}) => {
+                        recipeIngredientsArray.push(`${ingredient.toLowerCase()}`);
+                    });
+                    //console.log(recipeIngredientsArray);
+                    //let recipeAppareil = card.appliance; //pas un array -> peut poser un pb pour l'utilisation de every() et de includes() ?
+                    //let recipeUstensiles = card.ustensils; //un array
 
-                console.log(ingredientsArray);
+                    console.log(ingredientsTagsArray, ingredientsTagsArray.every(tag => recipeIngredientsArray.includes(tag)), card);
 
-                /*for (let card of cardsArray){
-                    let recipeIngredients = card.ingredients; //un array
-                    let recipeAppareil = card.appliance; //pas un array -> peut poser un pb pour l'utilisation de every() et de includes() ?
-                    let recipeUstensiles = card.ustensils; //un array
-
-                    if(!(ingredientsTagsArray.every(ingredientTag => recipeIngredients.includes(ingredientTag)))){
+                    //console.log(card, (recipeIngredientsArray.includes(ingredientsTagsArray)));
+                    /*if(!(recipeIngredientsArray.includes(ingredientsTagsArray))){
+                        //console.log(cardsArray.indexOf(card));
                         //supprimer carte de l'array des cards
-                        cardsArray.splice(indexOf(card), 1);
-                    }
-                    if(!(appareilsTagsArray.every(appareilTag => recipeAppareil.includes(appareilTag)))){
+                        //cardsArray.splice(cardsArray.indexOf(card), 1);
+                    }*/
+                    /*if(!(appareilsTagsArray.every(appareilTag => recipeAppareil.includes(appareilTag)))){
                         //supprimer carte de l'array des cards
                         cardsArray.splice(indexOf(card), 1);
                     }
                     if(!(ustensilesTagsArray.every(ustensilTag => recipeUstensiles.includes(ustensilTag)))){
                         //supprimer carte de l'array des cards
                         cardsArray.splice(indexOf(card), 1);
-                    }
-                    console.log(cardsArray);
+                    }*/
+                    //console.log(cardsArray);
                 }
 
                 
@@ -190,10 +193,6 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
         const appareilsTags = document.querySelectorAll(".appareil-element");
         const ustensilesTags = document.querySelectorAll(".ustensil-element");
 
-        const ingredientsTagsArray = []; //array qui contient les tags de type ingrédient (qui sont display en tant que filtres sous la searchbar)
-        const appareilsTagsArray = []; //array qui contient les tags de type appareil (qui sont display en tant que filtres sous la searchbar)
-        const ustensilesTagsArray = []; //array qui contient les tags de type ustensile (qui sont display en tant que filtres sous la searchbar)
-
         const ingredientsClassName = "ingredient-tag";
         const appareilsClassName = "appareil-tag";
         const ustensilesClassName = "ustensil-tag";
@@ -202,24 +201,26 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
         createTag(appareilsTags, appareilsTagsArray, appareilsClassName, filteredRecipes);
         createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, filteredRecipes);
     }
-    if(searchedLetters.length <=2){ //permet de redisplay les listes par défaut quand l'utilisateur efface sa recherche, notamment
+    if(searchedLetters.length <= 2){ //permet de redisplay les listes par défaut quand l'utilisateur efface sa recherche, notamment.
+        compareAndFilter(searchedLetters);
+        while (mainElement.firstChild) {
+            mainElement.removeChild(mainElement.firstChild);
+        }
+        defaultDisplay();
+
         displayFilters(recipesArray);
 
         const ingredientsTags = document.querySelectorAll(".ingredient-element");
         const appareilsTags = document.querySelectorAll(".appareil-element");
         const ustensilesTags = document.querySelectorAll(".ustensil-element");
 
-        const ingredientsTagsArray = []; //array qui contient les tags de type ingrédient (qui sont display en tant que filtres sous la searchbar)
-        const appareilsTagsArray = []; //array qui contient les tags de type appareil (qui sont display en tant que filtres sous la searchbar)
-        const ustensilesTagsArray = []; //array qui contient les tags de type ustensile (qui sont display en tant que filtres sous la searchbar)
-
         const ingredientsClassName = "ingredient-tag";
         const appareilsClassName = "appareil-tag";
         const ustensilesClassName = "ustensil-tag";
 
-        createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName);
-        createTag(appareilsTags, appareilsTagsArray, appareilsClassName);
-        createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName);
+        createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName, recipesArray);
+        createTag(appareilsTags, appareilsTagsArray, appareilsClassName, recipesArray);
+        createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, recipesArray);
     }
 });
 
