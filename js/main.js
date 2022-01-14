@@ -11,6 +11,7 @@ const searchBar = document.querySelector("#searchbar");
 
 const tags = document.querySelector(".tags");
 
+
 /************************************************************************************************************************/
 
 /*FONCTIONS*/
@@ -134,37 +135,43 @@ function createTag(elements, arrayToFill, className){
 }
 
 function filterByTagsArrays(myCardsArray) {
-    console.log('cartes qui correspondent :');
-    let filteredArrayByIngredients = [];
+    const filterElements = document.querySelectorAll('.filter-element');
 
-    for (let card of myCardsArray) {
-        let recipeIngredients = card.ingredients; //un array contenant des objets
-        let recipeIngredientsArray = [];
-        recipeIngredients.map(({ingredient}) => {
-            recipeIngredientsArray.push(`${ingredient.toLowerCase()}`);
+    for (let filterElement of filterElements) {
+        filterElement.addEventListener('click', () => {
+            console.log('cartes qui correspondent :');
+            let filteredArrayByIngredients = [];
+
+            for (let card of myCardsArray) {
+                let recipeIngredients = card.ingredients; //un array contenant des objets
+                let recipeIngredientsArray = [];
+                recipeIngredients.map(({ingredient}) => {
+                    recipeIngredientsArray.push(`${ingredient.toLowerCase()}`);
+                });
+                //let recipeAppareil = card.appliance; //pas un array -> peut poser un pb pour l'utilisation de every() et de includes() ?
+                //let recipeUstensiles = card.ustensils; //un array
+
+                if(ingredientsTagsArray.every(tag => recipeIngredientsArray.includes(tag))){
+                    console.log(card);
+                    filteredArrayByIngredients.push(card);
+                }
+                
+            }
+            console.log(filteredArrayByIngredients); 
+            while (mainElement.firstChild) {
+                mainElement.removeChild(mainElement.firstChild);
+            }
+            for (let myCard of filteredArrayByIngredients){
+                let recipeTitle = myCard.name;
+                let recipeDuration = myCard.time;
+                let recipeIngredients = myCard.ingredients;
+                let recipeDescription = myCard.description;
+                let recipeId = myCard.id;
+            
+                let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement);
+                mainElement.appendChild(card.display());
+            }
         });
-        //let recipeAppareil = card.appliance; //pas un array -> peut poser un pb pour l'utilisation de every() et de includes() ?
-        //let recipeUstensiles = card.ustensils; //un array
-
-        if(ingredientsTagsArray.every(tag => recipeIngredientsArray.includes(tag))){
-            console.log(card);
-            filteredArrayByIngredients.push(card);
-        }
-        
-    }
-    console.log(filteredArrayByIngredients); 
-    while (mainElement.firstChild) {
-        mainElement.removeChild(mainElement.firstChild);
-    }
-    for (let myCard of filteredArrayByIngredients){
-        let recipeTitle = myCard.name;
-        let recipeDuration = myCard.time;
-        let recipeIngredients = myCard.ingredients;
-        let recipeDescription = myCard.description;
-        let recipeId = myCard.id;
-    
-        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement);
-        mainElement.appendChild(card.display());
     }
 }
 
@@ -200,6 +207,8 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
         createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName, filteredRecipes);
         createTag(appareilsTags, appareilsTagsArray, appareilsClassName, filteredRecipes);
         createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, filteredRecipes);
+
+        filterByTagsArrays(filteredRecipes);
     }
     if(searchedLetters.length <= 2){ //permet de redisplay les listes par défaut quand l'utilisateur efface sa recherche, notamment.
         compareAndFilter(searchedLetters);
@@ -221,6 +230,8 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
         createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName, recipesArray);
         createTag(appareilsTags, appareilsTagsArray, appareilsClassName, recipesArray);
         createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, recipesArray);
+
+        filterByTagsArrays(recipesArray);
     }
 });
 
@@ -241,10 +252,4 @@ createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName, recipesAr
 createTag(appareilsTags, appareilsTagsArray, appareilsClassName, recipesArray);
 createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, recipesArray);
 
-const filterElements = document.querySelectorAll('.filter-element');
-
-for (let filterElement of filterElements) {
-    filterElement.addEventListener('click', () => {
-        filterByTagsArrays(recipesArray);
-    });
-}
+filterByTagsArrays(recipesArray);
