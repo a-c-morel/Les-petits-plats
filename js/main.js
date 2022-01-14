@@ -4,11 +4,10 @@ import { recipes } from './recipes.js';
 
 let recipesArray = recipes; //Array qui contient toutes les recettes (en tant qu'infos).
 let filteredRecipes = []; //Array qui contient les recette filtrées par une recherche
-let cardsArray = []; //Array qui contiendra les instances créées à partir de la classe Card (à créer), donc des objets. Cet Array devra se modifier en fonction de recipesArray, lui-même mis à jour par les recherches utilisateur, sans doute en liant l'id des recettes de recipesArray avec celui des objets de cardsArray.
 
 const mainElement = document.querySelector("main");
 const searchBar = document.querySelector("#searchbar");
-const searchbarError = document.querySelector("#error-msg-searchbar");
+//const searchbarError = document.querySelector("#error-msg-searchbar");
 
 const tags = document.querySelector(".tags");
 
@@ -25,14 +24,15 @@ function defaultDisplay(){
         let recipeDescription = recipe.description;
         let recipeId = recipe.id;
     
-        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement, cardsArray);
+        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement);
         mainElement.appendChild(card.display());
     }
 }
 
 //cette fonction sert à comparer les lettres cherchées dans la searchbar avec les textes des recettes.
+//en sortie on a filteredRecipe qui contient toutes les recettes qui correspondent bien à la recherche.
 function compareAndFilter(entry){
-    filteredRecipes.splice(0, filteredRecipes.length);
+    filteredRecipes.splice(0, filteredRecipes.length); //on vide l'array
     for (let recipe of recipesArray){
         let recipeTitle = recipe.name;
         let ingredients = recipe.ingredients;
@@ -44,7 +44,6 @@ function compareAndFilter(entry){
         if((recipeTitle.toLowerCase().includes(entry))||(recipeIngredients.toString().toLowerCase().includes(entry)) || (recipeDescription.toLowerCase().includes(entry)))
         filteredRecipes.push(recipe);
     }
-    //console.log(filteredRecipes);
 }
 
 //cette fonction est à utiliser à la suite de compareAndFilter() : elle affiche les cartes une fois filtrées. (mise à jour de l'interface). Penser à utiliser une méthode qui clear le DOM avant.
@@ -56,7 +55,7 @@ function filteredCardsDisplay(){
         let recipeDescription = filteredRecipe.description;
         let recipeId = filteredRecipe.id;
     
-        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement, cardsArray);
+        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement);
         mainElement.appendChild(card.display());
     }
 }
@@ -116,55 +115,56 @@ function hideList(btn, list){
 }
 
 //cette fonction permet d'afficher sous la barre de recherche un tag cliqué depuis la liste.
-function createTag(elements, arrayToFill, className, cardsArray){
+//elle permet également d'envoyer le tag cliqué dans l'array de sa catégorie. (ingredientsTagsArray ou appareilsTagsArray ou ustensilesTagsArray)
+function createTag(elements, arrayToFill, className){
     for (let element of elements){
         element.addEventListener('click', (e) => {
-            //console.log(e.target.innerHTML);
             const tag = document.createElement("li");
             tag.classList.add(`${className}`);
             tag.innerHTML = e.target.innerHTML;
             if(!(arrayToFill.includes(tag.outerText))){
                 tags.appendChild(tag);//tags = le container <ul>
-                arrayToFill.push(tag.outerText); 
-
-                console.log(ingredientsTagsArray);
-                
-                for (let card of cardsArray){
-                    let recipeIngredients = card.ingredients; //un array contenant des objets
-                    let recipeIngredientsArray = [];
-                    recipeIngredients.map(({ingredient}) => {
-                        recipeIngredientsArray.push(`${ingredient.toLowerCase()}`);
-                    });
-                    //console.log(recipeIngredientsArray);
-                    //let recipeAppareil = card.appliance; //pas un array -> peut poser un pb pour l'utilisation de every() et de includes() ?
-                    //let recipeUstensiles = card.ustensils; //un array
-
-                    console.log(ingredientsTagsArray, ingredientsTagsArray.every(tag => recipeIngredientsArray.includes(tag)), card);
-
-                    //console.log(card, (recipeIngredientsArray.includes(ingredientsTagsArray)));
-                    /*if(!(recipeIngredientsArray.includes(ingredientsTagsArray))){
-                        //console.log(cardsArray.indexOf(card));
-                        //supprimer carte de l'array des cards
-                        //cardsArray.splice(cardsArray.indexOf(card), 1);
-                    }*/
-                    /*if(!(appareilsTagsArray.every(appareilTag => recipeAppareil.includes(appareilTag)))){
-                        //supprimer carte de l'array des cards
-                        cardsArray.splice(indexOf(card), 1);
-                    }
-                    if(!(ustensilesTagsArray.every(ustensilTag => recipeUstensiles.includes(ustensilTag)))){
-                        //supprimer carte de l'array des cards
-                        cardsArray.splice(indexOf(card), 1);
-                    }*/
-                    //console.log(cardsArray);
-                }
-
-                
-                //display à partir de l'array modifié.*/
-                
+                arrayToFill.push(tag.outerText);                
             }
-            //console.log(arrayToFill);
-            //console.log(ingredientsTagsArray);
+
+            /*Ici on avait commencé à faire les filtres à partir des array de tags, mais ça surcharge cette fonction.*/
+
         });
+    }
+}
+
+function filterByTagsArrays(myCardsArray) {
+    console.log('cartes qui correspondent :');
+    let filteredArrayByIngredients = [];
+
+    for (let card of myCardsArray) {
+        let recipeIngredients = card.ingredients; //un array contenant des objets
+        let recipeIngredientsArray = [];
+        recipeIngredients.map(({ingredient}) => {
+            recipeIngredientsArray.push(`${ingredient.toLowerCase()}`);
+        });
+        //let recipeAppareil = card.appliance; //pas un array -> peut poser un pb pour l'utilisation de every() et de includes() ?
+        //let recipeUstensiles = card.ustensils; //un array
+
+        if(ingredientsTagsArray.every(tag => recipeIngredientsArray.includes(tag))){
+            console.log(card);
+            filteredArrayByIngredients.push(card);
+        }
+        
+    }
+    console.log(filteredArrayByIngredients); 
+    while (mainElement.firstChild) {
+        mainElement.removeChild(mainElement.firstChild);
+    }
+    for (let myCard of filteredArrayByIngredients){
+        let recipeTitle = myCard.name;
+        let recipeDuration = myCard.time;
+        let recipeIngredients = myCard.ingredients;
+        let recipeDescription = myCard.description;
+        let recipeId = myCard.id;
+    
+        let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement);
+        mainElement.appendChild(card.display());
     }
 }
 
@@ -241,38 +241,10 @@ createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName, recipesAr
 createTag(appareilsTags, appareilsTagsArray, appareilsClassName, recipesArray);
 createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, recipesArray);
 
-/*******************************************************************************************************/
+const filterElements = document.querySelectorAll('.filter-element');
 
-/*
-Si je prends recipesArray (= l'utilisateur n'a pas effectué de recherche):
-
-for (let recipe of recipesArray){
-
-    let recipeIngredients = recipe.ingredients; //un array
-    let recipeAppareil = recipe.appliance; //pas un array -> peut poser un pb pour l'utilisation de every() et de includes() ?
-    let recipeUstensiles = recipe.ustensils; //un array
-
-    if (!((ingredientsTagsArray.every(ingredientTag => recipeIngredients.includes(ingredientTag)))&&(appareilsTagsArray.every(appareilTag => recipeAppareil.includes(appareilTag)))&&(ustensilesTagsArray.every(ustensilTag => recipeUstensiles.includes(recipeUstensiles))))) {
-        //supprimer la recette (voir comment : utiliser splice() sur l'array que j'ai utilisé comme input, puis faire un display à partir de l'array modifié ?)
-    }
-
-    //mieux écrit : 
-    if (!((everyFiltersChecked(ingredientsTagsArray, recipeIngredients)) && (everyFiltersChecked(appareilsTagsArray, recipeAppareil))&& (everyFiltersChecked(ustensilesTagsArray, recipeUstensiles)))) {
-
-        //supprimer la recette (voir comment : utiliser splice() sur l'array que j'ai utilisé comme input, puis faire un display à partir de l'array modifié ?)
-
-    }
+for (let filterElement of filterElements) {
+    filterElement.addEventListener('click', () => {
+        filterByTagsArrays(recipesArray);
+    });
 }
-
-function everyFiltersChecked(tagsArray, elements) {
-    return tagsArray.every(tag => elements.includes(tag));
-}
-
-
-
-
-Si c'est filteredRecipes (= l'utilisateur a effectué une recherche):
-
-même procédure, il faut juste que l'input soit filteredRecipes au lieu de recipesArray.
-
-*/
