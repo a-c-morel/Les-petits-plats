@@ -19,7 +19,7 @@ class FiltersArray{
     getAppareils(){
         for (let i=0; i<this.recipes.length; i++){
             let appareil = this.recipes[i].appliance;
-            this.appareils.push(appareil);
+            this.appareils.push(`${appareil.toLowerCase()}`);
         }
         const appareilsNoRepeat = new Set(this.appareils);
         this.appareils = Array.from(appareilsNoRepeat);
