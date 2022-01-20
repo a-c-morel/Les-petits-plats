@@ -252,7 +252,12 @@ displayFilters(recipesArray);
 searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
     const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
     if(searchedLetters.length>2){
+       
         compareAndFilter(searchedLetters);
+        if(filteredRecipes.length == 0){
+            searchbarError.classList.add("show-error-msg");
+            searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+        }
         while (mainElement.firstChild) {
             mainElement.removeChild(mainElement.firstChild);
         }
@@ -275,6 +280,8 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
     }
     if(searchedLetters.length <= 2){ //permet de redisplay les listes par défaut quand l'utilisateur efface sa recherche, notamment.
         compareAndFilter(searchedLetters);
+        searchbarError.classList.remove("show-error-msg");
+        searchbarError.innerHTML = "";
         while (mainElement.firstChild) {
             mainElement.removeChild(mainElement.firstChild);
         }

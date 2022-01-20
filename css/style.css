@@ -6,6 +6,7 @@
     --btn2: #68D9A4;
     --btn3: #ED6454;
     --lightBG: #E7E7E7;
+    --warningmsg: #ffc107;
 } 
 
 body{
@@ -45,6 +46,9 @@ ol, ul{
 }
 .form-control{
     border-right: none
+}
+.show-error-msg{
+    background-color: var(--warningmsg);
 }
 
 /*FILTERING BUTTONS*/
