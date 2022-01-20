@@ -7,7 +7,11 @@ let filteredRecipes = []; //Array qui contient les recette filtrées par une rec
 
 const mainElement = document.querySelector("main");
 const searchBar = document.querySelector("#searchbar");
-//const searchbarError = document.querySelector("#error-msg-searchbar");
+const searchbarError = document.querySelector("#error-msg-searchbar");
+
+//test :
+/*searchbarError.classList.add("show-error-msg");
+searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."*/
 
 const tags = document.querySelector(".tags");
 
@@ -139,25 +143,22 @@ function filterByTagsArrays(myCardsArray) {
 
     for (let filterElement of filterElements) {
         filterElement.addEventListener('click', () => {
-            console.log('cartes qui correspondent :');
             let filteredArrayByIngredients = [];
+            let filteredArrayByAppareils = [];
+            let filteredArrayByUstensiles = [];
 
+            /*1ER FILTRAGE : Cards qui contiennent les ingrédients choisis par utilisateur*/
             for (let card of myCardsArray) {
                 let recipeIngredients = card.ingredients; //un array contenant des objets
                 let recipeIngredientsArray = [];
                 recipeIngredients.map(({ingredient}) => {
                     recipeIngredientsArray.push(`${ingredient.toLowerCase()}`);
                 });
-                //let recipeAppareil = card.appliance; //pas un array -> peut poser un pb pour l'utilisation de every() et de includes() ?
-                //let recipeUstensiles = card.ustensils; //un array
 
                 if(ingredientsTagsArray.every(tag => recipeIngredientsArray.includes(tag))){
-                    console.log(card);
                     filteredArrayByIngredients.push(card);
                 }
-                
             }
-            console.log(filteredArrayByIngredients); 
             while (mainElement.firstChild) {
                 mainElement.removeChild(mainElement.firstChild);
             }
@@ -171,6 +172,68 @@ function filterByTagsArrays(myCardsArray) {
                 let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement);
                 mainElement.appendChild(card.display());
             }
+            displayFilters(filteredArrayByIngredients);
+            createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName, filteredArrayByIngredients);
+            createTag(appareilsTags, appareilsTagsArray, appareilsClassName, filteredArrayByIngredients);
+            createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, filteredArrayByIngredients);
+
+            /*2D FILTRAGE : Cards qui contiennent les ingrédients + les appareils choisis par utilisateur*/
+            for (let card of filteredArrayByIngredients){
+                let recipeAppareil = card.appliance;
+                let recipeAppareilsArray = [];
+                recipeAppareilsArray.push(`${recipeAppareil.toLowerCase()}`);
+                if(appareilsTagsArray.every(tag => recipeAppareilsArray.includes(tag))){
+                    console.log(card);
+                    filteredArrayByAppareils.push(card);
+                }
+            }
+            console.log(filteredArrayByAppareils); 
+            while (mainElement.firstChild) {
+                mainElement.removeChild(mainElement.firstChild);
+            }
+            for (let myCard of filteredArrayByAppareils){
+                let recipeTitle = myCard.name;
+                let recipeDuration = myCard.time;
+                let recipeIngredients = myCard.ingredients;
+                let recipeDescription = myCard.description;
+                let recipeId = myCard.id;
+            
+                let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement);
+                mainElement.appendChild(card.display());
+            }
+            displayFilters(filteredArrayByAppareils);
+            createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName, filteredArrayByAppareils);
+            createTag(appareilsTags, appareilsTagsArray, appareilsClassName, filteredArrayByAppareils);
+            createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, filteredArrayByAppareils);
+
+            /*3E FILTRAGE :  Cards qui contiennent les ingrédients ET les appareils ET les ustensiles choisis par utilisateur*/
+            for (let card of filteredArrayByAppareils) {
+                let recipeUstensiles = card.ustensils; //un array contenant des strings
+                let recipeUstensilesArray = [];
+                for (let recipeUstensile of recipeUstensiles){
+                    recipeUstensilesArray.push(`${recipeUstensile.toLowerCase()}`);
+                }
+                if(ustensilesTagsArray.every(tag => recipeUstensilesArray.includes(tag))){
+                    filteredArrayByUstensiles.push(card);
+                }
+            }
+            while (mainElement.firstChild) {
+                mainElement.removeChild(mainElement.firstChild);
+            }
+            for (let myCard of filteredArrayByUstensiles){
+                let recipeTitle = myCard.name;
+                let recipeDuration = myCard.time;
+                let recipeIngredients = myCard.ingredients;
+                let recipeDescription = myCard.description;
+                let recipeId = myCard.id;
+            
+                let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, recipeId, mainElement);
+                mainElement.appendChild(card.display());
+            }
+            displayFilters(filteredArrayByUstensiles);
+            createTag(ingredientsTags, ingredientsTagsArray, ingredientsClassName, filteredArrayByUstensiles);
+            createTag(appareilsTags, appareilsTagsArray, appareilsClassName, filteredArrayByUstensiles);
+            createTag(ustensilesTags, ustensilesTagsArray, ustensilesClassName, filteredArrayByUstensiles);
         });
     }
 }
