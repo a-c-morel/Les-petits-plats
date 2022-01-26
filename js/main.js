@@ -424,7 +424,8 @@ displayFilters(recipesArray);
 searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
     const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
     if(searchedLetters.length>2){
-       
+        searchbarError.classList.remove("show-error-msg");
+        searchbarError.innerHTML = "";
         compareAndFilter(searchedLetters);
         if(filteredRecipes.length == 0){
             searchbarError.classList.add("show-error-msg");
