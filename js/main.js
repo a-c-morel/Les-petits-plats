@@ -46,8 +46,9 @@ function compareAndFilter(entry){
             recipeIngredients.push(`${ingredient.toLowerCase()}`);
         });
         let recipeDescription = recipe.description;
-        if((recipeTitle.toLowerCase().includes(entry))||(recipeIngredients.toString().toLowerCase().includes(entry)) || (recipeDescription.toLowerCase().includes(entry)))
-        filteredRecipes.push(recipe);
+        if((recipeTitle.toLowerCase().includes(entry))||(recipeIngredients.toString().toLowerCase().includes(entry)) || (recipeDescription.toLowerCase().includes(entry))) {
+            filteredRecipes.push(recipe);
+        }        
     }
 }
 
@@ -92,7 +93,7 @@ function displayFilters(myArray) {
     const ustensiles = new FiltersList(ustensilsFiltersBtn, ustensilsFiltersList, ustensilsArray, "ustensil-element");
     ustensiles.display();
 
-    //je récupère les <li> (3 nodelist distinctes)
+    //je récupère les <li> (3 nodelist distinctes) -> ça me sert ensuite à leur ajouter des event listeners
     const ingredientsTags = document.querySelectorAll(".ingredient-element"); //node list avec les ingredients <li> qui ont été display
     const appareilsTags = document.querySelectorAll(".appareil-element"); //node list avec les appareils <li> qui ont été display
     const ustensilesTags = document.querySelectorAll(".ustensil-element"); //node list avec les ustensiles <li> qui ont été display
@@ -102,9 +103,9 @@ function displayFilters(myArray) {
     const appareilsClassName = "appareil-tag";
     const ustensilesClassName = "ustensil-tag";
 
-    const ingredientsTagsArray = []; //array qui va contenir les tags de type ingrédient (qui sont display en tant que filtres sous la searchbar)
-    const appareilsTagsArray = []; //array qui contient les tags de type appareil (qui sont display en tant que filtres sous la searchbar)
-    const ustensilesTagsArray = []; //array qui contient les tags de type ustensile (qui sont display en tant que filtres sous la searchbar)*/
+    const ingredientsTagsArray = []; //array qui va contenir les tags de type ingrédient (qui sont display sous la searchbar)
+    const appareilsTagsArray = []; //array qui contient les tags de type appareil (qui sont display sous la searchbar)
+    const ustensilesTagsArray = []; //array qui contient les tags de type ustensile (qui sont display sous la searchbar)*/
 
     for (let ingredientTag of ingredientsTags){
         ingredientTag.addEventListener('click', (e) => {
@@ -194,6 +195,44 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
             displayFilters(filteredArrayByUstensiles);
+            
+            //Quand utilisateur entre un mot dans searchbar =
+            /*searchBar.addEventListener("keyup", (e) => {
+                const searchedLetters = e.target.value.toLowerCase();
+                if(searchedLetters.length>2){
+                    searchbarError.classList.remove("show-error-msg");
+                    searchbarError.innerHTML = "";
+                    
+                    monArray.splice(0, monArray.length); //on vide l'array (monArray = array avec les résultats filtrés par searchedLetters + filteredArrayByUstensiles) -> !!!! pas encore déclaré monArray : il faut que je voie où le déclarer
+
+                    for (let recipe of filteredArrayByUstensiles){
+                        let recipeTitle = recipe.name;
+                        let ingredients = recipe.ingredients;
+                        let recipeIngredients = [];
+                        ingredients.map(({ingredient}) => {
+                            recipeIngredients.push(`${ingredient.toLowerCase()}`);
+                        });
+                        let recipeDescription = recipe.description;
+                        if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters))) {
+                            //monArray.push(recipe);
+                        }
+                    }
+                    if(filteredRecipes.length == 0){
+                        searchbarError.classList.add("show-error-msg");
+                        searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+                    }
+                    while (mainElement.firstChild) {
+                        mainElement.removeChild(mainElement.firstChild);
+                    }
+                    //filteredCardsDisplay(monArray); ????
+                    //displayFilters(monArray);
+                }
+                if(searchedLetters.length <= 2){
+                    //dans ce cas il faut simplement faire le display à partir de filteredArrayByUstensiles
+                }
+                
+            });*/
+
         });
     }
     for (let appareilTag of appareilsTags){
@@ -284,6 +323,11 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
             displayFilters(filteredArrayByUstensiles);
+
+            /*Quand utilisateur entre un mot dans searchbar =
+                filteredArrayByUstensiles + mot cherché -> filtrer cards
+            */
+
         });
     }
     for (let ustensileTag of ustensilesTags){
@@ -374,6 +418,11 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
             displayFilters(filteredArrayByUstensiles);
+
+            /*Quand utilisateur entre un mot dans searchbar =
+                filteredArrayByUstensiles + mot cherché -> filtrer cards
+            */
+
         });
     }
 
@@ -423,29 +472,32 @@ displayFilters(recipesArray);
 //Cas d'utilisation : "l’utilisateur entre au moins 3 caractères dans la barre de recherche principale"
 searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
     const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
-    if(searchedLetters.length>2){
-        searchbarError.classList.remove("show-error-msg");
-        searchbarError.innerHTML = "";
-        compareAndFilter(searchedLetters);
-        if(filteredRecipes.length == 0){
-            searchbarError.classList.add("show-error-msg");
-            searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+    const isTags = document.querySelector(".tags");
+    if(isTags.children.length == 0) { //permet de n'appliquer l'event listener sur recipesArray que lorsque l'utilisateur n'a pas sélectionné de tags au préalable
+        if(searchedLetters.length>2){
+            searchbarError.classList.remove("show-error-msg");
+            searchbarError.innerHTML = "";
+            compareAndFilter(searchedLetters);
+            if(filteredRecipes.length == 0){
+                searchbarError.classList.add("show-error-msg");
+                searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+            }
+            while (mainElement.firstChild) {
+                mainElement.removeChild(mainElement.firstChild);
+            }
+            filteredCardsDisplay();
+            displayFilters(filteredRecipes); 
         }
-        while (mainElement.firstChild) {
-            mainElement.removeChild(mainElement.firstChild);
+        if(searchedLetters.length <= 2){ //permet de redisplay les listes par défaut quand l'utilisateur efface sa recherche, notamment.
+            compareAndFilter(searchedLetters);
+            searchbarError.classList.remove("show-error-msg");
+            searchbarError.innerHTML = "";
+            while (mainElement.firstChild) {
+                mainElement.removeChild(mainElement.firstChild);
+            }
+            defaultDisplay();
+            displayFilters(recipesArray);
         }
-        filteredCardsDisplay();
-        displayFilters(filteredRecipes);
-    }
-    if(searchedLetters.length <= 2){ //permet de redisplay les listes par défaut quand l'utilisateur efface sa recherche, notamment.
-        compareAndFilter(searchedLetters);
-        searchbarError.classList.remove("show-error-msg");
-        searchbarError.innerHTML = "";
-        while (mainElement.firstChild) {
-            mainElement.removeChild(mainElement.firstChild);
-        }
-        defaultDisplay();
-        displayFilters(recipesArray);
     }
 });
 
