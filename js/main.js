@@ -1,6 +1,143 @@
 import { recipes } from './recipes.js';
 
-/*VARIABLES*/
+const mainElement = document.querySelector("main");
+const searchbar = document.querySelector("#searchbar");
+const searchbarError = document.querySelector("#error-msg-searchbar");
+const tagsContainer = document.querySelector(".tags");
+const ingredientFiltersBtn = document.querySelector("#ingredient-btn");
+const appareilFiltersBtn = document.querySelector("#appareil-btn");
+const ustensilsFiltersBtn = document.querySelector("#ustensils-btn");
+const ingredientFiltersList = document.querySelector("#edit-and-select_ingredients-results"); //ingredients filters ul
+const appareilFiltersList = document.querySelector("#edit-and-select_appareil-results"); //appareil filters ul
+const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results"); //ustensils filters ul 
+
+class HomePage {
+
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientFiltersBtn, appareilFiltersBtn, ustensilsFiltersBtn, ingedientsFiltersList, appareilFiltersList, ustensilsFiltersList) {
+        this.recipesArray = [];
+        this.filteredRecipesArray = [];
+        this.ingredientsArray = [];
+        this.appareilsArray = [];
+        this.ustensilesArray = [];
+        this.searchedLetters = [];
+
+        this.importedRecipes = importedRecipes;
+        this.mainElement = mainElement;
+        this.searchbar = searchbar;
+        this.searchbarError = searchbarError;
+        this.tagsContainer = tagsContainer;
+        this.ingredientFiltersBtn = ingredientFiltersBtn;
+        this.appareilFiltersBtn = appareilFiltersBtn;
+        this.ustensilsFiltersBtn = ustensilsFiltersBtn;
+        this.ingedientsFiltersList = ingedientsFiltersList;
+        this.appareilFiltersList = appareilFiltersList;
+        this.ustensilsFiltersList = ustensilsFiltersList;
+
+        this.searchbar.addEventListener('keyup', (e) => {
+            this.searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
+            this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError);
+        });
+    }
+
+    get allRecipes() {
+        this.recipesArray = this.importedRecipes;
+        return this.recipesArray;
+    }
+
+    /*display(myRecipesArray) {
+        while (this.mainElement.firstChild) {
+            this.mainElement.removeChild(this.mainElement.firstChild);
+        }
+
+        for (let filteredRecipe of myRecipesArray){
+            let recipeTitle = filteredRecipe.name;
+            let recipeDuration = filteredRecipe.time;
+            let recipeIngredients = filteredRecipe.ingredients;
+            let recipeDescription = filteredRecipe.description;
+        
+            let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, this.mainElement);
+            this.mainElement.appendChild(card.display());
+        }
+        //displayFilters(myRecipesArray); 
+    }*/
+
+    filtrer(myRecipesArray, searchedLetters, searchbarError) {
+        let result = [];
+
+        if(searchedLetters.length>2){
+
+            searchbarError.classList.remove("show-error-msg");
+            searchbarError.innerHTML = "";
+            
+            result.length = 0; //on vide l'array
+            
+            for (let recipe of myRecipesArray){
+                let recipeTitle = recipe.name;
+                let ingredients = recipe.ingredients;
+                let recipeIngredients = [];
+                ingredients.map(({ingredient}) => {
+                    recipeIngredients.push(`${ingredient.toLowerCase()}`);
+                });
+                let recipeDescription = recipe.description;
+                if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters))) {
+                    result.push(recipe);
+                }        
+            }
+
+            console.log(result);
+            //return(result);
+
+            if(result.length == 0){
+                searchbarError.classList.add("show-error-msg");
+                searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+            }
+
+            
+        } else {
+
+            result.length = 0; //on vide l'array
+
+            for (let recipe of myRecipesArray){
+                let recipeTitle = recipe.name;
+                let ingredients = recipe.ingredients;
+                let recipeIngredients = [];
+                ingredients.map(({ingredient}) => {
+                    recipeIngredients.push(`${ingredient.toLowerCase()}`);
+                });
+                let recipeDescription = recipe.description;
+                if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters))) {
+                    result.push(recipe);
+                }        
+            }
+            searchbarError.classList.remove("show-error-msg");
+            searchbarError.innerHTML = "";
+
+            console.log(this.allRecipes);
+            //return this.allRecipes;
+            //displayFilters(recipesArray);
+        }
+    }
+}
+
+
+
+let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientFiltersBtn, appareilFiltersBtn, ustensilsFiltersBtn, ingredientFiltersList, appareilFiltersList, ustensilsFiltersList);
+
+console.log(myHomePage);
+//console.log(myHomePage.allRecipes);
+
+
+
+
+
+
+
+
+
+
+
+
+/*VARIABLES
 
 let recipesArray = recipes; //Array qui contient toutes les recettes (en tant qu'infos).
 let filteredRecipes = []; //Array qui contient les recette filtrées par une recherche
@@ -11,14 +148,14 @@ const searchbarError = document.querySelector("#error-msg-searchbar");
 
 //test :
 /*searchbarError.classList.add("show-error-msg");
-searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."*/
+searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
 
 const tags = document.querySelector(".tags");
 
 
 /************************************************************************************************************************/
 
-/*FONCTIONS*/
+/*FONCTIONS
 
 //cette fonction permet d'afficher par défaut les cartes de recettes (sans les filtrer)
 function defaultDisplay(){
@@ -105,7 +242,7 @@ function displayFilters(myArray) {
 
     const ingredientsTagsArray = []; //array qui va contenir les tags de type ingrédient (qui sont display sous la searchbar)
     const appareilsTagsArray = []; //array qui contient les tags de type appareil (qui sont display sous la searchbar)
-    const ustensilesTagsArray = []; //array qui contient les tags de type ustensile (qui sont display sous la searchbar)*/
+    const ustensilesTagsArray = []; //array qui contient les tags de type ustensile (qui sont display sous la searchbar)
 
     for (let ingredientTag of ingredientsTags){
         ingredientTag.addEventListener('click', (e) => {
@@ -121,7 +258,7 @@ function displayFilters(myArray) {
             let filteredArrayByAppareils = [];
             let filteredArrayByUstensiles = [];
              
-            /*1ER FILTRAGE : Cards qui contiennent les ingrédients choisis par utilisateur*/
+            /*1ER FILTRAGE : Cards qui contiennent les ingrédients choisis par utilisateur
             for (let card of myArray) {
                 let recipeIngredients = card.ingredients; //un array contenant des objets
                 let recipeIngredientsArray = [];
@@ -147,7 +284,7 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
 
-            /*2D FILTRAGE : Cards qui contiennent les ingrédients + les appareils choisis par utilisateur*/
+            /*2D FILTRAGE : Cards qui contiennent les ingrédients + les appareils choisis par utilisateur
             for (let card of filteredArrayByIngredients){
                 let recipeAppareil = card.appliance;
                 let recipeAppareilsArray = [];
@@ -170,7 +307,7 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
 
-            /*3E FILTRAGE :  Cards qui contiennent les ingrédients ET les appareils ET les ustensiles choisis par utilisateur*/
+            /*3E FILTRAGE :  Cards qui contiennent les ingrédients ET les appareils ET les ustensiles choisis par utilisateur
             for (let card of filteredArrayByAppareils) {
                 let recipeUstensiles = card.ustensils; //un array contenant des strings
                 let recipeUstensilesArray = [];
@@ -203,7 +340,7 @@ function displayFilters(myArray) {
                     searchbarError.classList.remove("show-error-msg");
                     searchbarError.innerHTML = "";
                     
-                    monArray.splice(0, monArray.length); //on vide l'array (monArray = array avec les résultats filtrés par searchedLetters + filteredArrayByUstensiles) -> !!!! pas encore déclaré monArray : il faut que je voie où le déclarer
+                    monArray.splice(0, monArray.length); //on vide l'array (monArray = array qui prendra les résultats filtrés par searchedLetters + filteredArrayByUstensiles) -> !!!! pas encore déclaré monArray : il faut que je voie où le déclarer
 
                     for (let recipe of filteredArrayByUstensiles){
                         let recipeTitle = recipe.name;
@@ -231,7 +368,7 @@ function displayFilters(myArray) {
                     //dans ce cas il faut simplement faire le display à partir de filteredArrayByUstensiles
                 }
                 
-            });*/
+            });
 
         });
     }
@@ -249,7 +386,7 @@ function displayFilters(myArray) {
             let filteredArrayByAppareils = [];
             let filteredArrayByUstensiles = [];
 
-            /*1ER FILTRAGE : Cards qui contiennent les ingrédients choisis par utilisateur*/
+            /*1ER FILTRAGE : Cards qui contiennent les ingrédients choisis par utilisateur
             for (let card of myArray) {
                 let recipeIngredients = card.ingredients; //un array contenant des objets
                 let recipeIngredientsArray = [];
@@ -275,7 +412,7 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
 
-            /*2D FILTRAGE : Cards qui contiennent les ingrédients + les appareils choisis par utilisateur*/
+            /*2D FILTRAGE : Cards qui contiennent les ingrédients + les appareils choisis par utilisateur
             for (let card of filteredArrayByIngredients){
                 let recipeAppareil = card.appliance;
                 let recipeAppareilsArray = [];
@@ -298,7 +435,7 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
 
-            /*3E FILTRAGE :  Cards qui contiennent les ingrédients ET les appareils ET les ustensiles choisis par utilisateur*/
+            /*3E FILTRAGE :  Cards qui contiennent les ingrédients ET les appareils ET les ustensiles choisis par utilisateur
             for (let card of filteredArrayByAppareils) {
                 let recipeUstensiles = card.ustensils; //un array contenant des strings
                 let recipeUstensilesArray = [];
@@ -326,7 +463,7 @@ function displayFilters(myArray) {
 
             /*Quand utilisateur entre un mot dans searchbar =
                 filteredArrayByUstensiles + mot cherché -> filtrer cards
-            */
+            
 
         });
     }
@@ -344,7 +481,7 @@ function displayFilters(myArray) {
             let filteredArrayByAppareils = [];
             let filteredArrayByUstensiles = [];
 
-            /*1ER FILTRAGE : Cards qui contiennent les ingrédients choisis par utilisateur*/
+            /*1ER FILTRAGE : Cards qui contiennent les ingrédients choisis par utilisateur
             for (let card of myArray) {
                 let recipeIngredients = card.ingredients; //un array contenant des objets
                 let recipeIngredientsArray = [];
@@ -370,7 +507,7 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
 
-            /*2D FILTRAGE : Cards qui contiennent les ingrédients + les appareils choisis par utilisateur*/
+            /*2D FILTRAGE : Cards qui contiennent les ingrédients + les appareils choisis par utilisateur
             for (let card of filteredArrayByIngredients){
                 let recipeAppareil = card.appliance;
                 let recipeAppareilsArray = [];
@@ -393,7 +530,7 @@ function displayFilters(myArray) {
                 mainElement.appendChild(card.display());
             }
 
-            /*3E FILTRAGE :  Cards qui contiennent les ingrédients ET les appareils ET les ustensiles choisis par utilisateur*/
+            /*3E FILTRAGE :  Cards qui contiennent les ingrédients ET les appareils ET les ustensiles choisis par utilisateur
             for (let card of filteredArrayByAppareils) {
                 let recipeUstensiles = card.ustensils; //un array contenant des strings
                 let recipeUstensilesArray = [];
@@ -421,12 +558,12 @@ function displayFilters(myArray) {
 
             /*Quand utilisateur entre un mot dans searchbar =
                 filteredArrayByUstensiles + mot cherché -> filtrer cards
-            */
+            
 
         });
     }
 
-    /*Quans clic sur un bouton = montrer les filtres, quand clic à l'extérieur de la liste = cacher la liste*/
+    /*Quans clic sur un bouton = montrer les filtres, quand clic à l'extérieur de la liste = cacher la liste
     document.addEventListener('click', (e) => {
         if (e.target.closest("#ingredient-btn")) {
             showList(ingredientFiltersBtn, ingredientFiltersList);
@@ -458,17 +595,17 @@ function hideList(btn, list){
     btn.classList.remove("w-50");
 }
 
-/*************************************************************************************************************************/
+/************************************************************************************************************************
 
-/*PAR DEFAUT, AFFICHAGE DE TOUTES LES CARTES*/
+/*PAR DEFAUT, AFFICHAGE DE TOUTES LES CARTES
 defaultDisplay();
 
-/*RECUPERATION DES ARRAYS DE FILTRES (PAR DEFAUT = TOUS LES FILTRES)*/
+/*RECUPERATION DES ARRAYS DE FILTRES (PAR DEFAUT = TOUS LES FILTRES)
 //cas où l'utilisateur passe par les listes de filtres sans passer par la searchbar
 //affichage des listes de filtres (non filtrés) :
 displayFilters(recipesArray);
 
-/*ACTIONS DE L'UTILISATEUR ET LEURS EFFETS SUR L'INTERFACE*/
+/*ACTIONS DE L'UTILISATEUR ET LEURS EFFETS SUR L'INTERFACE
 //Cas d'utilisation : "l’utilisateur entre au moins 3 caractères dans la barre de recherche principale"
 searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des caractères dans la searchbar
     const searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
@@ -499,11 +636,4 @@ searchBar.addEventListener("keyup", (e) => { //quand l'utilisateur entre des car
             displayFilters(recipesArray);
         }
     }
-});
-
-
-
-
-
-
-
+});*/
