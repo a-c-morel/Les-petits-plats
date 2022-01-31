@@ -36,6 +36,7 @@ class HomePage {
         this.searchbar.addEventListener('keyup', (e) => {
             this.searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
             this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError);
+            this.display(this.filteredRecipesArray);
         });
     }
 
@@ -44,22 +45,22 @@ class HomePage {
         return this.recipesArray;
     }
 
-    /*display(myRecipesArray) {
+    display(myRecipesArray) {
         while (this.mainElement.firstChild) {
             this.mainElement.removeChild(this.mainElement.firstChild);
         }
 
-        for (let filteredRecipe of myRecipesArray){
-            let recipeTitle = filteredRecipe.name;
-            let recipeDuration = filteredRecipe.time;
-            let recipeIngredients = filteredRecipe.ingredients;
-            let recipeDescription = filteredRecipe.description;
+        for (let recipe of myRecipesArray){
+            let recipeTitle = recipe.name;
+            let recipeDuration = recipe.time;
+            let recipeIngredients = recipe.ingredients;
+            let recipeDescription = recipe.description;
         
             let card = new RecipeCard(recipeTitle, recipeDuration, recipeIngredients, recipeDescription, this.mainElement);
             this.mainElement.appendChild(card.display());
         }
         //displayFilters(myRecipesArray); 
-    }*/
+    }
 
     filtrer(myRecipesArray, searchedLetters, searchbarError) {
         let result = [];
@@ -84,7 +85,8 @@ class HomePage {
                 }        
             }
 
-            console.log(result);
+            this.filteredRecipesArray = result;
+            console.log(this.filteredRecipesArray);
             //return(result);
 
             if(result.length == 0){
@@ -119,12 +121,10 @@ class HomePage {
     }
 }
 
-
-
-let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientFiltersBtn, appareilFiltersBtn, ustensilsFiltersBtn, ingredientFiltersList, appareilFiltersList, ustensilsFiltersList);
-
-console.log(myHomePage);
-//console.log(myHomePage.allRecipes);
+(async function createHomepage() {
+    let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientFiltersBtn, appareilFiltersBtn, ustensilsFiltersBtn, ingredientFiltersList, appareilFiltersList, ustensilsFiltersList);
+    await myHomePage.display(recipes);
+})();
 
 
 
