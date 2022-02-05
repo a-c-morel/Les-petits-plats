@@ -2,7 +2,7 @@ class FiltersList {
     constructor(button, listContainer, filters, className) {
         this.button = button; //exemple : ingredientFiltersButton
         this.listContainer = listContainer; //exemple : ingredientFiltersList
-        this.filters = filters;
+        this.filters = filters; //array retourné par une méthode de la classe filtersArray
         this.className = className;
     }
 //créer méthode qui regarde s'il y a du contenu et qui le clear
@@ -21,4 +21,5 @@ class FiltersList {
             this.listContainer.appendChild(filterLi);
         }
     }
+    
 }

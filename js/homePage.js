@@ -1,7 +1,7 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientFiltersBtn, appareilFiltersBtn, ustensilsFiltersBtn, ingedientsFiltersList, appareilFiltersList, ustensilsFiltersList) {
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList) {
 
         this.recipesArray = [];
         this.filteredRecipesArray = [];
@@ -15,16 +15,19 @@ class HomePage {
         this.searchbar = searchbar;
         this.searchbarError = searchbarError;
         this.tagsContainer = tagsContainer;
-        this.ingredientFiltersBtn = ingredientFiltersBtn;
-        this.appareilFiltersBtn = appareilFiltersBtn;
+        this.ingredientsFiltersBtn = ingredientsFiltersBtn;
+        this.appareilsFiltersBtn = appareilsFiltersBtn;
         this.ustensilsFiltersBtn = ustensilsFiltersBtn;
-        this.ingedientsFiltersList = ingedientsFiltersList;
-        this.appareilFiltersList = appareilFiltersList;
+        this.ingredientsFiltersList = ingredientsFiltersList;
+        this.appareilsFiltersList = appareilsFiltersList;
         this.ustensilsFiltersList = ustensilsFiltersList;
 
         this.searchbar.addEventListener('keyup', (e) => {
             this.searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
-            this.display(this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError));
+            let cardsDisplayed = this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError);
+            this.displayCards(cardsDisplayed);
+            //faire pareil ici:
+            this.displayFilters(this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError));
         });
 
     }
@@ -38,7 +41,7 @@ class HomePage {
     }
 
 
-    display(myRecipesArray) {
+    displayCards(myRecipesArray) {
 
         while (this.mainElement.firstChild) {
             this.mainElement.removeChild(this.mainElement.firstChild);
@@ -54,6 +57,26 @@ class HomePage {
             this.mainElement.appendChild(card.display());
         }
 
+    }
+
+
+    displayFilters(myRecipesArray) { //il faudra faire comme j'ai fait pour l'autre méthode display, prendre l'array qui est return par le filtre donc faire displayFilters(filtrer(this.recipesArray, this.searchedLetters, this.searchbarError,........))
+
+        //J'instancie les arrays de filtres :
+        const filtersArray = new FiltersArray(myRecipesArray);
+        this.ingredientsArray = filtersArray.getIngredients();
+        this.appareilsArray = filtersArray.getAppareils();
+        this.ustensilsArray = filtersArray.getUstensils();
+
+        //affichage des filtres dans leur container :
+        const ingredients = new FiltersList(this.ingredientsFiltersBtn, this.ingredientsFiltersList, this.ingredientsArray, "ingredient-element");
+        ingredients.display();
+        const appareils = new FiltersList(this.appareilsFiltersBtn, this.appareilsFiltersList, this.appareilsArray, "appareil-element");
+        appareils.display();
+        const ustensiles = new FiltersList(this.ustensilsFiltersBtn, this.ustensilsFiltersList, this.ustensilsArray, "ustensil-element");
+        ustensiles.display();
+        //à ce stade ils ne peuvent pas encore s'afficher, il faut ajouter l'event listener sur les boutons pour ajouter ou remove la classe qui sert à afficher et cacher les listes :
+        
     }
 
 
