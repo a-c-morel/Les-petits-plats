@@ -26,8 +26,8 @@ class HomePage {
             this.searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
             let cardsDisplayed = this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError);
             this.displayCards(cardsDisplayed);
-            //faire pareil ici:
-            this.displayFilters(this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError));
+            let filtersDisplayed = this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError);
+            this.displayFilters(filtersDisplayed);
         });
 
     }
@@ -69,11 +69,11 @@ class HomePage {
         this.ustensilsArray = filtersArray.getUstensils();
 
         //affichage des filtres dans leur container :
-        const ingredients = new FiltersList(this.ingredientsFiltersBtn, this.ingredientsFiltersList, this.ingredientsArray, "ingredient-element");
+        const ingredients = new FiltersFactory("ingredient", {button: this.ingredientsFiltersBtn, listContainer: this.ingredientsFiltersList, filters: this.ingredientsArray});
         ingredients.display();
-        const appareils = new FiltersList(this.appareilsFiltersBtn, this.appareilsFiltersList, this.appareilsArray, "appareil-element");
+        const appareils = new FiltersFactory("appareil", {button: this.appareilsFiltersBtn, listContainer: this.appareilsFiltersList, filters: this.appareilsArray});
         appareils.display();
-        const ustensiles = new FiltersList(this.ustensilsFiltersBtn, this.ustensilsFiltersList, this.ustensilsArray, "ustensil-element");
+        const ustensiles = new FiltersFactory("ustensile", {button: this.ustensilsFiltersBtn, listContainer: this.ustensilsFiltersList, filters: this.ustensilsArray});
         ustensiles.display();
         //à ce stade ils ne peuvent pas encore s'afficher, il faut ajouter l'event listener sur les boutons pour ajouter ou remove la classe qui sert à afficher et cacher les listes :
         
@@ -112,6 +112,8 @@ class HomePage {
             }
 
             return this.filteredRecipesArray;
+
+            //continuer filtre
 
         } else {
 
