@@ -72,11 +72,11 @@ class HomePage {
 
         //affichage des filtres dans leur container :
         let ingredients = new FiltersFactory("ingredient", {button: this.ingredientsFiltersBtn, listContainer: this.ingredientsFiltersList, filters: this.ingredientsArray, tagsContainer: this.tagsContainer, ingredientsTags: this.ingredientsTags});
-        ingredients.display();
-        let appareils = new FiltersFactory("appareil", {button: this.appareilsFiltersBtn, listContainer: this.appareilsFiltersList, filters: this.appareilsArray});
-        appareils.display();
-        let ustensiles = new FiltersFactory("ustensile", {button: this.ustensilsFiltersBtn, listContainer: this.ustensilsFiltersList, filters: this.ustensilsArray});
-        ustensiles.display();
+        ingredients.displayList();
+        let appareils = new FiltersFactory("appareil", {button: this.appareilsFiltersBtn, listContainer: this.appareilsFiltersList, filters: this.appareilsArray, tagsContainer: this.tagsContainer, appareilsTags: this.appareilsTags});
+        appareils.displayList();
+        let ustensiles = new FiltersFactory("ustensile", {button: this.ustensilsFiltersBtn, listContainer: this.ustensilsFiltersList, filters: this.ustensilsArray, tagsContainer: this.tagsContainer, ustensilesTags: this.ustensilesTags});
+        ustensiles.displayList();
         
     }
 
