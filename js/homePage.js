@@ -1,7 +1,7 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList) {
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList) { //,ingredientsTags
 
         this.recipesArray = [];
         this.filteredRecipesArray = [];
@@ -21,6 +21,8 @@ class HomePage {
         this.ingredientsFiltersList = ingredientsFiltersList;
         this.appareilsFiltersList = appareilsFiltersList;
         this.ustensilsFiltersList = ustensilsFiltersList;
+
+        //this.ingredientsTags = ingredientsTags;
 
         this.searchbar.addEventListener('keyup', (e) => {
             this.searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
@@ -69,13 +71,12 @@ class HomePage {
         this.ustensilsArray = filtersArray.getUstensils();
 
         //affichage des filtres dans leur container :
-        const ingredients = new FiltersFactory("ingredient", {button: this.ingredientsFiltersBtn, listContainer: this.ingredientsFiltersList, filters: this.ingredientsArray});
+        let ingredients = new FiltersFactory("ingredient", {button: this.ingredientsFiltersBtn, listContainer: this.ingredientsFiltersList, filters: this.ingredientsArray, tagsContainer: this.tagsContainer, ingredientsTags: this.ingredientsTags});
         ingredients.display();
-        const appareils = new FiltersFactory("appareil", {button: this.appareilsFiltersBtn, listContainer: this.appareilsFiltersList, filters: this.appareilsArray});
+        let appareils = new FiltersFactory("appareil", {button: this.appareilsFiltersBtn, listContainer: this.appareilsFiltersList, filters: this.appareilsArray});
         appareils.display();
-        const ustensiles = new FiltersFactory("ustensile", {button: this.ustensilsFiltersBtn, listContainer: this.ustensilsFiltersList, filters: this.ustensilsArray});
+        let ustensiles = new FiltersFactory("ustensile", {button: this.ustensilsFiltersBtn, listContainer: this.ustensilsFiltersList, filters: this.ustensilsArray});
         ustensiles.display();
-        //à ce stade ils ne peuvent pas encore s'afficher, il faut ajouter l'event listener sur les boutons pour ajouter ou remove la classe qui sert à afficher et cacher les listes :
         
     }
 
@@ -111,9 +112,10 @@ class HomePage {
                 searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
             }
 
+            //continuer filtre
+
             return this.filteredRecipesArray;
 
-            //continuer filtre
 
         } else {
 

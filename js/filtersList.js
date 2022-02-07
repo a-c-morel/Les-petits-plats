@@ -18,20 +18,27 @@ class FiltersFactory {
 
 }
 
+
+
 class IngredientsList {
 
 
     constructor(props) {
 
         this.button = props.button; //exemple : ingredientFiltersButton
-        this.listContainer = props.listContainer; //exemple : ingredientFiltersList
-        this.filters = props.filters; //array retourné par une méthode de la classe filtersArray
+        this.listContainer = props.listContainer; //exemple : ingredientFiltersList (liste des ingrédients que l'utilisateur peut sélectionner)
+        this.filters = props.filters; //array retourné par une méthode de la classe filtersArray (à partir des recettes, avec ou sans filtrage préalable)
         this.className = "ingredient-element";
+        this.ingredientsTagsArray = []; //array des tags ingrédients sélectionnés par l'utilisateur
+        this.tagsContainer = props.tagsContainer;
+        //this.ingredientsTags = props.ingredientsTags;
 
     }
 
 
 //créer méthode qui regarde s'il y a du contenu et qui le clear
+
+
     display() {
 
         while (this.listContainer.firstChild) {
@@ -44,15 +51,31 @@ class IngredientsList {
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
-            //filterLi.style.display = "none"; //temporary (for tests)
-            this.listContainer.appendChild(filterLi);
+            this.listContainer.appendChild(filterLi).addEventListener('click', (e) => {
+                if(!(this.ingredientsTagsArray.includes(filterLi.outerText))) {
+                    this.ingredientsTagsArray.push(filterLi.outerText);
+                    (console.log(this.ingredientsTagsArray));
+                    //this.displayTags();
+                    const tagLi = document.createElement("li");
+                    tagLi.classList.add("ingredient-tag");
+                    tagLi.innerHTML = e.target.innerHTML;
+                    this.tagsContainer.appendChild(tagLi);
+                }
+            });
         }
 
     }
+
     
+    get tagsArray() {
+
+        return this.ingredientsTagsArray;
+
+    }
 
 
 }
+
 
 
 class AppareilsList {
@@ -64,6 +87,7 @@ class AppareilsList {
         this.listContainer = props.listContainer; //exemple : ingredientFiltersList
         this.filters = props.filters; //array retourné par une méthode de la classe filtersArray
         this.className = "appareil-element";
+        this.appareilsTagsArray = [];
 
     }
 
@@ -81,15 +105,19 @@ class AppareilsList {
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
-            //filterLi.style.display = "none"; //temporary (for tests)
-            this.listContainer.appendChild(filterLi);
+            this.listContainer.appendChild(filterLi).addEventListener('click', () => {
+                if(!(this.appareilsTagsArray.includes(filterLi.outerText))) {
+                    this.appareilsTagsArray.push(filterLi.outerText);
+                    (console.log(this.appareilsTagsArray));
+                }
+            });
         }
 
     }
     
 
-
 }
+
 
 
 class UstensilesList {
@@ -101,6 +129,7 @@ class UstensilesList {
         this.listContainer = props.listContainer; //exemple : ingredientFiltersList
         this.filters = props.filters; //array retourné par une méthode de la classe filtersArray
         this.className = "ustensil-element";
+        this.ustensilesTagsArray = [];
 
     }
 
@@ -118,12 +147,15 @@ class UstensilesList {
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
-            //filterLi.style.display = "none"; //temporary (for tests)
-            this.listContainer.appendChild(filterLi);
+            this.listContainer.appendChild(filterLi).addEventListener('click', () => {
+                if(!(this.ustensilesTagsArray.includes(filterLi.outerText))) {
+                    this.ustensilesTagsArray.push(filterLi.outerText);
+                    (console.log(this.ustensilesTagsArray));
+                }
+            });
         }
 
     }
     
-
 
 }
