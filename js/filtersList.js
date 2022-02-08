@@ -4,13 +4,13 @@ class FiltersFactory {
     constructor(type, props) {
 
         if(type === "ingredient") {
-            return new IngredientsList(props);
+            return new Ingredients(props);
         }
         if(type === "appareil") {
-            return new AppareilsList(props);
+            return new Appareils(props);
         }
         if(type === "ustensile") {
-            return new UstensilesList(props);
+            return new Ustensiles(props);
         }
 
     }
@@ -20,7 +20,7 @@ class FiltersFactory {
 
 
 
-class IngredientsList {
+class Filters {
 
 
     constructor(props) {
@@ -28,8 +28,6 @@ class IngredientsList {
         this.button = props.button; //exemple : ingredientFiltersButton
         this.listContainer = props.listContainer; //exemple : ingredientFiltersList (liste des ingrédients que l'utilisateur peut sélectionner)
         this.filters = props.filters; //array retourné par une méthode de la classe filtersArray (à partir des recettes, avec ou sans filtrage préalable)
-        this.className = "ingredient-element";
-        this.ingredientsTagsArray = []; //array des tags ingrédients sélectionnés par l'utilisateur
         this.tagsContainer = props.tagsContainer;
 
     }
@@ -40,6 +38,21 @@ class IngredientsList {
         while (containerToClear.firstChild) {
             containerToClear.removeChild(containerToClear.firstChild);
         }
+
+    }
+
+
+}
+
+
+
+class Ingredients extends Filters {
+
+
+    constructor(props) {
+
+        super(props);
+        this.ingredientsTagsArray = []; //array des tags ingrédients sélectionnés par l'utilisateur
 
     }
 
@@ -74,7 +87,8 @@ class IngredientsList {
 
     }
     
-    get tagsArray() {
+
+    get selectedTagsArray() {
 
         return this.ingredientsTagsArray;
 
@@ -85,26 +99,13 @@ class IngredientsList {
 
 
 
-class AppareilsList {
+class Appareils extends Filters {
 
 
     constructor(props) {
 
-        this.button = props.button; //exemple : appareilFiltersButton
-        this.listContainer = props.listContainer; //exemple : appareilsFiltersList (liste des appareils que l'utilisateur peut sélectionner)
-        this.filters = props.filters; //array retourné par une méthode de la classe filtersArray (à partir des recettes, avec ou sans filtrage préalable)
-        this.className = "appareil-element";
+        super(props);
         this.appareilsTagsArray = []; //array des tags appareils sélectionnés par l'utilisateur
-        this.tagsContainer = props.tagsContainer;
-
-    }
-
-
-    clear(containerToClear) {
-
-        while (containerToClear.firstChild) {
-            containerToClear.removeChild(containerToClear.firstChild);
-        }
 
     }
     
@@ -140,7 +141,7 @@ class AppareilsList {
     }
 
 
-    get tagsArray() {
+    get selectedTagsArray() {
 
         return this.appareilsTagsArray;
 
@@ -151,25 +152,13 @@ class AppareilsList {
 
 
 
-class UstensilesList {
+class Ustensiles extends Filters {
 
 
     constructor(props) {
 
-        this.button = props.button; //exemple : ustensileFiltersButton
-        this.listContainer = props.listContainer; //exemple : ustensilesFiltersList (liste des ustensiles que l'utilisateur peut sélectionner)
-        this.filters = props.filters; //array retourné par une méthode de la classe filtersArray (à partir des recettes, avec ou sans filtrage préalable)
-        this.className = "ingredient-element";
+        super(props);
         this.ustensilesTagsArray = []; //array des tags ustensiles sélectionnés par l'utilisateur
-        this.tagsContainer = props.tagsContainer;
-
-    }
-
-    clear(containerToClear) {
-
-        while (containerToClear.firstChild) {
-            containerToClear.removeChild(containerToClear.firstChild);
-        }
 
     }
     
@@ -205,7 +194,7 @@ class UstensilesList {
     }
 
 
-    get tagsArray() {
+    get selectedTagsArray() {
 
         return this.ustensilesTagsArray;
 
