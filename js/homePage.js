@@ -1,14 +1,7 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList) { //,ingredientsTags
-
-        this.recipesArray = [];
-        this.filteredRecipesArray = [];
-        this.ingredientsArray = [];
-        this.appareilsArray = [];
-        this.ustensilesArray = [];
-        this.searchedLetters = [];
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList) {
 
         this.importedRecipes = importedRecipes;
         this.mainElement = mainElement;
@@ -22,8 +15,13 @@ class HomePage {
         this.appareilsFiltersList = appareilsFiltersList;
         this.ustensilsFiltersList = ustensilsFiltersList;
 
-        //this.ingredientsTags = ingredientsTags;
-
+        this.recipesArray = [];
+        this.filteredRecipesArray = [];
+        this.ingredientsArray = [];
+        this.appareilsArray = [];
+        this.ustensilesArray = [];
+        this.searchedLetters = [];
+        
         this.searchbar.addEventListener('keyup', (e) => {
             this.searchedLetters = e.target.value.toLowerCase(); //je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée
             let cardsDisplayed = this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError);
@@ -43,11 +41,18 @@ class HomePage {
     }
 
 
+    clear(containerToClear) {
+
+        while (containerToClear.firstChild) {
+            containerToClear.removeChild(containerToClear.firstChild);
+        }
+
+    }
+
+
     displayCards(myRecipesArray) {
 
-        while (this.mainElement.firstChild) {
-            this.mainElement.removeChild(this.mainElement.firstChild);
-        }
+        this.clear(this.mainElement);
 
         for (let recipe of myRecipesArray){
             let recipeTitle = recipe.name;
@@ -62,7 +67,7 @@ class HomePage {
     }
 
 
-    displayFilters(myRecipesArray) { //il faudra faire comme j'ai fait pour l'autre méthode display, prendre l'array qui est return par le filtre donc faire displayFilters(filtrer(this.recipesArray, this.searchedLetters, this.searchbarError,........))
+    displayFilters(myRecipesArray) {
 
         //J'instancie les arrays de filtres :
         const filtersArray = new FiltersArray(myRecipesArray);
