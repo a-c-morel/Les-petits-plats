@@ -62,8 +62,8 @@ class Ingredients extends Filters {
         this.clear(this.listContainer);
         for (let filter of this.filters) {
             const filterLi = document.createElement("li");
-            filterLi.classList.add(this.className);
             filterLi.classList.add("filter-element");
+            filterLi.classList.add("ingredient-element");
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
@@ -71,6 +71,8 @@ class Ingredients extends Filters {
                 this.displaySelectedTags(this.ingredientsTagsArray, filterLi, e);
             });
         }
+
+        return this.ingredientsTagsArray;
 
     }
 
@@ -85,13 +87,7 @@ class Ingredients extends Filters {
             this.tagsContainer.appendChild(tagLi);
         }
 
-    }
-    
-
-    get selectedTagsArray() {
-
-        return this.ingredientsTagsArray;
-
+        //console.log(this.ingredientsTagsArray);
     }
 
 
@@ -115,8 +111,8 @@ class Appareils extends Filters {
         this.clear(this.listContainer);
         for (let filter of this.filters) {
             const filterLi = document.createElement("li");
-            filterLi.classList.add(this.className);
             filterLi.classList.add("filter-element");
+            filterLi.classList.add("appareil-element");
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
@@ -137,11 +133,6 @@ class Appareils extends Filters {
             tagLi.innerHTML = event.target.innerHTML;
             this.tagsContainer.appendChild(tagLi);
         }
-
-    }
-
-
-    get selectedTagsArray() {
 
         return this.appareilsTagsArray;
 
@@ -168,8 +159,8 @@ class Ustensiles extends Filters {
         this.clear(this.listContainer);
         for (let filter of this.filters) {
             const filterLi = document.createElement("li");
-            filterLi.classList.add(this.className);
             filterLi.classList.add("filter-element");
+            filterLi.classList.add("ustensile-element");
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
@@ -190,11 +181,6 @@ class Ustensiles extends Filters {
             tagLi.innerHTML = event.target.innerHTML;
             this.tagsContainer.appendChild(tagLi);
         }
-
-    }
-
-
-    get selectedTagsArray() {
 
         return this.ustensilesTagsArray;
 
