@@ -25,9 +25,9 @@ class Filters {
 
     constructor(props) {
 
-        this.button = props.button; //exemple : ingredientFiltersButton
-        this.listContainer = props.listContainer; //exemple : ingredientFiltersList (liste des ingrédients que l'utilisateur peut sélectionner)
-        this.filters = props.filters; //array retourné par une méthode de la classe filtersArray (à partir des recettes, avec ou sans filtrage préalable)
+        this.button = props.button; /**  exemple : ingredientFiltersButton **/
+        this.listContainer = props.listContainer; /** exemple : ingredientFiltersList (liste des ingrédients que l'utilisateur peut sélectionner) **/
+        this.filters = props.filters; /** array retourné par une méthode de la classe filtersArray (à partir des recettes, avec ou sans filtrage préalable) **/
         this.tagsContainer = props.tagsContainer;
 
     }
@@ -52,7 +52,7 @@ class Ingredients extends Filters {
     constructor(props) {
 
         super(props);
-        this.ingredientsTagsArray = []; //array des tags ingrédients sélectionnés par l'utilisateur
+        this.selectedIngredients = []; /** array des tags ingrédients sélectionnés par l'utilisateur **/
 
     }
 
@@ -67,20 +67,21 @@ class Ingredients extends Filters {
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
-            this.listContainer.appendChild(filterLi).addEventListener('click', (e) => {
-                this.displaySelectedTags(this.ingredientsTagsArray, filterLi, e);
-            });
+            this.listContainer.appendChild(filterLi)/*.addEventListener('click', (e) => {
+                this.displaySelectedTags(this.selectedIngredients, filterLi, e);
+            });*/
         }
 
-        return this.ingredientsTagsArray;
+        //return this.selectedIngredients;
 
     }
 
 
-    displaySelectedTags(ingredientsTagsArray, selectedFilter, event) {
+    /*displaySelectedTags(selectedIngredients, selectedFilter, event) {
 
-        if(!(ingredientsTagsArray.includes(selectedFilter.outerText))) {
-            ingredientsTagsArray.push(selectedFilter.outerText);
+
+        if(!(selectedIngredients.includes(selectedFilter.outerText))) {
+            selectedIngredients.push(selectedFilter.outerText);
             const tagLi = document.createElement("li");
             tagLi.classList.add("ingredient-tag");
             tagLi.innerHTML = event.target.innerHTML;
@@ -88,7 +89,7 @@ class Ingredients extends Filters {
         }
 
         //console.log(this.ingredientsTagsArray);
-    }
+    }*/
 
 
 }
@@ -101,7 +102,7 @@ class Appareils extends Filters {
     constructor(props) {
 
         super(props);
-        this.appareilsTagsArray = []; //array des tags appareils sélectionnés par l'utilisateur
+        this.appareilsTagsArray = []; /** array des tags appareils sélectionnés par l'utilisateur **/
 
     }
     
@@ -149,7 +150,7 @@ class Ustensiles extends Filters {
     constructor(props) {
 
         super(props);
-        this.ustensilesTagsArray = []; //array des tags ustensiles sélectionnés par l'utilisateur
+        this.ustensilesTagsArray = []; /** array des tags ustensiles sélectionnés par l'utilisateur **/
 
     }
     

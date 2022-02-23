@@ -7,26 +7,18 @@ const tagsContainer = document.querySelector(".tags");
 const ingredientsFiltersBtn = document.querySelector("#ingredient-btn");
 const appareilsFiltersBtn = document.querySelector("#appareil-btn");
 const ustensilsFiltersBtn = document.querySelector("#ustensils-btn");
-const ingredientsFiltersList = document.querySelector("#edit-and-select_ingredients-results"); //ingredients filters ul
-const appareilsFiltersList = document.querySelector("#edit-and-select_appareil-results"); //appareil filters ul
-const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results"); //ustensils filters ul 
+const ingredientsFiltersList = document.querySelector("#edit-and-select_ingredients-results"); /** ingredients filters ul **/
+const appareilsFiltersList = document.querySelector("#edit-and-select_appareil-results"); /** appareil filters ul **/
+const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results"); /** ustensils filters ul **/
 
-
-//const noSearchedLetters = 0;
 
 (async function createHomepage() {
-    let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList); //, ingredientsTags
+    let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList);
     myHomePage.displayCards(recipes);
     myHomePage.displayFilters(recipes);
-    
-    //const selectedIngredientsTags = document.querySelectorAll(".ingredient-tag");
-    //const ingredientsFilters = document.querySelectorAll(".ingredient-element");
-    //const appareilsFilters = document.querySelectorAll(".appareil-element");
-    //console.log(ingredientsFilters);
-
 })();
 
-//Quans clic sur un bouton = montrer les filtres, quand clic à l'extérieur de la liste = cacher la liste
+/** Quans clic sur un bouton = montrer les filtres, quand clic à l'extérieur de la liste = cacher la liste **/
 document.addEventListener('click', (e) => {
     if (e.target.closest("#ingredient-btn")) {
         showList(ingredientsFiltersBtn, ingredientsFiltersList);
