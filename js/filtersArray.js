@@ -3,7 +3,7 @@ class FiltersArray{
         this.recipes = recipes;
         this.ingredients = [];
         this.appareils = [];
-        this.ustensils = [];
+        this.ustensiles = [];
     }
     getIngredients(){
         for (let i=0; i<this.recipes.length; i++){
@@ -25,15 +25,15 @@ class FiltersArray{
         this.appareils = Array.from(appareilsNoRepeat);
         return this.appareils;
     }
-    getUstensils(){
+    getUstensiles(){
         for (let i=0; i<this.recipes.length; i++){
-            let ustensils = this.recipes[i].ustensils;
-            this.ustensils.push(ustensils);
+            let ustensiles = this.recipes[i].ustensils;
+            this.ustensiles.push(ustensiles);
         }
-        const allUstensilsJoined = this.ustensils.flat();
-        const lowerCaseUstensils = allUstensilsJoined.map(x => x.toLowerCase());
-        const ustensilsNoRepeat = new Set(lowerCaseUstensils);
-        this.ustensils = Array.from(ustensilsNoRepeat);
-        return this.ustensils;
+        const allUstensilesJoined = this.ustensiles.flat();
+        const lowerCaseUstensiles = allUstensilesJoined.map(x => x.toLowerCase());
+        const ustensilesNoRepeat = new Set(lowerCaseUstensiles);
+        this.ustensiles = Array.from(ustensilesNoRepeat);
+        return this.ustensiles;
     }
 }

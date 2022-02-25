@@ -53,7 +53,7 @@ ol, ul{
 
 /*FILTERING BUTTONS*/
 @media screen and(min-width: 768px){
-    #ingredient-btn, #appareil-btn, #ustensils-btn{
+    #ingredient-btn, #appareil-btn, #ustensiles-btn{
         width: 10.63rem;
         max-width: 50%;
     }
@@ -87,10 +87,10 @@ ol, ul{
 #enter-appareil{
     background-color: var(--btn2)
 }
-#ustensils-btn{
+#ustensiles-btn{
     background-color: var(--btn3)
 }
-#enter-ustensils{
+#enter-ustensiles{
     background-color: var(--btn3)
 }
 
@@ -169,7 +169,7 @@ ol, ul{
     padding-right: 1.38rem;
     border-radius: .31rem;
 }
-.ustensil-tag{
+.ustensile-tag{
     background-color: var(--btn3);
     padding: .63rem;
     padding-left: 1.25rem;

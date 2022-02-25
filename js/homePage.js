@@ -1,7 +1,7 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList) {
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList) {
 
         this.importedRecipes = importedRecipes;
         this.mainElement = mainElement;
@@ -10,10 +10,10 @@ class HomePage {
         this.tagsContainer = tagsContainer;
         this.ingredientsFiltersBtn = ingredientsFiltersBtn;
         this.appareilsFiltersBtn = appareilsFiltersBtn;
-        this.ustensilsFiltersBtn = ustensilsFiltersBtn;
+        this.ustensilesFiltersBtn = ustensilesFiltersBtn;
         this.ingredientsFiltersList = ingredientsFiltersList;
         this.appareilsFiltersList = appareilsFiltersList;
-        this.ustensilsFiltersList = ustensilsFiltersList;
+        this.ustensilesFiltersList = ustensilesFiltersList;
         
         this.recipesArray = [];
         this.filteredRecipesArray = [];
@@ -27,30 +27,20 @@ class HomePage {
         
         this.searchbar.addEventListener('keyup', (e) => {
             this.searchedLetters = e.target.value.toLowerCase(); /** je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée **/
-            let myRecipesArray = this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients); /** ça return soit l'array filtré, soit l'array de 50 recettes **/
-            this.displayCards(myRecipesArray); /** au lieu de display myRecipesArray, il faudra juste display l'array qui sera return après l'ensemble des filtrages **/
+            let myRecipesArray = this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles); /** ça return soit l'array filtré, soit l'array de 50 recettes **/
+            this.displayCards(myRecipesArray);
             this.displayFilters(myRecipesArray);
-
-            //let selectedIngredientsTags = document.querySelectorAll(".ingredient-tag");
-            /*let ingredientsFilters = document.querySelectorAll(".ingredient-element");
-            for (let ingredientFilter of ingredientsFilters) {
-                ingredientFilter.addEventListener('click', () => {
-                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients);
-                    this.displayCards(myNewRecipesArray);
-                    this.displayFilters(myNewRecipesArray);
-                });
-            }*/
         });
 
         
     }
 
 
-    filtrer(myRecipesArray, searchedLetters, searchbarError, selectedIngredients) {
+    filtrer(myRecipesArray, searchedLetters, searchbarError, selectedIngredients, selectedAppareils, selectedUstensiles) {
 
-        let filteredBySearchbar = [];
+        let filteredBySearchbar = []; /** va contenir les recettes qui ont passé le filtre 1 **/
 
-        if(searchedLetters.length>2) { //ne pas s'occuper de ce code pour le moment !
+        if(searchedLetters.length > 2) {
 
             searchbarError.classList.remove("show-error-msg");
             searchbarError.innerHTML = "";
@@ -70,13 +60,12 @@ class HomePage {
                 }        
             }
 
-            
             if(filteredBySearchbar.length == 0){
                 searchbarError.classList.add("show-error-msg");
                 searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
             }
 
-            /*let filteredByIngredients = [];
+            let filteredByIngredients = []; /** va contenir les recettes qui ont passé le filtre 2 **/
 
             for (let recipe of filteredBySearchbar) {
                 let recipeIngredients = recipe.ingredients;
@@ -90,11 +79,33 @@ class HomePage {
                 }
             }
             
-            this.filteredRecipesArray = filteredByIngredients; /** ensuite ce sera result3 puis 4... **/
-            return filteredBySearchbar;
+            let filteredByAppareils = []; /** va contenir les recettes qui ont passé le filtre 3 **/
 
+            for (let recipe of filteredByIngredients){
+                let recipeAppareil = recipe.appliance;
+                let recipeAppareilsArray = [];
+                recipeAppareilsArray.push(`${recipeAppareil.toLowerCase()}`);
+                if(selectedAppareils.every(tag => recipeAppareilsArray.includes(tag))){
+                    filteredByAppareils.push(recipe);
+                }
+            }
 
-        } else if (selectedIngredients.length > 0 ) { //|| ....idem appareils, ustensils
+            let filteredByUstensiles = []; /** va contenir les recettes qui ont passé le filtre 4 **/
+
+            for (let recipe of filteredByAppareils) {
+                let recipeUstensiles = recipe.ustensils; //un array contenant des strings
+                let recipeUstensilesArray = [];
+                for (let recipeUstensile of recipeUstensiles){
+                    recipeUstensilesArray.push(`${recipeUstensile.toLowerCase()}`);
+                }
+                if(selectedUstensiles.every(tag => recipeUstensilesArray.includes(tag))){
+                    filteredByUstensiles.push(recipe);
+                }
+            }
+
+            return filteredByUstensiles;
+
+        } else if (selectedIngredients.length > 0 ) { //|| ....idem appareils, ustensiles
 
             //filteredBySearchbar.length = 0; /** on vide l'array **/
 
@@ -152,7 +163,7 @@ class HomePage {
         const filtersArray = new FiltersArray(myRecipesArray);
         this.ingredientsArray = filtersArray.getIngredients();
         this.appareilsArray = filtersArray.getAppareils();
-        this.ustensilsArray = filtersArray.getUstensils();
+        this.ustensilesArray = filtersArray.getUstensiles();
 
         /** affichage des ingrédients dans leur container : **/
         let ingredients = new FiltersFactory("ingredient", {button: this.ingredientsFiltersBtn, listContainer: this.ingredientsFiltersList, filters: this.ingredientsArray, tagsContainer: this.tagsContainer}); //, ingredientsTags: this.ingredientsTags ???
@@ -172,27 +183,58 @@ class HomePage {
                     tagLi.innerHTML = e.target.innerHTML;
                     this.tagsContainer.appendChild(tagLi);
 
-                    console.log(this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients));
-                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients);
+                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                     this.displayCards(myNewRecipesArray);
                     this.displayFilters(myNewRecipesArray); // ????? pb redondance
-
                 }
-
-
-
-                //return this.selectedIngredients;
-
-                /*this.selectedIngredients = ingredients.ingredientsTagsArray;
-                console.log(this.selectedIngredients);
-                myRecipesArray = this.filtrer(this.selectedIngredients, this.searchedLetters, this.searchbarError, this.selectedIngredients);*/
             });
         }
-        /*let appareils = new FiltersFactory("appareil", {button: this.appareilsFiltersBtn, listContainer: this.appareilsFiltersList, filters: this.appareilsArray, tagsContainer: this.tagsContainer, appareilsTags: this.appareilsTags});
-        appareils.displayList();
-        let ustensiles = new FiltersFactory("ustensile", {button: this.ustensilsFiltersBtn, listContainer: this.ustensilsFiltersList, filters: this.ustensilsArray, tagsContainer: this.tagsContainer, ustensilesTags: this.ustensilesTags});
-        ustensiles.displayList();*/
 
+        let appareils = new FiltersFactory("appareil", {button: this.appareilsFiltersBtn, listContainer: this.appareilsFiltersList, filters: this.appareilsArray, tagsContainer: this.tagsContainer});
+        appareils.displayList();
+        
+        let appareilsElements = appareils.listContainer.children;
+
+        for (let appareil of appareilsElements) {
+            appareil.addEventListener('click', (e) => {
+                if(!(this.selectedAppareils.includes(appareil.outerText))) {
+                    /** Le tag vient s'ajouter dans l'array des ingrédients sélectionnés **/
+                    this.selectedAppareils.push(appareil.outerText);
+                    /** Affichage des tags sélectionnés dans tagsContainer **/
+                    const tagLi = document.createElement("li");
+                    tagLi.classList.add("appareil-tag");
+                    tagLi.innerHTML = e.target.innerHTML;
+                    this.tagsContainer.appendChild(tagLi);
+
+                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                    this.displayCards(myNewRecipesArray);
+                    this.displayFilters(myNewRecipesArray); // ????? pb redondance
+                }
+            });
+        }
+
+        let ustensiles = new FiltersFactory("ustensile", {button: this.ustensilsFiltersBtn, listContainer: this.ustensilesFiltersList, filters: this.ustensilesArray, tagsContainer: this.tagsContainer});
+        ustensiles.displayList();
+        
+        let ustensilesElements = ustensiles.listContainer.children;
+
+        for (let ustensile of ustensilesElements) {
+            ustensile.addEventListener('click', (e) => {
+                if(!(this.selectedUstensiles.includes(ustensile.outerText))) {
+                    /** Le tag vient s'ajouter dans l'array des ingrédients sélectionnés **/
+                    this.selectedUstensiles.push(ustensile.outerText);
+                    /** Affichage des tags sélectionnés dans tagsContainer **/
+                    const tagLi = document.createElement("li");
+                    tagLi.classList.add("ustensile-tag");
+                    tagLi.innerHTML = e.target.innerHTML;
+                    this.tagsContainer.appendChild(tagLi);
+
+                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                    this.displayCards(myNewRecipesArray);
+                    this.displayFilters(myNewRecipesArray); // ????? pb redondance
+                }
+            });
+        }
     }
 
 

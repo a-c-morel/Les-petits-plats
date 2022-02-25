@@ -67,29 +67,10 @@ class Ingredients extends Filters {
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
-            this.listContainer.appendChild(filterLi)/*.addEventListener('click', (e) => {
-                this.displaySelectedTags(this.selectedIngredients, filterLi, e);
-            });*/
+            this.listContainer.appendChild(filterLi);
         }
-
-        //return this.selectedIngredients;
 
     }
-
-
-    /*displaySelectedTags(selectedIngredients, selectedFilter, event) {
-
-
-        if(!(selectedIngredients.includes(selectedFilter.outerText))) {
-            selectedIngredients.push(selectedFilter.outerText);
-            const tagLi = document.createElement("li");
-            tagLi.classList.add("ingredient-tag");
-            tagLi.innerHTML = event.target.innerHTML;
-            this.tagsContainer.appendChild(tagLi);
-        }
-
-        //console.log(this.ingredientsTagsArray);
-    }*/
 
 
 }
@@ -117,25 +98,8 @@ class Appareils extends Filters {
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
-            this.listContainer.appendChild(filterLi).addEventListener('click', (e) => {
-                this.displaySelectedTags(this.appareilsTagsArray, filterLi, e);
-            });
+            this.listContainer.appendChild(filterLi);
         }
-
-    }
-
-
-    displaySelectedTags(appareilsTagsArray, selectedFilter, event) {
-
-        if(!(appareilsTagsArray.includes(selectedFilter.outerText))) {
-            appareilsTagsArray.push(selectedFilter.outerText);
-            const tagLi = document.createElement("li");
-            tagLi.classList.add("appareil-tag");
-            tagLi.innerHTML = event.target.innerHTML;
-            this.tagsContainer.appendChild(tagLi);
-        }
-
-        return this.appareilsTagsArray;
 
     }
     
@@ -165,25 +129,8 @@ class Ustensiles extends Filters {
             filterLi.classList.add("text-white");
             filterLi.classList.add("col-4");
             filterLi.innerHTML = `${filter}`;
-            this.listContainer.appendChild(filterLi).addEventListener('click', (e) => {
-                this.displaySelectedTags(this.ustensilesTagsArray, filterLi, e);
-            });
+            this.listContainer.appendChild(filterLi);
         }
-
-    }
-
-
-    displaySelectedTags(ustensilesTagsArray, selectedFilter, event) {
-
-        if(!(ustensilesTagsArray.includes(selectedFilter.outerText))) {
-            ustensilesTagsArray.push(selectedFilter.outerText);
-            const tagLi = document.createElement("li");
-            tagLi.classList.add("ustensil-tag");
-            tagLi.innerHTML = event.target.innerHTML;
-            this.tagsContainer.appendChild(tagLi);
-        }
-
-        return this.ustensilesTagsArray;
 
     }
     

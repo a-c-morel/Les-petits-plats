@@ -6,14 +6,14 @@ const searchbarError = document.querySelector("#error-msg-searchbar");
 const tagsContainer = document.querySelector(".tags");
 const ingredientsFiltersBtn = document.querySelector("#ingredient-btn");
 const appareilsFiltersBtn = document.querySelector("#appareil-btn");
-const ustensilsFiltersBtn = document.querySelector("#ustensils-btn");
+const ustensilesFiltersBtn = document.querySelector("#ustensiles-btn");
 const ingredientsFiltersList = document.querySelector("#edit-and-select_ingredients-results"); /** ingredients filters ul **/
 const appareilsFiltersList = document.querySelector("#edit-and-select_appareil-results"); /** appareil filters ul **/
-const ustensilsFiltersList = document.querySelector("#edit-and-select_ustensils-results"); /** ustensils filters ul **/
+const ustensilesFiltersList = document.querySelector("#edit-and-select_ustensiles-results"); /** ustensiles filters ul **/
 
 
 (async function createHomepage() {
-    let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilsFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilsFiltersList);
+    let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList);
     myHomePage.displayCards(recipes);
     myHomePage.displayFilters(recipes);
 })();
@@ -30,10 +30,10 @@ document.addEventListener('click', (e) => {
     } else {
         hideList(appareilsFiltersBtn, appareilsFiltersList);
     }
-    if (e.target.closest("#ustensils-btn")) {
-        showList(ustensilsFiltersBtn, ustensilsFiltersList);
+    if (e.target.closest("#ustensiles-btn")) {
+        showList(ustensilesFiltersBtn, ustensilesFiltersList);
     } else {
-        hideList(ustensilsFiltersBtn, ustensilsFiltersList);
+        hideList(ustensilesFiltersBtn, ustensilesFiltersList);
     }
 });
 
