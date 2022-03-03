@@ -27,7 +27,8 @@ class HomePage {
         
         this.searchbar.addEventListener('keyup', (e) => {
             this.searchedLetters = e.target.value.toLowerCase(); /** je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée **/
-            let myRecipesArray = this.filtrer(this.recipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles); /** ça return soit l'array filtré, soit l'array de 50 recettes **/
+            //console.log(this.recipesArray);
+            let myRecipesArray = this.filtrer(this.recipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles); /** ça return soit l'array filtré, soit l'array de 50 recettes **/
             this.displayCards(myRecipesArray);
             this.displayFilters(myRecipesArray);
         });
@@ -36,16 +37,16 @@ class HomePage {
     }
 
 
-    filtrer(myRecipesArray, searchedLetters, searchbarError, selectedIngredients, selectedAppareils, selectedUstensiles) {
+    filtrer(myRecipesArray, searchedLetters, selectedIngredients, selectedAppareils, selectedUstensiles) {
 
         let filteredBySearchbar = []; /** va contenir les recettes qui ont passé le filtre 1 **/
 
         if(searchedLetters.length > 2) {
 
-            searchbarError.classList.remove("show-error-msg");
-            searchbarError.innerHTML = "";
+            /*searchbarError.classList.remove("show-error-msg");
+            searchbarError.innerHTML = "";*/
             
-            filteredBySearchbar.length == 0; /** on vide l'array **/
+            //filteredBySearchbar.length == 0; /** on vide l'array **/
             
             for (let recipe of myRecipesArray){
                 let recipeTitle = recipe.name;
@@ -58,11 +59,6 @@ class HomePage {
                 if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters))) {
                     filteredBySearchbar.push(recipe);
                 }        
-            }
-
-            if(filteredBySearchbar.length == 0){
-                searchbarError.classList.add("show-error-msg");
-                searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
             }
 
             let filteredByIngredients = []; /** va contenir les recettes qui ont passé le filtre 2 **/
@@ -103,14 +99,19 @@ class HomePage {
                 }
             }
 
+            /*if(filteredByUstensiles.length === 0){
+                searchbarError.classList.add("show-error-msg");
+                searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+            }*/ //faire ce message à l'appel de la fonction filter
+
             return filteredByUstensiles;
 
-        } else if (selectedIngredients.length > 0 ) { //|| ....idem appareils, ustensiles
+        } else if (selectedIngredients.length > 0 || selectedAppareils.length > 0 || selectedUstensiles.length > 0 ) { //|| ....idem appareils, ustensiles
 
             //filteredBySearchbar.length = 0; /** on vide l'array **/
 
-            searchbarError.classList.remove("show-error-msg");
-            searchbarError.innerHTML = "";
+            /*searchbarError.classList.remove("show-error-msg");
+            searchbarError.innerHTML = "";*/
 
             let filteredByIngredients = []; /** va contenir les recettes qui ont passé le filtre **/
 
@@ -127,12 +128,54 @@ class HomePage {
                 }
             }
             
-            return filteredByIngredients; /** ensuite ce sera filteredByAppareils puis filteredByUstensiles... **/
+            let filteredByAppareils = []; /** va contenir les recettes qui ont passé le filtre 3 **/
+
+            for (let recipe of filteredByIngredients){
+                let recipeAppareil = recipe.appliance;
+                let recipeAppareilsArray = [];
+                recipeAppareilsArray.push(`${recipeAppareil.toLowerCase()}`);
+                if(selectedAppareils.every(tag => recipeAppareilsArray.includes(tag))){
+                    filteredByAppareils.push(recipe);
+                }
+            }
+
+            let filteredByUstensiles = []; /** va contenir les recettes qui ont passé le filtre 4 **/
+
+            for (let recipe of filteredByAppareils) {
+                let recipeUstensiles = recipe.ustensils; //un array contenant des strings
+                let recipeUstensilesArray = [];
+                for (let recipeUstensile of recipeUstensiles){
+                    recipeUstensilesArray.push(`${recipeUstensile.toLowerCase()}`);
+                }
+                if(selectedUstensiles.every(tag => recipeUstensilesArray.includes(tag))){
+                    filteredByUstensiles.push(recipe);
+                }
+            }
+
+            /*let filteredBySearchbar = [];
+
+            if(searchedLetters.length > 2) {
+                
+                for (let recipe of filteredByUstensiles){
+                    let recipeTitle = recipe.name;
+                    let ingredients = recipe.ingredients;
+                    let recipeIngredients = [];
+                    ingredients.map(({ingredient}) => {
+                        recipeIngredients.push(`${ingredient.toLowerCase()}`);
+                    });
+                    let recipeDescription = recipe.description;
+                    if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters))) {
+                        filteredBySearchbar.push(recipe);
+                    }        
+                }
+                return filteredBySearchBar;
+            }else {*/
+                return filteredByUstensiles; //return filteredBySearchBar;
 
         } else {
 
-            searchbarError.classList.remove("show-error-msg");
-            searchbarError.innerHTML = "";
+            /*searchbarError.classList.remove("show-error-msg");
+            searchbarError.innerHTML = "";*/
             return this.allRecipes;
 
         }
@@ -183,9 +226,10 @@ class HomePage {
                     tagLi.innerHTML = e.target.innerHTML;
                     this.tagsContainer.appendChild(tagLi);
 
-                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                    console.log(myNewRecipesArray);
                     this.displayCards(myNewRecipesArray);
-                    this.displayFilters(myNewRecipesArray); // ????? pb redondance
+                    this.displayFilters(myNewRecipesArray); // ????? pb récursivité
                 }
             });
         }
@@ -206,9 +250,9 @@ class HomePage {
                     tagLi.innerHTML = e.target.innerHTML;
                     this.tagsContainer.appendChild(tagLi);
 
-                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                     this.displayCards(myNewRecipesArray);
-                    this.displayFilters(myNewRecipesArray); // ????? pb redondance
+                    this.displayFilters(myNewRecipesArray);
                 }
             });
         }
@@ -229,9 +273,9 @@ class HomePage {
                     tagLi.innerHTML = e.target.innerHTML;
                     this.tagsContainer.appendChild(tagLi);
 
-                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.searchbarError, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                    let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                     this.displayCards(myNewRecipesArray);
-                    this.displayFilters(myNewRecipesArray); // ????? pb redondance
+                    this.displayFilters(myNewRecipesArray);
                 }
             });
         }
