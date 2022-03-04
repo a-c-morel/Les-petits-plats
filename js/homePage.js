@@ -40,7 +40,7 @@ class HomePage {
     filtrer(myRecipesArray, searchedLetters, selectedIngredients, selectedAppareils, selectedUstensiles) {
 
         let filteredBySearchbar = []; /** va contenir les recettes qui ont passé le filtre 1 **/
-
+        
         if(searchedLetters.length > 2) {
 
             /*searchbarError.classList.remove("show-error-msg");
@@ -230,6 +230,7 @@ class HomePage {
                     console.log(myNewRecipesArray);
                     this.displayCards(myNewRecipesArray);
                     this.displayFilters(myNewRecipesArray); // ????? pb récursivité
+                    this.recipesArray = myNewRecipesArray;
                 }
             });
         }
@@ -253,6 +254,7 @@ class HomePage {
                     let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                     this.displayCards(myNewRecipesArray);
                     this.displayFilters(myNewRecipesArray);
+                    this.recipesArray = myNewRecipesArray;
                 }
             });
         }
@@ -276,6 +278,7 @@ class HomePage {
                     let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                     this.displayCards(myNewRecipesArray);
                     this.displayFilters(myNewRecipesArray);
+                    this.recipesArray = myNewRecipesArray;
                 }
             });
         }
