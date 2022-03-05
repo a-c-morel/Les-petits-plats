@@ -1,13 +1,14 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList) {
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList) { //, tagsSelected
 
         this.importedRecipes = importedRecipes;
         this.mainElement = mainElement;
         this.searchbar = searchbar;
         this.searchbarError = searchbarError;
         this.tagsContainer = tagsContainer;
+        this.tagsSelected = tagsContainer.children;
         this.ingredientsFiltersBtn = ingredientsFiltersBtn;
         this.appareilsFiltersBtn = appareilsFiltersBtn;
         this.ustensilesFiltersBtn = ustensilesFiltersBtn;
@@ -27,7 +28,6 @@ class HomePage {
         
         this.searchbar.addEventListener('keyup', (e) => {
             this.searchedLetters = e.target.value.toLowerCase(); /** je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée **/
-            //console.log(this.recipesArray);
             let myRecipesArray = this.filtrer(this.recipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles); /** ça return soit l'array filtré, soit l'array de 50 recettes **/
             this.displayCards(myRecipesArray);
             this.displayFilters(myRecipesArray);
@@ -216,7 +216,6 @@ class HomePage {
 
         for (let ingredient of ingredientsElements) {
             ingredient.addEventListener('click', (e) => {
-
                 if(!(this.selectedIngredients.includes(ingredient.outerText))) {
                     /** Le tag vient s'ajouter dans l'array des ingrédients sélectionnés **/
                     this.selectedIngredients.push(ingredient.outerText);
@@ -227,11 +226,24 @@ class HomePage {
                     this.tagsContainer.appendChild(tagLi);
 
                     let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
-                    console.log(myNewRecipesArray);
+                    //console.log(myNewRecipesArray);
                     this.displayCards(myNewRecipesArray);
                     this.displayFilters(myNewRecipesArray); // ????? pb récursivité
                     this.recipesArray = myNewRecipesArray;
                 }
+                for (let tagSelected of this.tagsSelected) {
+                    tagSelected.addEventListener('click', (e) => {
+                        //console.log(e.target.innerText);
+                        e.target.style.display = 'none'; // faire mieux ensuite avec une classe .show en CSS + faire l'event sur l'icône en forme de croix
+                        //this.selectedIngredients -> supprimer l'ingrédient de l'array
+                        let tagIndex = this.selectedIngredients.indexOf(e.target.innerText);
+                        this.selectedIngredients.splice(tagIndex, 1);
+                        let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                        this.displayCards(myNewRecipesArray);
+                        this.displayFilters(myNewRecipesArray);
+                        this.recipesArray = myNewRecipesArray;
+                    });
+                };
             });
         }
 
@@ -256,6 +268,19 @@ class HomePage {
                     this.displayFilters(myNewRecipesArray);
                     this.recipesArray = myNewRecipesArray;
                 }
+                for (let tagSelected of this.tagsSelected) {
+                    tagSelected.addEventListener('click', (e) => {
+                        //console.log(e.target.innerText);
+                        e.target.style.display = 'none'; // faire mieux ensuite avec une classe .show en CSS + faire l'event sur l'icône en forme de croix
+                        //this.selectedIngredients -> supprimer l'ingrédient de l'array
+                        let tagIndex = this.selectedAppareils.indexOf(e.target.innerText);
+                        this.selectedAppareils.splice(tagIndex, 1);
+                        let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                        this.displayCards(myNewRecipesArray);
+                        this.displayFilters(myNewRecipesArray);
+                        this.recipesArray = myNewRecipesArray;
+                    });
+                };
             });
         }
 
@@ -280,6 +305,19 @@ class HomePage {
                     this.displayFilters(myNewRecipesArray);
                     this.recipesArray = myNewRecipesArray;
                 }
+                for (let tagSelected of this.tagsSelected) {
+                    tagSelected.addEventListener('click', (e) => {
+                        //console.log(e.target.innerText);
+                        e.target.style.display = 'none'; // faire mieux ensuite avec une classe .show en CSS + faire l'event sur l'icône en forme de croix
+                        //this.selectedIngredients -> supprimer l'ingrédient de l'array
+                        let tagIndex = this.selectedUstensiles.indexOf(e.target.innerText);
+                        this.selectedUstensiles.splice(tagIndex, 1);
+                        let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+                        this.displayCards(myNewRecipesArray);
+                        this.displayFilters(myNewRecipesArray);
+                        this.recipesArray = myNewRecipesArray;
+                    });
+                };
             });
         }
     }
