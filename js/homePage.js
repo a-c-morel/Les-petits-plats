@@ -1,7 +1,7 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList) {
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList, ingredientsInput, appareilsInput, ustensilesInput) {
 
         this.importedRecipes = importedRecipes;
         this.mainElement = mainElement;
@@ -15,6 +15,9 @@ class HomePage {
         this.ingredientsFiltersList = ingredientsFiltersList;
         this.appareilsFiltersList = appareilsFiltersList;
         this.ustensilesFiltersList = ustensilesFiltersList;
+        this.ingredientsInput = ingredientsInput;
+        this.appareilsInput = appareilsInput;
+        this.ustensilesInput = ustensilesInput;
         
         this.recipesArray = [];
         this.filteredRecipesArray = [];
@@ -25,6 +28,9 @@ class HomePage {
         this.selectedAppareils = [];
         this.selectedUstensiles = [];
         this.searchedLetters = "";
+        this.ingredientSearched = "";
+        this.appareilSearched = "";
+        this.ustensileSearched = "";
         
         this.searchbar.addEventListener('keyup', (e) => {
             this.searchedLetters = e.target.value.toLowerCase(); /** je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée **/
@@ -38,7 +44,45 @@ class HomePage {
             }
         });
 
+        this.ingredientsInput.addEventListener('keyup', (e) => {
+            this.ingredientSearched = e.target.value.toLowerCase();
+            this.ingredientsLi = this.ingredientsFiltersList.children;
+            for (let ingredient of this.ingredientsLi) {
+                if (!(ingredient.innerText.includes(this.ingredientSearched))) {
+                    ingredient.style.display = "none"; //à refaire avec une classe CSS
+                } else {
+                    ingredient.style.display = "flex";
+                }
+            }
+        });
+
+
+        this.appareilsInput.addEventListener('keyup', (e) => {
+            this.appareilSearched = e.target.value.toLowerCase();
+            this.appareilsLi = this.appareilsFiltersList.children;
+            for (let appareil of this.appareilsLi) {
+                if (!(appareil.innerText.includes(this.appareilSearched))) {
+                    appareil.style.display = "none"; //à refaire avec une classe CSS
+                } else {
+                    appareil.style.display = "flex";
+                }
+            }
+        });
+
         
+        this.ustensilesInput.addEventListener('keyup', (e) => {
+            this.ustensileSearched = e.target.value.toLowerCase();
+            this.ustensilesLi = this.ustensilesFiltersList.children;
+            for (let ustensile of this.ustensilesLi) {
+                if (!(ustensile.innerText.includes(this.ustensileSearched))) {
+                    ustensile.style.display = "none"; //à refaire avec une classe CSS
+                } else {
+                    ustensile.style.display = "flex";
+                }
+            }
+        });
+
+
     }
 
 

@@ -10,9 +10,12 @@ const ustensilesFiltersBtn = document.querySelector("#ustensiles-btn");
 const ingredientsFiltersList = document.querySelector("#edit-and-select_ingredients-results"); /** ingredients filters ul **/
 const appareilsFiltersList = document.querySelector("#edit-and-select_appareil-results"); /** appareil filters ul **/
 const ustensilesFiltersList = document.querySelector("#edit-and-select_ustensiles-results"); /** ustensiles filters ul **/
+const ingredientsInput = document.querySelector("#enter-ingredient");
+const appareilsInput = document.querySelector("#enter-appareil");
+const ustensilesInput = document.querySelector("#enter-ustensile");
 
 (async function createHomepage() {
-    let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList);
+    let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList, ingredientsInput, appareilsInput, ustensilesInput);
     myHomePage.displayCards(recipes);
     myHomePage.displayFilters(recipes);
 })();

@@ -1,14 +1,15 @@
 class RecipeCard {
 
-    constructor(title, time, ingredients, description, cardsContainer) { //, cardsArray, cardId
+
+    constructor(title, time, ingredients, description, cardsContainer) {
         this.title = title;
         this.time = time;
         this.ingredients = ingredients;
         this.description = description;
-        //this.cardId = cardId;
         this.cardsContainer = cardsContainer;
-        //this.cardsArray = cardsArray;
     }
+
+
     display() {
         const card = document.createElement("article");
         card.classList.add("card");
@@ -66,4 +67,6 @@ class RecipeCard {
         //this.cardsArray.push(card);
         return card;
     }
+
+    
 }
