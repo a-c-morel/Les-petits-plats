@@ -1,7 +1,7 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList) { //, tagsSelected
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList) {
 
         this.importedRecipes = importedRecipes;
         this.mainElement = mainElement;
@@ -31,6 +31,11 @@ class HomePage {
             let myRecipesArray = this.filtrer(this.recipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles); /** ça return soit l'array filtré, soit l'array de 50 recettes **/
             this.displayCards(myRecipesArray);
             this.displayFilters(myRecipesArray);
+            if(myRecipesArray.length === 0) {
+                this.showErrorMessage(this.searchbarError);
+            }else{
+                this.hideErrorMessage(this.searchbarError);
+            }
         });
 
         
@@ -280,13 +285,13 @@ class HomePage {
     }
 
 
-    showErrorMessage() {
+    showErrorMessage(searchbarError) {
         searchbarError.classList.add("show-error-msg");
         searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
     }
 
 
-    hideErrorMessage() {
+    hideErrorMessage(searchbarError) {
         searchbarError.classList.remove("show-error-msg");
         searchbarError.innerHTML = "";
     }
