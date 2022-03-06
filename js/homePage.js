@@ -42,11 +42,6 @@ class HomePage {
         let filteredBySearchbar = []; /** va contenir les recettes qui ont passé le filtre 1 **/
         
         if(searchedLetters.length > 2) {
-
-            /*searchbarError.classList.remove("show-error-msg");
-            searchbarError.innerHTML = "";*/
-            
-            //filteredBySearchbar.length == 0; /** on vide l'array **/
             
             for (let recipe of myRecipesArray){
                 let recipeTitle = recipe.name;
@@ -99,23 +94,12 @@ class HomePage {
                 }
             }
 
-            /*if(filteredByUstensiles.length === 0){
-                searchbarError.classList.add("show-error-msg");
-                searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
-            }*/ //faire ce message à l'appel de la fonction filter
-
             return filteredByUstensiles;
 
-        } else if (selectedIngredients.length > 0 || selectedAppareils.length > 0 || selectedUstensiles.length > 0 ) { //|| ....idem appareils, ustensiles
+        } else if (selectedIngredients.length > 0 || selectedAppareils.length > 0 || selectedUstensiles.length > 0 ) {
 
-            //filteredBySearchbar.length = 0; /** on vide l'array **/
+            let filteredByIngredients = [];
 
-            /*searchbarError.classList.remove("show-error-msg");
-            searchbarError.innerHTML = "";*/
-
-            let filteredByIngredients = []; /** va contenir les recettes qui ont passé le filtre **/
-
-            /** Il faut que je prenne this.selectedIngredients (en partant du principe qu'il y a quelque chose dedans...) **/
             for (let recipe of myRecipesArray) {
                 let recipeIngredients = recipe.ingredients;
                 let recipeIngredientsArray = [];
@@ -128,7 +112,7 @@ class HomePage {
                 }
             }
             
-            let filteredByAppareils = []; /** va contenir les recettes qui ont passé le filtre 3 **/
+            let filteredByAppareils = [];
 
             for (let recipe of filteredByIngredients){
                 let recipeAppareil = recipe.appliance;
@@ -139,10 +123,10 @@ class HomePage {
                 }
             }
 
-            let filteredByUstensiles = []; /** va contenir les recettes qui ont passé le filtre 4 **/
+            let filteredByUstensiles = [];
 
             for (let recipe of filteredByAppareils) {
-                let recipeUstensiles = recipe.ustensils; //un array contenant des strings
+                let recipeUstensiles = recipe.ustensils;
                 let recipeUstensilesArray = [];
                 for (let recipeUstensile of recipeUstensiles){
                     recipeUstensilesArray.push(`${recipeUstensile.toLowerCase()}`);
@@ -151,31 +135,11 @@ class HomePage {
                     filteredByUstensiles.push(recipe);
                 }
             }
-
-            /*let filteredBySearchbar = [];
-
-            if(searchedLetters.length > 2) {
-                
-                for (let recipe of filteredByUstensiles){
-                    let recipeTitle = recipe.name;
-                    let ingredients = recipe.ingredients;
-                    let recipeIngredients = [];
-                    ingredients.map(({ingredient}) => {
-                        recipeIngredients.push(`${ingredient.toLowerCase()}`);
-                    });
-                    let recipeDescription = recipe.description;
-                    if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters))) {
-                        filteredBySearchbar.push(recipe);
-                    }        
-                }
-                return filteredBySearchBar;
-            }else {*/
-                return filteredByUstensiles; //return filteredBySearchBar;
+            
+            return filteredByUstensiles;
 
         } else {
 
-            /*searchbarError.classList.remove("show-error-msg");
-            searchbarError.innerHTML = "";*/
             return this.allRecipes;
 
         }
@@ -209,7 +173,7 @@ class HomePage {
         this.ustensilesArray = filtersArray.getUstensiles();
 
         /** affichage des ingrédients dans leur container : **/
-        let ingredients = new FiltersFactory("ingredient", {button: this.ingredientsFiltersBtn, listContainer: this.ingredientsFiltersList, filters: this.ingredientsArray, tagsContainer: this.tagsContainer}); //, ingredientsTags: this.ingredientsTags ???
+        let ingredients = new FiltersFactory("ingredient", {button: this.ingredientsFiltersBtn, listContainer: this.ingredientsFiltersList, filters: this.ingredientsArray, tagsContainer: this.tagsContainer});
         ingredients.displayList();
 
         let ingredientsElements = ingredients.listContainer.children;
@@ -226,16 +190,13 @@ class HomePage {
                     this.tagsContainer.appendChild(tagLi);
 
                     let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
-                    //console.log(myNewRecipesArray);
                     this.displayCards(myNewRecipesArray);
-                    this.displayFilters(myNewRecipesArray); // ????? pb récursivité
+                    this.displayFilters(myNewRecipesArray);
                     this.recipesArray = myNewRecipesArray;
                 }
                 for (let tagSelected of this.tagsSelected) {
                     tagSelected.addEventListener('click', (e) => {
-                        //console.log(e.target.innerText);
                         e.target.style.display = 'none'; // faire mieux ensuite avec une classe .show en CSS + faire l'event sur l'icône en forme de croix
-                        //this.selectedIngredients -> supprimer l'ingrédient de l'array
                         let tagIndex = this.selectedIngredients.indexOf(e.target.innerText);
                         this.selectedIngredients.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
@@ -270,9 +231,7 @@ class HomePage {
                 }
                 for (let tagSelected of this.tagsSelected) {
                     tagSelected.addEventListener('click', (e) => {
-                        //console.log(e.target.innerText);
-                        e.target.style.display = 'none'; // faire mieux ensuite avec une classe .show en CSS + faire l'event sur l'icône en forme de croix
-                        //this.selectedIngredients -> supprimer l'ingrédient de l'array
+                        e.target.style.display = 'none';
                         let tagIndex = this.selectedAppareils.indexOf(e.target.innerText);
                         this.selectedAppareils.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
@@ -307,9 +266,7 @@ class HomePage {
                 }
                 for (let tagSelected of this.tagsSelected) {
                     tagSelected.addEventListener('click', (e) => {
-                        //console.log(e.target.innerText);
-                        e.target.style.display = 'none'; // faire mieux ensuite avec une classe .show en CSS + faire l'event sur l'icône en forme de croix
-                        //this.selectedIngredients -> supprimer l'ingrédient de l'array
+                        e.target.style.display = 'none';
                         let tagIndex = this.selectedUstensiles.indexOf(e.target.innerText);
                         this.selectedUstensiles.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
@@ -320,6 +277,18 @@ class HomePage {
                 };
             });
         }
+    }
+
+
+    showErrorMessage() {
+        searchbarError.classList.add("show-error-msg");
+        searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+    }
+
+
+    hideErrorMessage() {
+        searchbarError.classList.remove("show-error-msg");
+        searchbarError.innerHTML = "";
     }
 
 

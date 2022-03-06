@@ -11,7 +11,6 @@ const ingredientsFiltersList = document.querySelector("#edit-and-select_ingredie
 const appareilsFiltersList = document.querySelector("#edit-and-select_appareil-results"); /** appareil filters ul **/
 const ustensilesFiltersList = document.querySelector("#edit-and-select_ustensiles-results"); /** ustensiles filters ul **/
 
-
 (async function createHomepage() {
     let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList);
     myHomePage.displayCards(recipes);
@@ -36,6 +35,10 @@ document.addEventListener('click', (e) => {
         hideList(ustensilesFiltersBtn, ustensilesFiltersList);
     }
 });
+
+
+/** Quand clic sur le chevron: animation + toggle ouverture/fermeture liste**/
+//code à créer
 
 function showList(btn, list){
     list.classList.add("show-filters");
