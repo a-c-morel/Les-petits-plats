@@ -60,7 +60,8 @@ class Ingredients extends Filters {
     displayList() {
 
         this.clear(this.listContainer);
-        for (let filter of this.filters) {
+        let alphabeticalSorted = this.filters.sort();
+        for (let filter of alphabeticalSorted) {
             const filterLi = document.createElement("li");
             filterLi.classList.add("filter-element");
             filterLi.classList.add("ingredient-element");
@@ -91,7 +92,8 @@ class Appareils extends Filters {
     displayList() {
 
         this.clear(this.listContainer);
-        for (let filter of this.filters) {
+        let alphabeticalSorted = this.filters.sort();
+        for (let filter of alphabeticalSorted) {
             const filterLi = document.createElement("li");
             filterLi.classList.add("filter-element");
             filterLi.classList.add("appareil-element");
@@ -122,7 +124,8 @@ class Ustensiles extends Filters {
     displayList() {
 
         this.clear(this.listContainer);
-        for (let filter of this.filters) {
+        let alphabeticalSorted = this.filters.sort();
+        for (let filter of alphabeticalSorted) {
             const filterLi = document.createElement("li");
             filterLi.classList.add("filter-element");
             filterLi.classList.add("ustensile-element");
