@@ -4,9 +4,13 @@ const mainElement = document.querySelector("main");
 const searchbar = document.querySelector("#searchbar");
 const searchbarError = document.querySelector("#error-msg-searchbar");
 const tagsContainer = document.querySelector(".tags");
-const ingredientsFiltersBtn = document.querySelector("#ingredient-btn");
+const ingredientsFiltersBtn = document.querySelector("#ingredients-btn");
 const appareilsFiltersBtn = document.querySelector("#appareil-btn");
 const ustensilesFiltersBtn = document.querySelector("#ustensiles-btn");
+const closeIngredientsList = document.querySelector("#open_ingredient-search");
+const closeAppareilsList = document.querySelector("#open_appareil-search");
+const closeUstensilesList = document.querySelector("#open_ustensile-search");
+
 const ingredientsFiltersList = document.querySelector("#edit-and-select_ingredients-results"); /** ingredients filters ul **/
 const appareilsFiltersList = document.querySelector("#edit-and-select_appareil-results"); /** appareil filters ul **/
 const ustensilesFiltersList = document.querySelector("#edit-and-select_ustensiles-results"); /** ustensiles filters ul **/
@@ -22,7 +26,7 @@ const ustensilesInput = document.querySelector("#enter-ustensile");
 
 /** Quans clic sur un bouton = montrer les filtres, quand clic à l'extérieur de la liste = cacher la liste **/
 document.addEventListener('click', (e) => {
-    if (e.target.closest("#ingredient-btn")) {
+    if (e.target.closest("#ingredients-btn")) {
         showList(ingredientsFiltersBtn, ingredientsFiltersList);
     } else {
         hideList(ingredientsFiltersBtn, ingredientsFiltersList);
@@ -41,7 +45,29 @@ document.addEventListener('click', (e) => {
 
 
 /** Quand clic sur le chevron: animation + toggle ouverture/fermeture liste**/
-//code à créer
+closeIngredientsList.addEventListener("click", (e) => {
+    let isIngredientsListOpened = document.querySelector(".show-filters");
+    if(!(isIngredientsListOpened === null)) {
+        e.stopPropagation();
+        hideList(ingredientsFiltersBtn, ingredientsFiltersList);
+    }
+});
+
+closeAppareilsList.addEventListener("click", (e) => {
+    let isAppareilsListOpened = document.querySelector(".show-filters");
+    if(!(isAppareilsListOpened === null)) {
+        e.stopPropagation();
+        hideList(appareilsFiltersBtn, appareilsFiltersList);
+    }
+});
+
+closeUstensilesList.addEventListener("click", (e) => {
+    let isUstensilesListOpened = document.querySelector(".show-filters");
+    if(!(isUstensilesListOpened === null)) {
+        e.stopPropagation();
+        hideList(ustensilesFiltersBtn, ustensilesFiltersList);
+    }
+});
 
 function showList(btn, list){
     list.classList.add("show-filters");
