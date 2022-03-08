@@ -235,8 +235,18 @@ class HomePage {
                     /** Affichage des tags sélectionnés dans tagsContainer **/
                     const tagLi = document.createElement("li");
                     tagLi.classList.add("ingredient-tag");
-                    tagLi.innerHTML = e.target.innerHTML;
+                    tagLi.classList.add("d-flex");
+                    tagLi.classList.add("justify-content-between");
+                    tagLi.classList.add("gap-3");
+                    const tagText = document.createElement("span");
+                    tagText.innerHTML = e.target.innerHTML;
+                    const closeIcon = document.createElement("i");
+                    closeIcon.classList.add("bi");
+                    closeIcon.classList.add("bi-x-circle");
+                    
                     this.tagsContainer.appendChild(tagLi);
+                    tagLi.appendChild(tagText);
+                    tagLi.appendChild(closeIcon);
 
                     let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                     this.displayCards(myNewRecipesArray);
@@ -244,9 +254,14 @@ class HomePage {
                     this.recipesArray = myNewRecipesArray;
                 }
                 for (let tagSelected of this.tagsSelected) {
-                    tagSelected.addEventListener('click', (e) => {
-                        e.target.style.display = 'none'; // faire mieux ensuite avec une classe .show en CSS + faire l'event sur l'icône en forme de croix
-                        let tagIndex = this.selectedIngredients.indexOf(e.target.innerText);
+                    let closeButton = tagSelected.children.item(1);
+                    closeButton.addEventListener('click', () => {
+                        tagSelected.classList.remove("ingredient-tag"); //test
+                        tagSelected.classList.remove("d-flex"); //test
+                        tagSelected.classList.remove("justify-content-between"); //test
+                        tagSelected.classList.remove("gap-3"); //test
+                        tagSelected.style.display = "none"; //test
+                        let tagIndex = this.selectedIngredients.indexOf(tagSelected.innerText);
                         this.selectedIngredients.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                         this.displayCards(myNewRecipesArray);
@@ -270,8 +285,18 @@ class HomePage {
                     /** Affichage des tags sélectionnés dans tagsContainer **/
                     const tagLi = document.createElement("li");
                     tagLi.classList.add("appareil-tag");
-                    tagLi.innerHTML = e.target.innerHTML;
+                    tagLi.classList.add("d-flex");
+                    tagLi.classList.add("justify-content-between");
+                    tagLi.classList.add("gap-3");
+                    const tagText = document.createElement("span");
+                    tagText.innerHTML = e.target.innerHTML;
+                    const closeIcon = document.createElement("i");
+                    closeIcon.classList.add("bi");
+                    closeIcon.classList.add("bi-x-circle");
+                    
                     this.tagsContainer.appendChild(tagLi);
+                    tagLi.appendChild(tagText);
+                    tagLi.appendChild(closeIcon);
 
                     let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                     this.displayCards(myNewRecipesArray);
@@ -279,9 +304,14 @@ class HomePage {
                     this.recipesArray = myNewRecipesArray;
                 }
                 for (let tagSelected of this.tagsSelected) {
-                    tagSelected.addEventListener('click', (e) => {
-                        e.target.style.display = 'none';
-                        let tagIndex = this.selectedAppareils.indexOf(e.target.innerText);
+                    let closeButton = tagSelected.children.item(1);
+                    closeButton.addEventListener('click', () => {
+                        tagSelected.classList.remove("appareil-tag"); //test
+                        tagSelected.classList.remove("d-flex"); //test
+                        tagSelected.classList.remove("justify-content-between"); //test
+                        tagSelected.classList.remove("gap-3"); //test
+                        tagSelected.style.display = "none"; //test
+                        let tagIndex = this.selectedIngredients.indexOf(tagSelected.innerText);
                         this.selectedAppareils.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                         this.displayCards(myNewRecipesArray);
@@ -305,8 +335,18 @@ class HomePage {
                     /** Affichage des tags sélectionnés dans tagsContainer **/
                     const tagLi = document.createElement("li");
                     tagLi.classList.add("ustensile-tag");
-                    tagLi.innerHTML = e.target.innerHTML;
+                    tagLi.classList.add("d-flex");
+                    tagLi.classList.add("justify-content-between");
+                    tagLi.classList.add("gap-3");
+                    const tagText = document.createElement("span");
+                    tagText.innerHTML = e.target.innerHTML;
+                    const closeIcon = document.createElement("i");
+                    closeIcon.classList.add("bi");
+                    closeIcon.classList.add("bi-x-circle");
+                    
                     this.tagsContainer.appendChild(tagLi);
+                    tagLi.appendChild(tagText);
+                    tagLi.appendChild(closeIcon);
 
                     let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                     this.displayCards(myNewRecipesArray);
@@ -314,9 +354,14 @@ class HomePage {
                     this.recipesArray = myNewRecipesArray;
                 }
                 for (let tagSelected of this.tagsSelected) {
-                    tagSelected.addEventListener('click', (e) => {
-                        e.target.style.display = 'none';
-                        let tagIndex = this.selectedUstensiles.indexOf(e.target.innerText);
+                    let closeButton = tagSelected.children.item(1);
+                    closeButton.addEventListener('click', () => {
+                        tagSelected.classList.remove("ustensile-tag"); //test
+                        tagSelected.classList.remove("d-flex"); //test
+                        tagSelected.classList.remove("justify-content-between"); //test
+                        tagSelected.classList.remove("gap-3"); //test
+                        tagSelected.style.display = "none"; //test
+                        let tagIndex = this.selectedUstensiles.indexOf(tagSelected.innerText);
                         this.selectedUstensiles.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                         this.displayCards(myNewRecipesArray);
@@ -330,14 +375,30 @@ class HomePage {
 
 
     showErrorMessage(searchbarError) {
+
         searchbarError.classList.add("show-error-msg");
         searchbarError.innerHTML = "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc."
+
     }
 
 
     hideErrorMessage(searchbarError) {
+
         searchbarError.classList.remove("show-error-msg");
         searchbarError.innerHTML = "";
+        
+    }
+
+
+    removeTag() {
+
+        console.log("test");
+        /*this.selectedIngredients.splice(tagIndex, 1);
+        let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
+        this.displayCards(myNewRecipesArray);
+        this.displayFilters(myNewRecipesArray);
+        this.recipesArray = myNewRecipesArray;*/
+
     }
 
 

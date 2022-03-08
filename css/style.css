@@ -103,6 +103,15 @@ ol, ul{
     display: flex;
 }
 
+.filter-element{
+    cursor: pointer;
+    color: white;
+}
+
+.filter-element:hover {
+    color: rgba(255, 255, 255, 0.658);
+}
+
 /*CARDS*/
 .card{
     width: 380px;
@@ -175,4 +184,8 @@ ol, ul{
     padding-left: 1.25rem;
     padding-right: 1.38rem;
     border-radius: .31rem;
+}
+
+.bi-x-circle {
+    cursor: pointer;
 }
