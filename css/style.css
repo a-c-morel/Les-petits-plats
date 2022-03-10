@@ -76,7 +76,7 @@ ol, ul{
     color: white
 }
 #ingredients-btn{
-    background-color: var(--btn1)
+    background-color: var(--btn1);
 }
 #enter-ingredient{
     background-color: var(--btn1)
@@ -96,11 +96,30 @@ ol, ul{
 
 .btn-icon {
     cursor: pointer;
+    /*animation: rotate .5s ease-in-out forwards;*/
 }
+
+/*@keyframes rotate {
+    from {
+        transform: rotate(180deg);
+      }
+      to {
+        transform: rotate(0deg);
+      }
+}*/
 
 /*filters displayed (none by default)*/
 .advanced_search_results{
     display: none;
+}
+
+.lists {
+    max-height: 24.8rem;
+}
+
+.scroll-inside {
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .show-filters{
