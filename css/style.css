@@ -118,8 +118,7 @@ ol, ul{
 }
 
 .scroll-inside {
-    overflow: hidden;
-    overflow-y: scroll;
+    overflow: auto;
 }
 
 .show-filters{
