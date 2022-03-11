@@ -121,6 +121,15 @@ ol, ul{
     overflow: auto;
 }
 
+.scroll-inside::-webkit-scrollbar {
+    width: .4rem;
+}
+
+.scroll-inside::-webkit-scrollbar-thumb {
+    background: #e7e7e75b;
+    border-radius: 100vw;
+}
+
 .show-filters{
     display: flex;
 }
