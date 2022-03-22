@@ -72,11 +72,13 @@ closeUstensilesList.addEventListener("click", (e) => {
 function showList(btn, list){
     list.classList.add("show-filters");
     list.classList.add("row");
-    btn.classList.add("md-w-50");
+    /*btn.classList.add("md-w-50");*/
+    /*btn.classList.add("btn-expand");*/
 }
 
 function hideList(btn, list){
     list.classList.remove("show-filters");
     list.classList.remove("row");
-    btn.classList.remove("md-w-50");
+    //btn.classList.remove("md-w-50");
+    //btn.classList.remove("btn-expand");
 }
