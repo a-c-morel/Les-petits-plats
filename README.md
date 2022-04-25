@@ -20,7 +20,7 @@ seuls vont rester “noix de coco” et “lait de coco”.
 champs de recherche avancée.
 10. L’utilisateur sélectionne une recette.
 ## Scénario alternatif 1
-Aucune recette correspondante à la recherche. L'enchaînement A1 commence au point 3 du scénario nominal :
+Aucune recette correspondante à la recherche. L'enchaînement A1 commence au point 3 du scénario nominal :<br>
 3. L’interface affiche « Aucune recette ne correspond à votre critère… vous pouvez
 chercher « tarte aux pommes », « poisson », etc.
 ## Scénario alternatif 2
