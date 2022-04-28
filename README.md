@@ -39,5 +39,5 @@ le champ disparaissent.
 14. Les résultats de recherche sont actualisés, ainsi que les éléments disponibles dans les
 champs de recherche avancée.
 ***
-Le but de ce projet est de tester 2 versions afin de déterminer quelle méthode entre l'utilisation des boucles natives for et filter() en JavaScript est la plus performante. Mon hypothèse de départ était que la méthode filter() serait la plus optimale, avec l'idée qu'elle est "faite pour cette utilisation", mais pour l'instant, d'après mes recherches sur le sujet il semblerait que cela soit plus complexe que ça et qu'il est même possible que l'inverse soit vrai.
+Le but de ce projet est de tester 2 versions afin de déterminer quelle méthode entre l'utilisation des boucles natives for ou celle de la méthode filter() est la plus performante en JavaScript. Mon hypothèse de départ était que la méthode filter() serait la plus optimale, avec l'idée qu'elle est "faite pour cette utilisation", mais pour l'instant, d'après mes recherches sur le sujet il semblerait que cela soit plus complexe que ça et qu'il est même possible que l'inverse soit vrai.
 Je suis actuellement sur la fin de la version 1, celle qui utilise les boucles for et ne fait pas appel à filter() : je vais ensuite créer une nouvelle branche sur le repository afin de développer la version 2, celle qui utilise filter().
