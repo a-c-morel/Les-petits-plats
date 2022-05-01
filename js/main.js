@@ -1,22 +1,42 @@
 import { recipes } from './recipes.js';
 
-const mainElement = document.querySelector("main");
-const searchbar = document.querySelector("#searchbar");
-const searchbarError = document.querySelector("#error-msg-searchbar");
-const tagsContainer = document.querySelector(".tags");
-const ingredientsFiltersBtn = document.querySelector("#ingredients-btn");
-const appareilsFiltersBtn = document.querySelector("#appareil-btn");
-const ustensilesFiltersBtn = document.querySelector("#ustensiles-btn");
-const closeIngredientsList = document.querySelector("#open_ingredient-search");
-const closeAppareilsList = document.querySelector("#open_appareil-search");
-const closeUstensilesList = document.querySelector("#open_ustensile-search");
+const elements = {
+    mainElement: document.querySelector("main"),
+    searchbar: document.querySelector("#searchbar"),
+    searchbarError: document.querySelector("#error-msg-searchbar"),
+    tagsContainer: document.querySelector(".tags"),
+    ingredientsFiltersBtn: document.querySelector("#ingredients-btn"),
+    appareilsFiltersBtn: document.querySelector("#appareil-btn"),
+    ustensilesFiltersBtn: document.querySelector("#ustensiles-btn"),
+    closeIngredientsList: document.querySelector("#open_ingredient-search"),
+    closeAppareilsList: document.querySelector("#open_appareil-search"),
+    closeUstensilesList: document.querySelector("#open_ustensile-search"),
+    ingredientsFiltersList: document.querySelector("#edit-and-select_ingredients-results"), /** ingredients filters ul **/
+    appareilsFiltersList: document.querySelector("#edit-and-select_appareil-results"), /** appareil filters ul **/
+    ustensilesFiltersList: document.querySelector("#edit-and-select_ustensiles-results"), /** ustensiles filters ul **/
+    ingredientsInput: document.querySelector("#enter-ingredient"),
+    appareilsInput: document.querySelector("#enter-appareil"),
+    ustensilesInput: document.querySelector("#enter-ustensile")
+}
 
-const ingredientsFiltersList = document.querySelector("#edit-and-select_ingredients-results"); /** ingredients filters ul **/
-const appareilsFiltersList = document.querySelector("#edit-and-select_appareil-results"); /** appareil filters ul **/
-const ustensilesFiltersList = document.querySelector("#edit-and-select_ustensiles-results"); /** ustensiles filters ul **/
-const ingredientsInput = document.querySelector("#enter-ingredient");
-const appareilsInput = document.querySelector("#enter-appareil");
-const ustensilesInput = document.querySelector("#enter-ustensile");
+const {
+    mainElement,
+    searchbar,
+    searchbarError,
+    tagsContainer,
+    ingredientsFiltersBtn,
+    appareilsFiltersBtn,
+    ustensilesFiltersBtn,
+    closeIngredientsList,
+    closeAppareilsList,
+    closeUstensilesList,
+    ingredientsFiltersList,
+    appareilsFiltersList,
+    ustensilesFiltersList,
+    ingredientsInput,
+    appareilsInput,
+    ustensilesInput
+} = elements;
 
 (async function createHomepage() {
     let myHomePage = new HomePage(recipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList, ingredientsInput, appareilsInput, ustensilesInput);
