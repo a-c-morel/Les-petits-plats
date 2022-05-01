@@ -47,19 +47,19 @@ const {
 /** Quans clic sur un bouton = montrer les filtres, quand clic à l'extérieur de la liste = cacher la liste **/
 document.addEventListener('click', (e) => {
     if (e.target.closest("#ingredients-btn")) {
-        showList(ingredientsFiltersBtn, ingredientsFiltersList);
+        showList(ingredientsFiltersList);
     } else {
-        hideList(ingredientsFiltersBtn, ingredientsFiltersList);
+        hideList(ingredientsFiltersList);
     }
     if (e.target.closest("#appareil-btn")) {
-        showList(appareilsFiltersBtn, appareilsFiltersList);
+        showList(appareilsFiltersList);
     } else {
-        hideList(appareilsFiltersBtn, appareilsFiltersList);
+        hideList(appareilsFiltersList);
     }
     if (e.target.closest("#ustensiles-btn")) {
-        showList(ustensilesFiltersBtn, ustensilesFiltersList);
+        showList(ustensilesFiltersList);
     } else {
-        hideList(ustensilesFiltersBtn, ustensilesFiltersList);
+        hideList(ustensilesFiltersList);
     }
 });
 
@@ -69,7 +69,7 @@ closeIngredientsList.addEventListener("click", (e) => {
     let isIngredientsListOpened = document.querySelector(".show-filters");
     if(!(isIngredientsListOpened === null)) {
         e.stopPropagation();
-        hideList(ingredientsFiltersBtn, ingredientsFiltersList);
+        hideList(ingredientsFiltersList);
     }
 });
 
@@ -77,7 +77,7 @@ closeAppareilsList.addEventListener("click", (e) => {
     let isAppareilsListOpened = document.querySelector(".show-filters");
     if(!(isAppareilsListOpened === null)) {
         e.stopPropagation();
-        hideList(appareilsFiltersBtn, appareilsFiltersList);
+        hideList(appareilsFiltersList);
     }
 });
 
@@ -85,20 +85,16 @@ closeUstensilesList.addEventListener("click", (e) => {
     let isUstensilesListOpened = document.querySelector(".show-filters");
     if(!(isUstensilesListOpened === null)) {
         e.stopPropagation();
-        hideList(ustensilesFiltersBtn, ustensilesFiltersList);
+        hideList(ustensilesFiltersList);
     }
 });
 
-function showList(btn, list){
+function showList(list){
     list.classList.add("show-filters");
     list.classList.add("row");
-    /*btn.classList.add("md-w-50");*/
-    /*btn.classList.add("btn-expand");*/
 }
 
-function hideList(btn, list){
+function hideList(list){
     list.classList.remove("show-filters");
     list.classList.remove("row");
-    //btn.classList.remove("md-w-50");
-    //btn.classList.remove("btn-expand");
 }
