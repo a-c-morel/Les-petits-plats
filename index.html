@@ -41,10 +41,10 @@
 
         <!--FILTERING BUTTONS-->
         <section class="container-fluid mb-3">
-            <div id="edit-and-select" class="d-flex flex-column gap-4 flex-md-row align-items-md-start justify-content-md-start">
+            <div id="edit-and-select" class="d-flex flex-column flex-md-row align-items-md-start justify-content-md-start">
                 <!--BUTTON 1-->
                 <!--N.B.: I do not use the <button> markup because it cannot contain interactive elements like input (source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button -> permitted content)-->
-                <div class="selection-btn rounded p-2 d-flex flex-column" id="ingredients-btn">
+                <div class="selection-btn rounded p-2 d-flex flex-column me-md-4" id="ingredients-btn">
                     <span class="d-flex btn justify-content-between">
                         <input type="text" class="edit-and-select_buttons rounded" id="enter-ingredient" placeholder="Ingrédient" aria-label="Rechercher un ingrédient">
                         <i class="bi bi-chevron-down btn-icon" id="open_ingredient-search"></i>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <!--BUTTON 2-->
-                <div class="selection-btn rounded p-2" id="appareil-btn">
+                <div class="selection-btn rounded p-2 me-md-4" id="appareil-btn">
                     <span class="d-flex btn justify-content-between">
                         <input type="text" class="edit-and-select_buttons rounded" id="enter-appareil" placeholder="Appareil" aria-label="Rechercher un appareil">
                         <i class="bi bi-chevron-down btn-icon" id="open_appareil-search"></i>
