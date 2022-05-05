@@ -22,9 +22,9 @@ header {
 
 @media screen and (min-width: 992px){
     header {
-        padding: 6.25rem;
-        padding-left: 6.25rem !important;
-        padding-right: 6.25rem !important;
+        padding: calc(100rem/16);
+        padding-left: calc(100rem/16) !important;
+        padding-right: calc(100rem/16) !important;
     }
 }
 
@@ -32,6 +32,15 @@ header {
 main {
     padding-top: 29rem; /*mobiles*/
     /*padding-top: 430px;*/
+    padding-left: calc(100rem/16) !important;
+    padding-right: calc(100rem/16) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.searchbar-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important
 }
 
 ol, ul{
@@ -44,7 +53,13 @@ ol, ul{
     font-weight: bold;
 }
 
+.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .navbar-brand, .navbar-brand:hover{
+    padding-top: 0;
     color: var(--primary);
 }
 
@@ -276,4 +291,9 @@ ol, ul{
 #enter-ustensile {
     padding: 0 !important;
     width: 6rem !important;
+}
+
+.btns-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
