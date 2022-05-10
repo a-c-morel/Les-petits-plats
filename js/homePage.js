@@ -87,12 +87,11 @@ class HomePage {
 
 
     filtrer(myRecipesArray, searchedLetters, selectedIngredients, selectedAppareils, selectedUstensiles) {
-        /*VERSION 1*/ //aller sur la branche "v2" afin de voir la version 2
-        let filteredBySearchbar = []; /** va contenir les recettes qui ont passé le filtre 1 **/
+        /*VERSION 2*/ //aller sur la branche "main" afin de voir la version 1
         
         if(searchedLetters.length > 2) {
             
-            for (let recipe of myRecipesArray){
+            let filteredBySearchbar = myRecipesArray.filter((recipe)=> {
                 let recipeTitle = recipe.name;
                 let ingredients = recipe.ingredients;
                 let recipeIngredients = [];
@@ -100,10 +99,8 @@ class HomePage {
                     recipeIngredients.push(`${ingredient.toLowerCase()}`);
                 });
                 let recipeDescription = recipe.description;
-                if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters))) {
-                    filteredBySearchbar.push(recipe);
-                }        
-            }
+                return recipeTitle.toLowerCase().includes(searchedLetters) || recipeIngredients.toString().toLowerCase().includes(searchedLetters) || recipeDescription.toLowerCase().includes(searchedLetters); /** va contenir les recettes qui ont passé le filtre 1 **/
+            });
 
             let filteredByIngredients = []; /** va contenir les recettes qui ont passé le filtre 2 **/
 
