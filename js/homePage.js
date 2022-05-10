@@ -87,21 +87,7 @@ class HomePage {
 
 
     filtrer(myRecipesArray, searchedLetters, selectedIngredients, selectedAppareils, selectedUstensiles) {
-        /*VERSION 2*/
-        /*
-        let filteredBySearchbar = myRecipesArray.filter(function(recipe) {
-            let recipeTitle = recipe.name;
-            let ingredients = recipe.ingredients;
-            let recipeIngredients = [];
-            ingredients.map(({ingredient}) => {
-                recipeIngredients.push(`${ingredient.toLowerCase()}`);
-            });
-            let recipeDescription = recipe.description;
-            ...........
-        });
-        */
-
-        /*VERSION 1*/
+        /*VERSION 1*/ //aller sur la branche "v2" afin de voir la version 2
         let filteredBySearchbar = []; /** va contenir les recettes qui ont passé le filtre 1 **/
         
         if(searchedLetters.length > 2) {
@@ -401,18 +387,6 @@ class HomePage {
         searchbarError.classList.remove("show-error-msg");
         searchbarError.innerHTML = "";
         
-    }
-
-
-    removeTag() {
-
-        console.log("test");
-        /*this.selectedIngredients.splice(tagIndex, 1);
-        let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
-        this.displayCards(myNewRecipesArray);
-        this.displayFilters(myNewRecipesArray);
-        this.recipesArray = myNewRecipesArray;*/
-
     }
 
 
