@@ -87,7 +87,21 @@ class HomePage {
 
 
     filtrer(myRecipesArray, searchedLetters, selectedIngredients, selectedAppareils, selectedUstensiles) {
+        /*VERSION 2*/
+        /*
+        let filteredBySearchbar = myRecipesArray.filter(function(recipe) {
+            let recipeTitle = recipe.name;
+            let ingredients = recipe.ingredients;
+            let recipeIngredients = [];
+            ingredients.map(({ingredient}) => {
+                recipeIngredients.push(`${ingredient.toLowerCase()}`);
+            });
+            let recipeDescription = recipe.description;
+            ...........
+        });
+        */
 
+        /*VERSION 1*/
         let filteredBySearchbar = []; /** va contenir les recettes qui ont passé le filtre 1 **/
         
         if(searchedLetters.length > 2) {

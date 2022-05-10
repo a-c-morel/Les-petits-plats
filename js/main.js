@@ -1,7 +1,10 @@
 import { recipes } from './recipes.js';
 
+/*destructuration recipes :*/
+//const {}
+
 const elements = {
-    mainElement: document.querySelector("main"),
+    mainElement: document.querySelector(".main-grid"),
     searchbar: document.querySelector("#searchbar"),
     searchbarError: document.querySelector("#error-msg-searchbar"),
     tagsContainer: document.querySelector(".tags"),

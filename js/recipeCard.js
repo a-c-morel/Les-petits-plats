@@ -16,6 +16,11 @@ class RecipeCard {
         card.classList.add("mb-3");
         card.classList.add("rounded");
         card.classList.add("border-0");
+        card.classList.add("col-12");
+        card.classList.add("col-md-6");
+        card.classList.add("col-lg-4");
+        card.classList.add("gx-md-5");
+        card.classList.add("gy-3");
 
         const cardImg = document.createElement("img");
         cardImg.classList.add("card-img-top");
@@ -39,11 +44,13 @@ class RecipeCard {
         
         const cardIngredientsList = document.createElement("ul");
         cardIngredientsList.classList.add("ingredients-ul");
-        cardIngredientsList.classList.add("col-6");
+        cardIngredientsList.classList.add("col-12");
+        cardIngredientsList.classList.add("col-md-6");
 
         const cardDescription = document.createElement("p");
         cardDescription.classList.add("card-text");
-        cardDescription.classList.add("col-6");
+        cardDescription.classList.add("col-12");
+        cardDescription.classList.add("col-md-6");
         cardDescription.innerHTML = `${this.description}`;
 
         card.appendChild(cardImg);
