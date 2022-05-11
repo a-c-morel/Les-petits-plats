@@ -87,7 +87,7 @@ class HomePage {
 
 
     filtrer(myRecipesArray, searchedLetters, selectedIngredients, selectedAppareils, selectedUstensiles) {
-        /*VERSION 2*/ //aller sur la branche "main" afin de voir la version 1
+        /*VERSION 2*/ //aller sur la branche "master" afin de voir la version 1
         
         if(searchedLetters.length > 2) {
             
