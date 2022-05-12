@@ -65,7 +65,9 @@ class Ingredients extends Filters {
             const filterLi = document.createElement("li");
             filterLi.classList.add("filter-element");
             filterLi.classList.add("ingredient-element");
-            filterLi.classList.add("col-4");
+            filterLi.classList.add("col-6");
+            filterLi.classList.add("col-md-12");
+            filterLi.classList.add("col-lg-4");
             filterLi.innerHTML = `${filter}`;
             this.listContainer.appendChild(filterLi);
         }
@@ -96,7 +98,9 @@ class Appareils extends Filters {
             const filterLi = document.createElement("li");
             filterLi.classList.add("filter-element");
             filterLi.classList.add("appareil-element");
-            filterLi.classList.add("col-4");
+            filterLi.classList.add("col-6");
+            filterLi.classList.add("col-md-12");
+            filterLi.classList.add("col-lg-4");
             filterLi.innerHTML = `${filter}`;
             this.listContainer.appendChild(filterLi);
         }
@@ -127,7 +131,9 @@ class Ustensiles extends Filters {
             const filterLi = document.createElement("li");
             filterLi.classList.add("filter-element");
             filterLi.classList.add("ustensile-element");
-            filterLi.classList.add("col-4");
+            filterLi.classList.add("col-6");
+            filterLi.classList.add("col-md-12");
+            filterLi.classList.add("col-lg-4");
             filterLi.innerHTML = `${filter}`;
             this.listContainer.appendChild(filterLi);
         }
