@@ -39,5 +39,11 @@ le champ disparaissent.
 14. Les résultats de recherche sont actualisés, ainsi que les éléments disponibles dans les
 champs de recherche avancée.
 ***
-Le but de ce projet est de tester 2 versions d'algorithme en JavaScript afin de déterminer entre l'utilisation des boucles natives for ou la méthode filter(), laquelle est la plus performante dans le cadre de ce projet. Mon hypothèse de départ était que la méthode filter() serait la plus optimale, avec l'idée qu'elle est "faite pour cette utilisation", mais pour l'instant, d'après mes recherches sur le sujet il semblerait que cela soit plus complexe que ça et qu'il est même possible que l'inverse soit vrai.
+Le but de ce projet était de tester 2 versions d'algorithme en JavaScript afin de déterminer entre l'utilisation des boucles natives for ou la méthode filter(), laquelle est la plus performante dans le cadre d'une base de données de 50 recettes. Mon hypothèse de départ était que la méthode filter() serait la plus optimale, avec l'idée qu'elle est "faite pour cette utilisation", mais pour l'instant, d'après mes recherches sur le sujet il semblerait que cela soit plus complexe que ça et qu'il est même possible que l'inverse soit vrai.
 Je suis actuellement sur la fin de la version 1, celle qui utilise les boucles for et ne fait pas appel à filter() : je vais ensuite créer une nouvelle branche sur le repository afin de développer la version 2, celle qui utilise filter().
+Afin de sélectionner la version la plus performante, j'ai simulé une saisie utilisateur dans la barre de recherche avec [JSBench.Me](https://jsbench.me/):
+En entrant l'array des recettes + le mot "pomme" (qui simule une saisie), je constate que la version avec la boucle for a pour résultat 12536.81 ops/s, contre 15130.78 ops/s pour la méthode filter(). C'est donc finalement bien cette dernière qui se montre la plus rapide !
+Je vous recommande donc de vous placer sur la branche v2 du projet si vous souhaitez profiter de la meilleure expérience de navigation sur le Github Pages.
+Vous pourrez ainsi tester les différents scénarios listés ci-dessus, et vous référer aux algorigrammes suivants :
+![Scénario nominal + Scénario alternatif A1 + Scénario alternatif A3](https://zupimages.net/viewer.php?id=22/20/8qa1.png)
+![Scénario alternatif A2](https://zupimages.net/viewer.php?id=22/20/89gr.png)
