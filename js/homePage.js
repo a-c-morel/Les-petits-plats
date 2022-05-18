@@ -49,7 +49,7 @@ class HomePage {
             this.ingredientsLi = this.ingredientsFiltersList.children;
             for (let ingredient of this.ingredientsLi) {
                 if (!(ingredient.innerText.includes(this.ingredientSearched))) {
-                    ingredient.style.display = "none"; //à refaire avec une classe CSS
+                    ingredient.style.display = "none";
                 } else {
                     ingredient.style.display = "flex";
                 }
@@ -62,7 +62,7 @@ class HomePage {
             this.appareilsLi = this.appareilsFiltersList.children;
             for (let appareil of this.appareilsLi) {
                 if (!(appareil.innerText.includes(this.appareilSearched))) {
-                    appareil.style.display = "none"; //à refaire avec une classe CSS
+                    appareil.style.display = "none";
                 } else {
                     appareil.style.display = "flex";
                 }
@@ -75,7 +75,7 @@ class HomePage {
             this.ustensilesLi = this.ustensilesFiltersList.children;
             for (let ustensile of this.ustensilesLi) {
                 if (!(ustensile.innerText.includes(this.ustensileSearched))) {
-                    ustensile.style.display = "none"; //à refaire avec une classe CSS
+                    ustensile.style.display = "none";
                 } else {
                     ustensile.style.display = "flex";
                 }
