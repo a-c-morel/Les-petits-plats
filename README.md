@@ -45,6 +45,7 @@ Afin de sélectionner la version la plus performante, j'ai simulé une saisie ut
 En entrant l'array des recettes + le mot "pomme" (qui simule une saisie), je constate que la version avec la boucle for a pour résultat 12536.81 ops/s, contre 15130.78 ops/s pour la méthode filter(). C'est donc finalement bien cette dernière qui se montre la plus rapide !
 Je vous recommande donc de vous placer sur la branche v2 du projet si vous souhaitez profiter de la meilleure expérience de navigation sur le Github Pages.
 Vous pourrez ainsi tester les différents scénarios listés ci-dessus, et vous référer aux algorigrammes suivants :
+## Scénario nominal + Scénario alternatif A1 + Scénario alternatif A3
 ![Scénario nominal + Scénario alternatif A1 + Scénario alternatif A3](https://zupimages.net/up/22/20/y989.png)
-
+## Scénario alternatif A2
 ![Scénario alternatif A2](https://zupimages.net/up/22/20/89gr.png)
