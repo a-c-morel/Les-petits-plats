@@ -46,4 +46,5 @@ En entrant l'array des recettes + le mot "pomme" (qui simule une saisie), je con
 Je vous recommande donc de vous placer sur la branche v2 du projet si vous souhaitez profiter de la meilleure expérience de navigation sur le Github Pages.
 Vous pourrez ainsi tester les différents scénarios listés ci-dessus, et vous référer aux algorigrammes suivants :
 ![Scénario nominal + Scénario alternatif A1 + Scénario alternatif A3](https://zupimages.net/up/22/20/8qa1.png)
+
 ![Scénario alternatif A2](https://zupimages.net/up/22/20/89gr.png)
