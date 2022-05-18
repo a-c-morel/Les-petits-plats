@@ -161,7 +161,6 @@ ol, ul{
 .filter-element{
     cursor: pointer;
     color: white;
-    overflow: hidden
 }
 .filter-element:hover {
     color: rgba(255, 255, 255, 0.658);
