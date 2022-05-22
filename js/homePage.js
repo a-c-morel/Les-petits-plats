@@ -92,7 +92,8 @@ class HomePage {
         
         if(searchedLetters.length > 2) {
             
-            for (let recipe of myRecipesArray){
+            for (let i=0; i<myRecipesArray.length; i++){
+                let recipe = myRecipesArray[i];
                 let recipeTitle = recipe.name;
                 let ingredients = recipe.ingredients;
                 let recipeIngredients = [];
