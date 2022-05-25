@@ -1,12 +1,13 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList, ingredientsInput, appareilsInput, ustensilesInput) {
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, plural, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList, ingredientsInput, appareilsInput, ustensilesInput) {
 
         this.importedRecipes = importedRecipes;
         this.mainElement = mainElement;
         this.searchbar = searchbar;
         this.searchbarError = searchbarError;
+        this.plural = plural;
         this.tagsContainer = tagsContainer;
         this.tagsSelected = tagsContainer.children;
         this.ingredientsFiltersBtn = ingredientsFiltersBtn;
@@ -33,7 +34,7 @@ class HomePage {
         this.ustensileSearched = "";
         
         this.searchbar.addEventListener('keyup', (e) => {
-            this.searchedLetters = e.target.value.toLowerCase(); /** je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée **/
+            this.searchedLetters = this.formatting(e.target.value.toLowerCase()); /** je convertis l'entrée utilisateur en minuscules, et je stocke cette donnée **/
             let myRecipesArray = this.filtrer(this.recipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles); /** ça return soit l'array filtré, soit l'array de 50 recettes **/
             this.displayCards(myRecipesArray);
             this.displayFilters(myRecipesArray);
@@ -45,10 +46,10 @@ class HomePage {
         });
 
         this.ingredientsInput.addEventListener('keyup', (e) => {
-            this.ingredientSearched = e.target.value.toLowerCase();
+            this.ingredientSearched = this.formatting(e.target.value.toLowerCase());
             this.ingredientsLi = this.ingredientsFiltersList.children;
             for (let ingredient of this.ingredientsLi) {
-                if (!(ingredient.innerText.includes(this.ingredientSearched))) {
+                if (!(this.formatting(ingredient.innerText).includes(this.ingredientSearched))) {
                     ingredient.style.display = "none";
                 } else {
                     ingredient.style.display = "flex";
@@ -58,10 +59,10 @@ class HomePage {
 
 
         this.appareilsInput.addEventListener('keyup', (e) => {
-            this.appareilSearched = e.target.value.toLowerCase();
+            this.appareilSearched = this.formatting(e.target.value.toLowerCase());
             this.appareilsLi = this.appareilsFiltersList.children;
             for (let appareil of this.appareilsLi) {
-                if (!(appareil.innerText.includes(this.appareilSearched))) {
+                if (!(this.formatting(appareil.innerText).includes(this.appareilSearched))) {
                     appareil.style.display = "none";
                 } else {
                     appareil.style.display = "flex";
@@ -71,10 +72,10 @@ class HomePage {
 
         
         this.ustensilesInput.addEventListener('keyup', (e) => {
-            this.ustensileSearched = e.target.value.toLowerCase();
+            this.ustensileSearched = this.formatting(e.target.value.toLowerCase());
             this.ustensilesLi = this.ustensilesFiltersList.children;
             for (let ustensile of this.ustensilesLi) {
-                if (!(ustensile.innerText.includes(this.ustensileSearched))) {
+                if (!(this.formatting(ustensile.innerText).includes(this.ustensileSearched))) {
                     ustensile.style.display = "none";
                 } else {
                     ustensile.style.display = "flex";
@@ -94,16 +95,16 @@ class HomePage {
             
             for (let i=0; i<myRecipesArray.length; i++){
                 let recipe = myRecipesArray[i];
-                let recipeTitle = recipe.name;
+                let recipeTitle = this.formatting(recipe.name);
                 let ingredients = recipe.ingredients;
                 let recipeIngredients = [];
                 ingredients.map(({ingredient}) => {
-                    recipeIngredients.push(`${ingredient.toLowerCase()}`);
+                    recipeIngredients.push(`${this.formatting(ingredient.toLowerCase())}`);
                 });
-                let recipeDescription = recipe.description;
+                let recipeDescription = this.formatting(recipe.description);
                 if((recipeTitle.toLowerCase().includes(searchedLetters))||(recipeIngredients.toString().toLowerCase().includes(searchedLetters)) || (recipeDescription.toLowerCase().includes(searchedLetters))) {
                     filteredBySearchbar.push(recipe);
-                }        
+                }       
             }
 
             let filteredByIngredients = []; /** va contenir les recettes qui ont passé le filtre 2 **/
@@ -112,10 +113,10 @@ class HomePage {
                 let recipeIngredients = recipe.ingredients;
                 let recipeIngredientsArray = [];
                 recipeIngredients.map(({ingredient}) => {
-                    recipeIngredientsArray.push(`${ingredient.toLowerCase()}`);
+                    recipeIngredientsArray.push(`${this.formatting(ingredient.toLowerCase())}`);
                 });
 
-                if(selectedIngredients.every(tag => recipeIngredientsArray.includes(tag))){
+                if(selectedIngredients.every(tag => recipeIngredientsArray.includes(this.formatting(tag)))){
                     filteredByIngredients.push(recipe);
                 }
             }
@@ -125,7 +126,7 @@ class HomePage {
             for (let recipe of filteredByIngredients){
                 let recipeAppareil = recipe.appliance;
                 let recipeAppareilsArray = [];
-                recipeAppareilsArray.push(`${recipeAppareil.toLowerCase()}`);
+                recipeAppareilsArray.push(`${this.formatting(recipeAppareil.toLowerCase())}`);
                 if(selectedAppareils.every(tag => recipeAppareilsArray.includes(tag))){
                     filteredByAppareils.push(recipe);
                 }
@@ -137,7 +138,7 @@ class HomePage {
                 let recipeUstensiles = recipe.ustensils; //un array contenant des strings
                 let recipeUstensilesArray = [];
                 for (let recipeUstensile of recipeUstensiles){
-                    recipeUstensilesArray.push(`${recipeUstensile.toLowerCase()}`);
+                    recipeUstensilesArray.push(`${this.formatting(recipeUstensile.toLowerCase())}`);
                 }
                 if(selectedUstensiles.every(tag => recipeUstensilesArray.includes(tag))){
                     filteredByUstensiles.push(recipe);
@@ -154,10 +155,10 @@ class HomePage {
                 let recipeIngredients = recipe.ingredients;
                 let recipeIngredientsArray = [];
                 recipeIngredients.map(({ingredient}) => {
-                    recipeIngredientsArray.push(`${ingredient.toLowerCase()}`);
+                    recipeIngredientsArray.push(`${this.formatting(ingredient.toLowerCase())}`);
                 });
 
-                if(selectedIngredients.every(tag => recipeIngredientsArray.includes(tag))){
+                if(selectedIngredients.every(tag => recipeIngredientsArray.includes(this.formatting(tag)))){
                     filteredByIngredients.push(recipe);
                 }
             }
@@ -167,7 +168,7 @@ class HomePage {
             for (let recipe of filteredByIngredients){
                 let recipeAppareil = recipe.appliance;
                 let recipeAppareilsArray = [];
-                recipeAppareilsArray.push(`${recipeAppareil.toLowerCase()}`);
+                recipeAppareilsArray.push(`${this.formatting(recipeAppareil.toLowerCase())}`);
                 if(selectedAppareils.every(tag => recipeAppareilsArray.includes(tag))){
                     filteredByAppareils.push(recipe);
                 }
@@ -179,7 +180,7 @@ class HomePage {
                 let recipeUstensiles = recipe.ustensils;
                 let recipeUstensilesArray = [];
                 for (let recipeUstensile of recipeUstensiles){
-                    recipeUstensilesArray.push(`${recipeUstensile.toLowerCase()}`);
+                    recipeUstensilesArray.push(`${this.formatting(recipeUstensile.toLowerCase())}`);
                 }
                 if(selectedUstensiles.every(tag => recipeUstensilesArray.includes(tag))){
                     filteredByUstensiles.push(recipe);
@@ -232,7 +233,7 @@ class HomePage {
             ingredient.addEventListener('click', (e) => {
                 if(!(this.selectedIngredients.includes(ingredient.outerText))) {
                     /** Le tag vient s'ajouter dans l'array des ingrédients sélectionnés **/
-                    this.selectedIngredients.push(ingredient.outerText);
+                    this.selectedIngredients.push(this.formatting(ingredient.outerText));
                     /** Affichage des tags sélectionnés dans tagsContainer **/
                     const tagLi = document.createElement("li");
                     tagLi.classList.add("ingredient-tag");
@@ -262,7 +263,7 @@ class HomePage {
                         tagSelected.classList.remove("justify-content-between"); //test
                         tagSelected.classList.remove("gap-3"); //test
                         tagSelected.style.display = "none"; //test
-                        let tagIndex = this.selectedIngredients.indexOf(tagSelected.innerText);
+                        let tagIndex = this.selectedIngredients.indexOf(this.formatting(this.formatting(tagSelected.innerText)));
                         this.selectedIngredients.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                         this.displayCards(myNewRecipesArray);
@@ -312,7 +313,7 @@ class HomePage {
                         tagSelected.classList.remove("justify-content-between"); //test
                         tagSelected.classList.remove("gap-3"); //test
                         tagSelected.style.display = "none"; //test
-                        let tagIndex = this.selectedIngredients.indexOf(tagSelected.innerText);
+                        let tagIndex = this.selectedIngredients.indexOf(this.formatting(tagSelected.innerText));
                         this.selectedAppareils.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
                         this.displayCards(myNewRecipesArray);
@@ -406,6 +407,18 @@ class HomePage {
         }
 
     }
+
+    formatting(userString) {
+        return userString.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    /*singularize(word) {
+        let pluralToRemove = word.indexOf(this.plural); //="s "
+        if(pluralToRemove>-1 && word.length>3){
+            console.log(word, pluralToRemove);
+            //return word.splice(pluralToRemove, 1);
+        }
+    }*/
 
 
 }
