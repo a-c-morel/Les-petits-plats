@@ -1,13 +1,12 @@
 class HomePage {
 
 
-    constructor(importedRecipes, mainElement, searchbar, searchbarError, plural, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList, ingredientsInput, appareilsInput, ustensilesInput) {
+    constructor(importedRecipes, mainElement, searchbar, searchbarError, tagsContainer, ingredientsFiltersBtn, appareilsFiltersBtn, ustensilesFiltersBtn, ingredientsFiltersList, appareilsFiltersList, ustensilesFiltersList, ingredientsInput, appareilsInput, ustensilesInput) {
 
         this.importedRecipes = importedRecipes;
         this.mainElement = mainElement;
         this.searchbar = searchbar;
         this.searchbarError = searchbarError;
-        this.plural = plural;
         this.tagsContainer = tagsContainer;
         this.tagsSelected = tagsContainer.children;
         this.ingredientsFiltersBtn = ingredientsFiltersBtn;
