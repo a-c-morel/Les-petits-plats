@@ -353,11 +353,11 @@ class HomePage {
                 for (let tagSelected of this.tagsSelected) {
                     let closeButton = tagSelected.children.item(1);
                     closeButton.addEventListener('click', () => {
-                        tagSelected.classList.remove("ustensile-tag"); //test
-                        tagSelected.classList.remove("d-flex"); //test
-                        tagSelected.classList.remove("justify-content-between"); //test
-                        tagSelected.classList.remove("gap-3"); //test
-                        tagSelected.style.display = "none"; //test
+                        tagSelected.classList.remove("ustensile-tag");
+                        tagSelected.classList.remove("d-flex");
+                        tagSelected.classList.remove("justify-content-between");
+                        tagSelected.classList.remove("gap-3");
+                        tagSelected.style.display = "none";
                         let tagIndex = this.selectedUstensiles.indexOf(tagSelected.innerText);
                         this.selectedUstensiles.splice(tagIndex, 1);
                         let myNewRecipesArray = this.filtrer(myRecipesArray, this.searchedLetters, this.selectedIngredients, this.selectedAppareils, this.selectedUstensiles);
@@ -403,17 +403,26 @@ class HomePage {
 
     }
 
+    /** Gestion des espaces et des accents **/
     formatting(userString) {
-        return userString.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+        return this.singularize(userString.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+
     }
 
-    /*singularize(word) {
-        let pluralToRemove = word.indexOf(this.plural); //="s "
-        if(pluralToRemove>-1 && word.length>3){
-            console.log(word, pluralToRemove);
-            //return word.splice(pluralToRemove, 1);
+    
+    /** Gestion des pluriels/singuliers **/
+    singularize(myString){
+
+        if(myString.includes("s ")){
+            return myString.replace(/s /g, " ");
+        } else if(myString.includes("-")) {
+            return myString.replace(/-/g, " ");
+        } else {
+            return myString;
         }
-    }*/
+        
+    } 
 
 
 }

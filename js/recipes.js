@@ -607,7 +607,7 @@ export const recipes = [
             }
         ],
         "time": 15,
-        "description":"Coupez les fraises en morceaux, découpez la chair de la pastèque en retirant les pépins. Mettre le tout dans le blender. Ajouter un cuillière à soupe de jus de citron ainsi que les glaçons. Ajoutez quelques fueilles de menthe pour plus de fraicheur. Mixez le tout. Servir et déguster.",
+        "description":"Coupez les fraises en morceaux, découpez la chair de la pastèque en retirant les pépins. Mettre le tout dans le blender. Ajouter une cuillère à soupe de jus de citron ainsi que les glaçons. Ajoutez quelques feuilles de menthe pour plus de fraicheur. Mixez le tout. Servir et déguster.",
         "appliance": "Blender",
         "ustensils":["verres", "couteau", "presse citron"]
     },
